@@ -51,8 +51,6 @@
         <div class="col-md-offset-8" style="padding-top:0.2em">
             Activities: <select id="Select1" onchange="search()" style="width:150px;"></select>
         </div>
-
-
     </div>
 
 
@@ -60,138 +58,6 @@
         <div id="map" style="height:425px; padding-top:3em">
         </div>
         <div style="padding-top:1em">
-            <!--
-                <table class="table ">
-                        <thead>
-                            <tr>
-
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Name)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Address)
-                                </th>
-                                <th style="display:none">
-                                    @Html.DisplayNameFor(model => model.Suburb)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Facility)
-                                </th>
-                                <th style="display:none">
-                                    @Html.DisplayNameFor(model => model.Lat)
-                                </th>
-                                <th style="display:none">
-                                    @Html.DisplayNameFor(model => model.Lon)
-                                </th>
-
-                                <th style="display:none">
-                                    @Html.DisplayNameFor(model => model.Activity.Name)
-                                </th>
-                                <th style="display:none"> WANT MORE?</th>
-                            </tr>
-                        </thead>
-
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-
-
-                                <td>
-
-                                    <div class="card"  style="width: 10rem;">
-                                        <div class="card-body">
-                                            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h5>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Address)
-                                </td>
-                                <td style="display:none">
-                                    @Html.DisplayFor(modelItem => item.Suburb)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Facility)
-                                </td>
-                                <td style="display:none">
-                                    @Html.DisplayFor(modelItem => item.Lat)
-                                </td>
-                                <td style="display:none">
-                                    @Html.DisplayFor(modelItem => item.Lon)
-                                </td>
-
-                                <td style="display:none">
-                                    @Html.DisplayFor(modelItem => item.Activity.Name)
-                                </td>
-                                <td style="display:none">
-
-                                    @Html.ActionLink("More Details", "Places/Details", new { id = item.PlaceId })
-                                </td>
-                            </tr>
-                        }
-                    </table>
-            -->
-            <!--
-            <div style="padding-left:20px">
-
-                @foreach (var item in Model)
-                {
-                    <div class="w3-card-4 col-sm-11 w3-hover-shadow" style="height:150px; margin:1em;">
-                        <header class="w3-container w3-blue">
-                            <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
-                        </header>
-                        <div class="w3-container">
-                            <p style="font-family:Georgia;line-height:1.2em;padding-top:1em;">@Html.DisplayFor(modelItem => item.Facility)</p>
-                        </div>
-                    </div>
-                }
-
-            </div>-->
-            <!--
-                        <div>
-                            <div class="main"></div>
-                            <dvi id="page">
-                                <div style="float: left;width: 50%; margin: 0 0 10px 25px"> 显示第 <span id="startPageNumber"> 1</span> 到第<span id="endPageNumber"> 10</span> 条记录，总共 <span id="taTalDataNumber"></span> 条记录 每页显示 <select id="selectPage" onchange="select()" style="width: 9%"> <option value="3" selected>3</option> <option value="6">6</option> <option value="14">14</option> <option value="100">100</option> </select> 条记录 </div>
-                                <div class="M-box" style="float: right"></div>
-                            </dvi>
-
-                        </div>
-            -->
-            <!--  table card
-
-            <div>
-                <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
-
-                    <tbody id="pageInfo">
-
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>
-                                    <div class="w3-card-4 col-sm-12 w3-hover-shadow" style="height:100%; margin-bottom:1em;padding-bottom:2em">
-                                        <header class="w3-container w3-teal">
-                                            <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
-                                        </header>
-                                        <div class="w3-container">
-                                            <p style="font-family:Georgia;line-height:1.2em;padding-top:1em;">@Html.DisplayFor(modelItem => item.Facility)</p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-                <div id="pagination" style="margin-bottom:10px;height: 20px;margin-top:10px;margin-left:22%">
-                    <a id="firPage" onclick="firstPage()" style="width: 100px;">First Page</a>
-                    <a id="prePage" onclick="prevPage()">Previous Page</a>
-                    <a id="nexPage" onclick="pnextPage()">Next Page</a>
-                    <a id="lasPage" onclick="lastPage()" style="width: 100px;">End</a>
-                    <label id="numPage" style="width: 100px;margin-left: 10px;height: 20px;font-family:Georgia;background:#009688;color:white;border-radius:20px;text-align:center" />
-                </div>
-            </div>
-
-            -->
             <!-- Modal -->
             <div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog">
@@ -200,11 +66,144 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">header</h4>
+                            <h4 class="modal-title" id="name">header</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Some text in the modal.</p>
-                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class=" w3-agileits">
+                                <div class="container">
+                                    <div class="col-md-12 about-wthreegrids" style="margin-left:25%">
+                                        <img id ="image"/>
+                                    </div>
+                                    <div class="col-md-12 about-wthreegrids" style="margin:1em">
+                                        <h3 class="w3ltitle">Information</h3>
+                                        <div class="w3ls-pince">
+                                            <div class="pince-left">
+                                                <h5>01</h5>
+                                            </div>
+                                            <div class="pince-right">
+                                                <h4>RATING:</h4>
+                                                <p id="rating">@ViewBag.rating</p>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                        <div class="w3ls-pince agileits-w3layouts">
+                                            <div class="pince-left">
+                                                <h5>02</h5>
+                                            </div>
+                                            <div class="pince-right">
+                                                <h4>PHONE NUMBER:</h4>
+                                                <p id="phone">@ViewBag.phoneNumber</p>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                        <div class="w3ls-pince agileits-w3layouts">
+                                            <div class="pince-left">
+                                                <h5>03</h5>
+                                            </div>
+                                            <div class="pince-right">
+                                                <h4>WEBSITE:</h4>
+                                                <p id="website">@ViewBag.website</p>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                        <div class="w3ls-pince agileits-w3layouts">
+                                            <div class="pince-left">
+                                                <h5>04</h5>
+                                            </div>
+                                            <div class="pince-right">
+                                                <h4>OPEN: </h4>
+                                                <p id="open">@ViewBag.openingNow</p>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                        <div class="w3ls-pince agileits-w3layouts">
+                                            <div class="pince-left">
+                                                <h5>05</h5>
+                                            </div>
+                                            <div class="pince-right">
+                                                <h4>WEEKDAY: </h4>
+                                                <p id="weekday">@ViewBag.weekday</p>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                        <div class="w3ls-pince agileits-w3layouts">
+                                            <div class="pince-left">
+                                                <h5>06</h5>
+                                            </div>
+                                            <div class="pince-right">
+                                                <h4>ADDRESS: </h4>
+                                                <p id="address">@ViewBag.address</p>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                        <div class="w3ls-pince agileits-w3layouts">
+                                            <div class="pince-left">
+                                                <h5>07</h5>
+                                            </div>
+                                            <div class="pince-right">
+                                                <h4>REVIEWS: </h4>
+                                                <p id="review">
+                                                    @if (ViewBag.review.ToString() != "No review avaliable.")
+                                                    {
+                                                        foreach (var item in ViewBag.review)
+                                                        {
+                                                            @item.author_name<br />
+                                                            @item.relative_time_description<br />
+                                                            @item.text<br />
+                                                            <br />
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        ViewBag.review.ToString();
+                                                        <br />
+                                                    }
+                                                </p>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"> </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -249,6 +248,8 @@
                     <tr class="coordinates" style="display:none;">
                         <td class="id">
                             @Html.DisplayFor(modelItem => item.PlaceId)
+
+
                         </td>
                         <td class="name">
                             @Html.DisplayFor(modelItem => item.Name)
@@ -288,57 +289,7 @@
 
 </div>
 
-<script type="text/javascript">
-    var departmentInfo = document.getElementById("pageInfo");  /*获取table中的内容*/
-    var totalRow = departmentInfo.rows.length;   /*计算出总条数(这种方法用来获取table行数，获取列数用var cells = departmentsInfo.rows[0].cells.length;*/
-    var pagesize = 3;   /*每页条数*/
-    var totalPage = Math.ceil(totalRow / pagesize);  /*计算出总页数*/
-    var currentPage;
-    var startRow;
-    var lastRow;
-    function pagination(i) {
-        currentPage = i;/*当前页*/
-        document.getElementById("numPage").textContent = "Page" + currentPage;   /*显示页码*/
-        startRow = (currentPage - 1) * pagesize;/*每页显示第一条数据的行数*/
-        lastRow = currentPage * pagesize;/*每页显示的最后一条数据的行数,因为表头也算一行，所以这里不需要减1，这种情况以自己的实际情况为准*/
-        if (lastRow > totalRow) {
-            lastRow = totalRow;/*如果最后一页的最后一条数据显示的行数大于总条数，那么就让最后一条的行数等于总条数*/
-        }
-        for (var i = 0; i < totalRow; i++) {   /*将数据遍历出来*/
-            var hrow = departmentInfo.rows[i];
-            if (i >= startRow && i < lastRow) {
-                hrow.style.display = "table-row";
-            } else {
-                hrow.style.display = "none";
-            }
-        }
-    }
-    $(function () {
-        firstPage();
-    });
-    function firstPage() {
-        var i = 1;
-        pagination(i);
-    }
-    function prevPage() {
-        var i = currentPage - 1;
-        if (i < 1) {
-            i = currentPage;
-        }
-        pagination(i);
-    }
-    function pnextPage() {
-        var i = currentPage + 1;
-        if (i > totalPage) {
-            i = currentPage;
-        }
-        pagination(i);
-    }
-    function lastPage() {
-        var i = totalPage;
-        pagination(i);
-    }
-</script>
+
 
 
 <script>
@@ -409,15 +360,74 @@
             var contentString = '<div id="content">' + '<h5 style="color:black;font-family:Georgia">' + locations[i].name + '</h4></br>' +
                 '<a href = "#myModal" style="color:blue" data-toggle="modal"><u>More Details</u></a></div>';
             const marker = new google.maps.Marker({
+                id: locations[i].id,
                 position: { lat: locations[i].latitude, lng: locations[i].longitude },
                 map: map
             });
 
             const infowindow = new google.maps.InfoWindow({
+
                 content: contentString,
                 maxWidth: 200
             });
             marker.addListener('click', function () {
+                var x;
+                $.ajax({
+                    url: "/Places/GetDetail",
+                    type: "GET",//请求方式为get
+                    dataType: "json", //返回数据格式为json
+                    data: { id: marker.id },
+                    async: false,//是否同步
+                    success: function (data) {//请求成功完成后要执行的方法
+                        x = data
+                    },
+                    error: function () {
+                        console.log("error");
+                    }
+                })
+                //console.log(x);
+                document.getElementById("address").innerText = x.address;
+                document.getElementById("rating").innerText = x.rating;
+                document.getElementById("phone").innerText = x.phoneNumber;
+                document.getElementById("website").innerText = x.website;
+                document.getElementById("open").innerText = x.openingNow;
+                document.getElementById("name").innerText = x.name;
+
+                var weekdayStr = "";
+                if (x.weekday != "No weekday information avaliable.") {
+                    var json1 = JSON.parse(x.weekday);
+                    for (var i = 0; i < json1.length; i++) {
+                        //console.log(json1[i]);
+                        weekdayStr = weekdayStr + json1[i] + "\n";
+                    }
+                }
+                else {
+                    weekdayStr = x.weekday + "\n";
+                }
+
+                document.getElementById("weekday").innerText = weekdayStr;
+                document.getElementById("address").innerText = x.address;
+                //document.getElementById("review").innerText = x.review;
+                //console.log(x.review);
+                var reviewStr = "";
+                if (x.review != "No review avaliable.")
+                {
+                    var json = JSON.parse(x.review);
+                    for (var i = 0; i < json.length; i++)
+                    {
+                        //console.log(json[i]);
+                        reviewStr = reviewStr + json[i].author_name + "\n";
+                        reviewStr = reviewStr + json[i].relative_time_description + "\n";
+                        reviewStr = reviewStr + json[i].text + "\n\n";
+                    }
+                }
+                else
+                {
+                    reviewStr = x.review + "\n";
+                }
+                //console.log(reviewStr);
+                document.getElementById("review").innerText = reviewStr;
+                document.getElementById("image").setAttribute("src", x.imUrl);;
                 closeOtherInfo();
                 infowindow.open(marker.get('map'), marker);
                 InforObj[0] = infowindow;
@@ -452,6 +462,20 @@
         });
     });
 
+
+    var obj = document.getElementsByName("age");
+    if ("@ViewBag.ageGroup" == "All") { obj[0].checked = true; obj[1].checked = true; test(); }
+    if ("@ViewBag.ageGroup" == "3") { obj[0].checked = true; obj[1].checked = false; test(); }
+    if ("@ViewBag.ageGroup" == "7") { obj[0].checked = false; obj[1].checked = true; test(); }
+    var select = document.getElementById("Select1");
+    var place = "@ViewBag.place";
+    for (var i = 0; i < select.options.length; i++) {
+        if (select.options[i].innerHTML == place) {
+            select.options[i].selected = true;
+            break;
+        }
+    } 
+
     function test() {
         var checked1 = false;
         var checked2 = false;
@@ -470,12 +494,13 @@
         var tmpRet = {
             "DATA1": { "Park": "Park", "Animal": "Animal", "Adventure and Theme Park": "Adventure and Theme Park","Others":"Others","Garden":"Garden","X":"X"},
             "DATA2": { "Games": "Games", "Park": "Park", "Animal": "Animal", "Adventure and Theme Park": "Adventure and Theme Park", "Others": "Others", "Garden": "Garden", "X": "X"},
-            "DATA3": { "Australian Rules Football": "Australian Rules Football", "Badminton": "Badminton", "Baseball": "Baseball", "Basketball": "Basketball", "Cricket": "Cricket", "Cycling": "Cycling", "Dancing": "Dancing", "Netball": "Netball", "Skating": "Skating", "Soccer": "Soccer", "Swimming": "Swimming", "Table Tennis": "Table Tennis", "Tennis": "Tennis", "Park": "Park", "Animal": "Animal", "Adventure and Theme Park": "Adventure and Theme Park", "Others": "Others", "Garden": "Garden", "X": "X"}
+            "DATA3": { "A.R.Football": "A.R.Football", "Badminton": "Badminton", "Baseball": "Baseball", "Basketball": "Basketball", "Cricket": "Cricket", "Cycling": "Cycling", "Dancing": "Dancing", "Netball": "Netball", "Skating": "Skating", "Soccer": "Soccer", "Swimming": "Swimming", "Table Tennis": "Table Tennis", "Tennis": "Tennis", "Park": "Park", "Animal": "Animal", "Adventure and Theme Park": "Adventure and Theme Park", "Others": "Others", "Garden": "Garden", "X": "X"}
         };
         var ret = document.createDocumentFragment();
         var tmpObj;
         if (checked1 && !checked2) { tmpObj = tmpRet["DATA2"] }
         else if (!checked1 && checked2) { tmpObj = tmpRet["DATA3"] }
+        else if (!checked1 && !checked2) {tmpObj = {}; }
         else { tmpObj = tmpRet["DATA1"] }
         for (var key in tmpObj) {
             if (key != "X") {
@@ -492,13 +517,26 @@
     }
 
     function search() {
+        var id = document.getElementsByName('age');
+        var age = "All";
+        if (id[0].checked && id[1].checked) {
+            age = "All";
+        }
+        if (id[0].checked && !id[1].checked) {
+            age ="3";
+        }
+       if (!id[0].checked && id[1].checked) {
+            age = "7";
+        }
+
+
         if (document.getElementById("Select1").value == 'Games') { location.href = '/Games/Index'; }
         else if (document.getElementById("Select1").value == '') {
             alert("select an activities")
         }
         else {
             console.log(document.getElementById("Select1").value);
-            location.href = '/Places?i=' + document.getElementById("Select1").value;
+            location.href = '/Places?i=' + document.getElementById("Select1").value + "&age=" + age;
         }
     }
 </script>
