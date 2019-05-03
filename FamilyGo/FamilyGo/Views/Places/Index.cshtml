@@ -1,0 +1,514 @@
+﻿@model IEnumerable<FamilyGo.Models.Place>
+@Scripts.Render("~/bundles/jquery")
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style type="text/css">
+
+    #pagination a {
+        background:#009688;
+        text-align:center;
+        font-family:Georgia;
+        color:white;
+        width: 100px;
+        height: 20px;
+        float: left;
+        margin-left: 10px;
+        cursor: pointer;
+        border-radius:20px;
+    }
+</style>
+
+<div class="container">
+    <div class=" about-heading ">
+        <h5>
+            <a href="@Url.Action("Index","Home")">Home /</a>
+            <a href="@Url.Action("Index","Activities")">Activities /</a>
+            <a href="@Url.Action("Index","Places",new { i = ViewBag.activityName})">@ViewBag.activityName </a>
+        </h5>
+    </div>
+
+    <div>
+        <div style="margin-top:5px;">
+            <div class="about-heading">
+                <div class="col-md-6">
+                    <!--
+                         <div>
+                           <h6> Children Age Group:</h6>
+                       </div>
+                    -->
+
+
+                    <div style="padding-top:0.2em">
+                        Age group:
+                        <input type="checkbox" name="age" value="6" />3-6 years old &nbsp;
+                        <input type="checkbox" name="age" value="7" />7-12 years old<br />
+                    </div>
+                </div>
+                <div class="col-md-offset-4">
+                    <div>
+
+                        <!--
+                            <h6>Change Activities:</h6>
+                        -->
+
+                        <div style="padding-top:0.2em">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Activities: <select id="Select1" onchange="search()" style="width:150px;"></select>
+
+                            <!--<input type="button" value="Search" id="searchButton" onclick="search()">-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mapanddata">
+        <div id="map" style="height:425px; padding-top:3em">
+        </div>
+        <div style="padding-top:1em">
+            <!--
+                <table class="table ">
+                        <thead>
+                            <tr>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Address)
+                                </th>
+                                <th style="display:none">
+                                    @Html.DisplayNameFor(model => model.Suburb)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Facility)
+                                </th>
+                                <th style="display:none">
+                                    @Html.DisplayNameFor(model => model.Lat)
+                                </th>
+                                <th style="display:none">
+                                    @Html.DisplayNameFor(model => model.Lon)
+                                </th>
+
+                                <th style="display:none">
+                                    @Html.DisplayNameFor(model => model.Activity.Name)
+                                </th>
+                                <th style="display:none"> WANT MORE?</th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+
+                                <td>
+
+                                    <div class="card"  style="width: 10rem;">
+                                        <div class="card-body">
+                                            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.Name)</h5>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Address)
+                                </td>
+                                <td style="display:none">
+                                    @Html.DisplayFor(modelItem => item.Suburb)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Facility)
+                                </td>
+                                <td style="display:none">
+                                    @Html.DisplayFor(modelItem => item.Lat)
+                                </td>
+                                <td style="display:none">
+                                    @Html.DisplayFor(modelItem => item.Lon)
+                                </td>
+
+                                <td style="display:none">
+                                    @Html.DisplayFor(modelItem => item.Activity.Name)
+                                </td>
+                                <td style="display:none">
+
+                                    @Html.ActionLink("More Details", "Places/Details", new { id = item.PlaceId })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+            -->
+            <!--
+            <div style="padding-left:20px">
+
+                @foreach (var item in Model)
+                {
+                    <div class="w3-card-4 col-sm-11 w3-hover-shadow" style="height:150px; margin:1em;">
+                        <header class="w3-container w3-blue">
+                            <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                        </header>
+                        <div class="w3-container">
+                            <p style="font-family:Georgia;line-height:1.2em;padding-top:1em;">@Html.DisplayFor(modelItem => item.Facility)</p>
+                        </div>
+                    </div>
+                }
+                
+            </div>-->
+            <!--
+                        <div>
+                            <div class="main"></div>
+                            <dvi id="page">
+                                <div style="float: left;width: 50%; margin: 0 0 10px 25px"> 显示第 <span id="startPageNumber"> 1</span> 到第<span id="endPageNumber"> 10</span> 条记录，总共 <span id="taTalDataNumber"></span> 条记录 每页显示 <select id="selectPage" onchange="select()" style="width: 9%"> <option value="3" selected>3</option> <option value="6">6</option> <option value="14">14</option> <option value="100">100</option> </select> 条记录 </div>
+                                <div class="M-box" style="float: right"></div>
+                            </dvi>
+
+                        </div>
+            -->
+
+
+            <div>
+                <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
+                   
+                    <tbody id="pageInfo">
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="w3-card-4 col-sm-12 w3-hover-shadow" style="height:100%; margin-bottom:1em;padding-bottom:2em">
+                                        <header class="w3-container w3-teal">
+                                            <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                                        </header>
+                                        <div class="w3-container">
+                                            <p style="font-family:Georgia;line-height:1.2em;padding-top:1em;">@Html.DisplayFor(modelItem => item.Facility)</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div id="pagination" style="margin-bottom:10px;height: 20px;margin-top:10px;margin-left:22%">
+                    <a id="firPage" onclick="firstPage()" style="width: 100px;">First Page</a>
+                    <a id="prePage" onclick="prevPage()">Previous Page</a>
+                    <a id="nexPage" onclick="pnextPage()">Next Page</a>
+                    <a id="lasPage" onclick="lastPage()" style="width: 100px;">End</a>
+                    <label id="numPage" style="width: 100px;margin-left: 10px;height: 20px;font-family:Georgia;background:#009688;color:white;border-radius:20px;text-align:center" />
+                </div>
+            </div>
+
+
+
+
+            <table style="display:none">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PlaceId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Facility)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lat)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Lon)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Suburb)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Activity.Name)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in Model)
+                {
+                <tr class="coordinates" style="display:none;">
+                    <td class="id">
+                        @Html.DisplayFor(modelItem => item.PlaceId)
+                    </td>
+                    <td class="name">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td class="description">
+                        @Html.DisplayFor(modelItem => item.Facility)
+                    </td>
+                    <td class="latitude">
+                        @Html.DisplayFor(modelItem => item.Lat)
+                    </td>
+                    <td class="longitude">
+                        @Html.DisplayFor(modelItem => item.Lon)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Suburb)
+                    </td>
+                    <td class="ActivityName">
+                        @Html.DisplayFor(modelItem => item.Activity.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.PlaceId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.PlaceId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PlaceId })
+                    </td>
+                </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    var departmentInfo = document.getElementById("pageInfo");  /*获取table中的内容*/
+    var totalRow = departmentInfo.rows.length;   /*计算出总条数(这种方法用来获取table行数，获取列数用var cells = departmentsInfo.rows[0].cells.length;*/
+    var pagesize = 3;   /*每页条数*/
+    var totalPage = Math.ceil(totalRow / pagesize);  /*计算出总页数*/
+    var currentPage;
+    var startRow;
+    var lastRow;
+    function pagination(i) {
+        currentPage = i;/*当前页*/
+        document.getElementById("numPage").textContent = "Page" + currentPage;   /*显示页码*/
+        startRow = (currentPage - 1) * pagesize;/*每页显示第一条数据的行数*/
+        lastRow = currentPage * pagesize;/*每页显示的最后一条数据的行数,因为表头也算一行，所以这里不需要减1，这种情况以自己的实际情况为准*/
+        if (lastRow > totalRow) {
+            lastRow = totalRow;/*如果最后一页的最后一条数据显示的行数大于总条数，那么就让最后一条的行数等于总条数*/
+        }
+        for (var i = 0; i < totalRow; i++) {   /*将数据遍历出来*/
+            var hrow = departmentInfo.rows[i];
+            if (i >= startRow && i < lastRow) {
+                hrow.style.display = "table-row";
+            } else {
+                hrow.style.display = "none";
+            }
+        }
+    }
+    $(function () {
+        firstPage();
+    });
+    function firstPage() {
+        var i = 1;
+        pagination(i);
+    }
+    function prevPage() {
+        var i = currentPage - 1;
+        if (i < 1) {
+            i = currentPage;
+        }
+        pagination(i);
+    }
+    function pnextPage() {
+        var i = currentPage + 1;
+        if (i > totalPage) {
+            i = currentPage;
+        }
+        pagination(i);
+    }
+    function lastPage() {
+        var i = totalPage;
+        pagination(i);
+    }
+</script>
+
+
+<script>
+    var map;
+    var locations = [];
+    var InforObj = [];
+    var dis = 0.05;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -37.835163, lng: 144.979678 },
+            zoom: 12
+        });
+        navigator.geolocation.getCurrentPosition(c);
+    }
+
+    function c(pos) {
+        var clat = parseFloat(pos.coords.latitude);
+        var clon = parseFloat(pos.coords.longitude);
+        $(".coordinates").each(function () {
+            var id = $(".id", this).text().trim();
+            var name = $(".name", this).text().trim();
+            var longitude = $(".longitude", this).text().trim();
+            var latitude = $(".latitude", this).text().trim();
+            var description = $(".description", this).text().trim();
+            var activityName = $(".ActivityName", this).text().trim();
+            // Create a point data structure to hold the values.
+            console.log(activityName);
+            var point = {
+                "id": id,
+                "name": name,
+                "latitude": parseFloat(latitude),
+                "longitude": parseFloat(longitude),
+                "description": description
+            };
+            if (activityName == "Dancing" || activityName == "Animal" || activityName == "Adventure and Theme Park" || activityName == "Others" || activityName == "Garden") { locations.push(point); }
+            else {
+                if (point.latitude < (clat + dis) && point.latitude > (clat - dis) && point.longitude < (clon + dis) && point.longitude > (clon - dis)) { locations.push(point); }
+            }
+            //locations.push(point);
+            // Push them all into an array.
+            //alert(locations);
+        });
+        
+        var image = {
+            url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(100, 50),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32)
+        };
+        var marker = new google.maps.Marker({
+            position: { lat: clat, lng: clon },
+            map: map,
+            title: 'Your current location',
+            icon: image
+        });
+        addMarkerInfo();
+        map.setCenter({ lat: clat, lng: clon });
+    }
+
+    function addMarkerInfo() {
+        for (var i = 0; i < locations.length; i++) {
+            var contentString = '<div id="content">' + '<h5 style="color:black;font-family:Georgia">' + locations[i].name + '</h4></br>'  +
+                '<a href = "Places/Details/?id=' + locations[i].id + '" style="color:blue"><u>More Details</u></a></div>';
+            const marker = new google.maps.Marker({
+                position: { lat: locations[i].latitude, lng: locations[i].longitude },
+                map: map
+            });
+
+            const infowindow = new google.maps.InfoWindow({
+                content: contentString,
+                maxWidth: 200
+            });
+            marker.addListener('click', function () {
+                closeOtherInfo();
+                infowindow.open(marker.get('map'), marker);
+                InforObj[0] = infowindow;
+            });
+        }
+        locations = [];
+    }
+    function closeOtherInfo() {
+        if (InforObj.length > 0) {
+            InforObj[0].set("marker", null);
+            InforObj[0].close();
+            InforObj.length = 0;
+        }
+    }
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA&callback=initMap" async defer></script>
+
+<script>
+    $(document).ready(function () {
+        $('input[type=checkbox][name=age]').change(function () {
+            if (this.value == '0') {
+                test()
+            }
+            else if (this.value == '1') {
+                test();
+            }
+            else {
+                test();
+            };
+        });
+    });
+
+    function test() {
+        var checked1 = false;
+        var checked2 = false;
+        var obj = document.getElementsByName("age");
+            if (obj[0].checked) {
+                checked1 = true;
+        }
+        if (obj[1].checked) {
+            checked2 = true;
+        }
+        var childRet = document.getElementById("Select1");
+        for (var i = childRet.childNodes.length - 1; i >= 0; i--) {
+            childRet.removeChild(childRet.childNodes.item(i));
+        }
+        var activities = '@ViewBag.activities';
+        var tmpRet = {
+            "DATA1": { "Park": "Park", "Animal": "Animal", "Adventure and Theme Park": "Adventure and Theme Park","Others":"Others","Garden":"Garden","X":"X"},
+            "DATA2": { "Games": "Games", "Park": "Park", "Animal": "Animal", "Adventure and Theme Park": "Adventure and Theme Park", "Others": "Others", "Garden": "Garden", "X": "X"},
+            "DATA3": { "Australian Rules Football": "Australian Rules Football", "Badminton": "Badminton", "Baseball": "Baseball", "Basketball": "Basketball", "Cricket": "Cricket", "Cycling": "Cycling", "Dancing": "Dancing", "Netball": "Netball", "Skating": "Skating", "Soccer": "Soccer", "Swimming": "Swimming", "Table Tennis": "Table Tennis", "Tennis": "Tennis", "Park": "Park", "Animal": "Animal", "Adventure and Theme Park": "Adventure and Theme Park", "Others": "Others", "Garden": "Garden", "X": "X"}
+        };
+        var ret = document.createDocumentFragment();
+        var tmpObj;
+        if (checked1 && !checked2) { tmpObj = tmpRet["DATA2"] }
+        else if (!checked1 && checked2) { tmpObj = tmpRet["DATA3"] }
+        else { tmpObj = tmpRet["DATA1"] }
+        for (var key in tmpObj) {
+            if (key != "X") {
+                var newop = document.createElement("option");
+                newop.id = key;
+                newop.value = key;
+                newop.appendChild(document.createTextNode(tmpObj[key]));
+                ret.appendChild(newop);
+            }
+        }
+        document.getElementById("Select1").add(new Option("-select activity-", 0));
+        document.getElementById("Select1").appendChild(ret);
+        document.getElementById("Select1").options[0].selected = true;
+    }
+
+    function search() {
+        if (document.getElementById("Select1").value == 'Games') { location.href = '/Games/Index'; }
+        else if (document.getElementById("Select1").value == '') {
+            alert("select an activities")
+        }
+        else {
+            console.log(document.getElementById("Select1").value);
+            location.href = '/Places?i=' + document.getElementById("Select1").value;
+        }
+    }
+</script>
+
+@section Scripts{
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable(
+                //{ "bInfo": false, "bPaginate": false }
+                //{ "bPaginate": false}
+                //{ "bInfo": false}
+            );
+        });
+    </script>
+}
+
+
+
+
