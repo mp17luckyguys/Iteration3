@@ -3,89 +3,95 @@
 
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href="~/Content/font-awesome.css" rel="stylesheet" />
 <!-- about -->
 <div class="about w3-agileits">
-    <div class="container">
-        <div class="info">
+    <div class="container" style="padding-left:0px;padding-right:0px;">       
+        <div class="about-right agileits-w3layoutsleft" style="margin-top:25%;margin-bottom:25%">
+            <h3 class="agileits-title">Welcome to Family GO!</h3>
+            <h4 style="font-size:3em" align="justify">Make it easier for your children live better in Australia </h4>
+        </div>
             <!--
-                <div class="col-md-6 about-left">
-                <h3 class="agileits-title">Welcome to <span>Family GO!</span></h3>
-            </div>
+                <div class="about-left">
+                    <h3 class="agileits-title">Welcome to <span>Family GO!</span></h3>
+                </div>
             -->
-            
-            <div class="col-md-12 about-right agileits-w3layoutsleft" style="margin:18%">
+            <!--
+                <div class="col-md-12 about-right agileits-w3layoutsleft" style="margin:18%">
                 <h4 style="font-size:2.2em">Make it easier for your children live better in Australia </h4>
-                <!--
-                    
                 <p> Parents have busy schedual and do not have enough time to spend with their child.</p>
-                    
-                -->
                 <ul style="font-size:1.6em">
                     <li><span class="glyphicon glyphicon-share-alt"></span> <a href="@Url.Action("Index","Activities")" style="color:#fff;font-family:Georgia"><u>Find activities you can play with your child</u> </a></li>
                     <li><span class="glyphicon glyphicon-share-alt"></span> <a href="@Url.Action("Index","Education")"style="color:#fff;font-family:Georgia"><u>Find schools for your child</u></a></li>
                     <li><span class="glyphicon glyphicon-share-alt"></span> <a style="color:gray;font-family:Georgia">Coming popular events</a> </li>
                 </ul>
             </div>
-        </div>      
+            -->
+
+        </div>
         <div class="clearfix"> </div>
-    </div>
+    
 </div>
 <!-- //about -->
-
-<!--about the website-->
-
-<div class=" w3-agileits" style="margin-bottom:2em">
+<!-- services -->
+<div class="services agileits-w3layouts">
     <div class="container">
         <h3 class="agileits-title1">WHAT WE ARE</h3>
-        <div class="col-md-6 about-wthreegrids" >
-            <!--
-                <h3 class="w3ltitle">WHAT WE ARE </h3>
-            -->
-            
-            <p style="font-family:Georgia;line-height:1.3em;color:black;font-size:1.5em">
-                A searching tool used by migrant parents to help their children (3-12) to thrive in Australia.</p>
-            
-            <p style="font-family:Georgia;line-height:1.3em;font-size:1.2em" align="justify"><strong>Activities:</strong> to help the migrant parents to find the available activities and improve the physical health of their children.</p>
-            <p style="font-family:Georgia;line-height:1.3em;font-size:1.2em" align="justify"><strong>Education:</strong> to help the migrant parents to understand the Australian education system and find the available schools.</p>   
-            <p style="font-family:Georgia;line-height:1.3em;font-size:1.2em" align="justify"><strong>Public events</strong>: to help their children to understand the Australian culture</p>   
-            
-             </div>
-        <div class="col-md-6 news-w3right ">
-            <img src="~/Image/11.jpg" alt="" />
-        </div>
-        
-        <div class="clearfix"> </div>
-    </div>
-</div>
-
-<!--//about the website-->
-
-<!-- news -->
-<div class="news w3-agileits" style="background:#66cdaa">
-    <div class="container newsforchild">
-        <h3 class="agileits-title1" style="color:#fff">News about Children Settlement </h3>
-        <div class="news-agileinfo">
-            <div class="col-md-6 news-w3left">
-                <h6><a href="https://www.sbs.com.au/yourlanguage/cantonese/en/article/2019/02/20/how-does-youth-justice-system-work-australia" style="color:#fff; font-family:Georgia" data-toggle="modal">How does the youth justice system work in Australia?</a></h6>
-                <p style="line-height:1.5em;color:#fff">Feb. 20, 2019</p>
-                <p style="line-height:1.5em;color:#fff">If your child enters the youth justice system, it’s important to know what are their rights and where to get help. </p>
-                <a href="https://www.sbs.com.au/yourlanguage/cantonese/en/article/2019/02/20/how-does-youth-justice-system-work-australia" class="agilebtn"><span >Read More</span></a>
+        <p style="font-family:Georgia;line-height:1.3em;color:black;font-size:1.5em;text-align:center">
+            A searching tool used by migrant parents to help their children (3-12) to thrive in Australia.
+        </p>
+        <div class="services-w3lsrow">
+            <div class="col-md-4 col-sm-4 services-grid">
+                <a href="@Url.Action("Index","Activities")">
+                    <span class="fa fa-heart wthree" aria-hidden="true"></span>
+                    <h5>Activities</h5>
+                    <p>Help the migrant parents to find the available activities and improve the physical health of their children.</p>
+                </a>                
             </div>
-            <div class="col-md-6 news-w3right">
-                <img src="~/Image/new1.jpg" class="img-responsive" alt="" />
+            <div class="col-md-4 col-sm-4 services-grid">
+                <a href="@Url.Action("Index","Education")">
+                    <span class="fa fa-book wthree" aria-hidden="true"></span>
+                    <h5>Education</h5>
+                    <p>Help the migrant parents to understand the Australian education system and find the available schools.</p>
+                </a>                
+            </div>
+            <div class="col-md-4 col-sm-4 services-grid">
+                <a href="#">
+                    <span class="fa fa-calendar wthree" aria-hidden="true"></span>
+                    <h5>Public Events</h5>
+                    <p>Help their children to understand the Australian culture</p>
+                </a>               
             </div>
             <div class="clearfix"> </div>
         </div>
-        <div class="news-agileinfo btm-newsrow w3-agileits">
+    </div>
+</div>
+<!-- //services -->
+<!-- news -->
+<div class="news w3-agileits" style="background:#f5f5f5">
+    <div class="container newsforchild">
+        <h3 class="agileits-title1">News about Children Settlement </h3>
+        <div class="news-agileinfo">
+            <div class="col-md-6 news-w3left">
+                <h6><a href="https://www.sbs.com.au/yourlanguage/cantonese/en/article/2019/02/20/how-does-youth-justice-system-work-australia" style="color:black; font-family:Georgia">How does the youth justice system work in Australia?</a></h6>
+                <p style="line-height:1.5em;">Feb. 20, 2019</p>
+                <p style="line-height:1.5em">If your child enters the youth justice system, it’s important to know what are their rights and where to get help. </p>
+                <a href="https://www.sbs.com.au/yourlanguage/cantonese/en/article/2019/02/20/how-does-youth-justice-system-work-australia" class="agilebtn" style="color:black"><span>Read More</span></a>
+            </div>
+            <div class="col-md-6 news-w3right">
+                <img src="~/Image/new1.jpg" alt="" />
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="news-agileinfo w3-agileits">
             <div class="col-md-6 news-w3left news-w3left1">
-                <h6><a href="https://www.sbs.com.au/yourlanguage/cantonese/en/article/2019/02/07/settlement-guide-how-get-involved-your-childrens-school" style="color:#fff; font-family:Georgia">How to get involved in your children's school?</a></h6>
-                <p style="line-height:1.5em;color:#fff">Feb. 2, 2019</p>
-                <p style="line-height:1.5em;color:#fff">Getting involved in your children’s school will have a positive effect on their grades and wellbeing. We look at where to start.</p>
-                <a href="https://www.sbs.com.au/yourlanguage/cantonese/en/article/2019/02/07/settlement-guide-how-get-involved-your-childrens-school" class="agilebtn" style="color:#fff" ><span>Read More</span></a>
+                <h6><a href="https://www.sbs.com.au/yourlanguage/cantonese/en/article/2019/02/07/settlement-guide-how-get-involved-your-childrens-school" style="color:black; font-family:Georgia">How to get involved in your children's school?</a></h6>
+                <p style="line-height:1.5em;">Feb. 2, 2019</p>
+                <p style="line-height:1.5em;">Getting involved in your children’s school will have a positive effect on their grades and wellbeing. We look at where to start.</p>
+                <a href="https://www.sbs.com.au/yourlanguage/cantonese/en/article/2019/02/07/settlement-guide-how-get-involved-your-childrens-school" class="agilebtn" style="color:black"><span>Read More</span></a>
             </div>
             <div class="col-md-6 news-w3right news-w3right1">
-                <img src="~/Image/new2.jpg" class="img-responsive" alt="" />
+                <img src="~/Image/new2.jpg" alt="" />
             </div>
             <div class="clearfix"> </div>
         </div>

@@ -401,6 +401,10 @@
     <Content Include="Image\blue.jpg" />
     <Content Include="Image\childneglect.jpg" />
     <Content Include="Image\close.png" />
+    <Content Include="Image\family.jpg" />
+    <Content Include="Image\family2.jpg" />
+    <Content Include="Image\family3.jpg" />
+    <Content Include="Image\family4.jpg" />
     <Content Include="Image\Green flower.png" />
     <Content Include="Image\halftone-yellow.png" />
     <Content Include="Image\Kaws-Sesame-Street-Uniqlo-Cookie-Monster-Plush-Toy-Blue.jpg" />

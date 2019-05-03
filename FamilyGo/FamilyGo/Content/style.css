@@ -19,7 +19,8 @@ body {
     }
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 0;
+    margin-top: 0 !important;
+    margin-bottom:0 !important;
     font-family:Georgia;
     color:white;
 }
@@ -27,6 +28,7 @@ h1, h2, h3, h4, h5, h6 {
 p {
     margin: 0;
 }
+
 
 ul, label {
     margin: 0;
@@ -59,20 +61,17 @@ body a:focus {
     border:2px,solid,#66cdaa;
     border-radius:25px;
 }
-
-.info {
-    padding-top:4.5em;
-    height:400px;
-}
 .newsforchild {
-    padding-top:2em;
-    padding-bottom:2em;
+    padding-top:1em;
+    padding-bottom:0.5em;
+    padding-left:0px;
+    padding-right:0px;
 }
 
 /*-- top-nav--*/
 .headerw3l {
-    padding: 1.6em 0;
-    background: #fff no-repeat 0px 0px;
+    padding: 1.2em 0;
+    background: #f5f5f5 no-repeat 0px 0px;
 }
 
 .navbar-default1 {
@@ -136,7 +135,7 @@ ul.nav.navbar-nav.navbar-left {
 }
 
 .navbar-default1 .navbar-nav > .open > a, .navbar-default1 .navbar-nav > .open > a:hover, .navbar-default1 .navbar-nav > .open > a:focus {
-    background: none;
+    background: #f5f5f5;
     color: #66cdaa;
 }
 
@@ -291,11 +290,9 @@ div#bs-example-navbar-collapse-1 {
 
 a.agilebtn {
     font-size: 1em;
-    color: #fff;
+    color: black;
     padding: 0.5em 0.5em;
     display: inline-block;
-    outline:solid;
-    outline-color:#66cdaa;
     margin-top: 1em;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -312,7 +309,7 @@ a.agilebtn {
     width: 100%;
     height: 100%;
     z-index: 1;
-    border: 1px solid rgba(255,255,255,0.8);
+    border: 1px solid black;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -o-transition: all 0.3s;
@@ -357,7 +354,7 @@ a.agilebtn {
     -o-transform: scale(1,1);
     -ms-transform: scale(1,1);
     transform: scale(1,1);
-    color:#fff;
+    color: rgba(255,255,255,0.25);
 }
 /*-- //banner --*/
 /*-- about --*/
@@ -366,15 +363,14 @@ a.agilebtn {
 }
 
 .about {
-    background:url(../Image/2.jpg);
-    
+    background: url(../Image/family4.jpg) no-repeat 0px 0px;
 }
 
     .about h4 {
         font-size: 1.8em;
-        color: #66cdaa;
         font-weight: 500;
-        margin-bottom: 0.4em;
+        text-align: center;
+        /*-- text-transform: Uppercase; --*/
     }
 
 .about-right ul li {
@@ -391,17 +387,18 @@ a.agilebtn {
 
 p {
     font-size: 1em;
-    color: #999;
-    line-height: 1em;
+    color: black;
+    line-height: 1.2em;
+    font-family:Georgia;
 }
 
 h3.agileits-title {
-    font-size: 2.5em;
-    padding: 0.8em 2em;
-    font-family:Georgia;
+    font-size: 4em;
+    padding: 0 0 8% 0;
+    font-family: Georgia;
     text-align: center;
-    line-height: 1.3em;
-    color: #66cdaa;
+    color: #fff;
+    text-transform: uppercase;
 }
 /*-- //about --*/
 /*-- news --*/
@@ -427,6 +424,7 @@ h3.agileits-title {
     margin: 1em 0 .5em;
     font-weight: 300;
     color: #fff;
+    padding-top:0.5em;
 }
 
 .news-w3left p {
@@ -436,7 +434,6 @@ h3.agileits-title {
 
 .news-w3right img {
     width: 100%;
-    border: 1px dashed #fff;
 }
 
 .news-w3left h4 a:hover {
@@ -444,22 +441,19 @@ h3.agileits-title {
 }
 
 h3.agileits-title1 {
-    font-size: 2.5em;
-    font-family:Georgia;
+    font-size: 2.2em;
+    font-family: Georgia;
     text-align: center;
     line-height: 1.2em;
     color: black;
-    margin-bottom: 1em;
-    margin-top:1em;
+    margin-bottom: 0.4em !important;
+    text-transform: uppercase;
 }
 
 .news-w3left.news-w3left1 {
     float: right;
 }
 
-.news-agileinfo.btm-newsrow {
-    margin-top: 4em;
-}
 /*-- //news --*/
 /*-- services --*/
 .services-w3lsrow {
@@ -474,7 +468,7 @@ h3.agileits-title1 {
 .services span {
     font-size: 1.5em;
     color: #fff;
-    background: #673AB7;
+    background: #66cdaa;
     display: inline-block;
     -webkit-border-radius: 50%;
     border-radius: 50%;
@@ -488,27 +482,27 @@ h3.agileits-title1 {
 }
 
     .services span.fa.fa-heart {
-        background: #68c100;
+        background: #66cdaa;
     }
 
     .services span.fa.fa-puzzle-piece {
-        background: #FFC107;
+        background: #66cdaa;
     }
 
 .services h5 {
     font-size: 1.8em;
-    margin: 0.8em 0 .4em;
-    color: #f08080;
+    margin: 0.8em 0.4em 0.4em 0.4em !important;
+    color: black;
     font-weight: 400;
 }
 
 .services-grid:hover span {
-    background: #00BCD4 !important;
-    -webkit-transform: scale(1.2);
-    -moz-transform: scale(1.2);
-    -o-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.2);
+    background: #66cdaa !important;
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -o-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
 }
 /*-- //services --*/
 /*-- slid --*/
@@ -601,7 +595,7 @@ h3.agileits-title1 {
 
 .footer-grid li {
     display: block;
-    margin-top: 1em;
+    margin-top: 0.8em;
 }
 
     .footer-grid li a {
@@ -1917,7 +1911,7 @@ h2.typoh2 {
     }
 
     h3.agileits-title1 {
-        font-size: 3.5em;
+        font-size: 2.5em;
     }
 
     .about, .news, .services, .testimonial, .about, .team, .contact, .gallery, .codes {
@@ -1999,16 +1993,19 @@ h2.typoh2 {
     }
 
     h3.agileits-title {
-        padding: 0 0 0.8em;
-        font-size: 3em;
+        padding: 0 0 10% 0 ;
+        font-size: 5em;
     }
 
     .news-w3right {
         margin-top: 1.5em;
+        padding-left:0px;
+        padding-right:0px;
     }
-
-    .news-agileinfo.btm-newsrow {
-        margin-top: 3em;
+    .news-w3left {
+        margin-top: 1.5em;
+        padding-left: 0px;
+        padding-right: 0px;
     }
 
     .news-w3left.news-w3left1 {
@@ -2028,11 +2025,12 @@ h2.typoh2 {
     }
 
     .footer-grid.footer-tags {
-        margin-bottom: 4em;
+        
     }
 
     ul.nav.navbar-nav.navbar-left {
-        margin-top: 0.9em;
+        margin-top: 0.5em;
+        margin-bottom:0.5em;
     }
 
     .about-w3banner .banner-w3text h2 {
@@ -2065,10 +2063,6 @@ h2.typoh2 {
 
     .about-slid {
         padding: 4em 0;
-    }
-
-    h3.agileits-title1 {
-        margin-bottom: 0.8em;
     }
 
     .team-w3ls-row {
@@ -2484,8 +2478,7 @@ h2.typoh2 {
     }
 
     h3.agileits-title {
-        font-size: 2.3em;
-        padding: 5em 0 0 0.6em;
+        font-size: 2.5em;
     }
 
     .about h4 {
@@ -2587,7 +2580,7 @@ h2.typoh2 {
         }
 
     h3.agileits-title1 {
-        font-size: 2.6em;
+        font-size: 2em;
     }
 
     .news-w3left h4 {
@@ -2793,7 +2786,7 @@ h2.typoh2 {
     }
 
     h3.agileits-title {
-        font-size: 2em;
+        font-size: 5em;
     }
 
     h3.agileits-title1 {
@@ -2821,7 +2814,7 @@ h2.typoh2 {
     }
 
     h3.agileits-title {
-        font-size: 1.8em;
+        font-size: 5em;
     }
 
     .footer-grid input[type="submit"] {
@@ -2977,6 +2970,9 @@ sup {
 ul.nav.navbar-nav {
     float: none;
     text-align: center;
+    font-size:1em;
+    font-family:Georgia;
+    text-transform:uppercase;
 }
 
 .navbar-default1 {
@@ -2987,6 +2983,7 @@ ul.nav.navbar-nav {
 
 .navbar {
     min-height: 0;
+    margin-bottom:0 !important;
 }
 
 .navbar-default1 .navbar-nav > .open > a, .navbar-default1 .navbar-nav > .open > a:hover, .navbar-default1 .navbar-nav > .open > a:focus {
@@ -3438,7 +3435,7 @@ ul.dropdown-menu {
 /*-- //slider --*/
 /*-- welcome --*/
 .welcome, .services, .news, .codes, .gallery, .blog, .contact {
-    padding: 1em 0;
+    padding: 1.5em 0;
 }
 
 .w3l-welcome-left {
@@ -3500,7 +3497,9 @@ ul.dropdown-menu {
 /*-- //welcome --*/
 /*-- services --*/
 .services {
-    background: #3b363d;
+    background: #fff;
+    margin-top:1em;
+    margin-bottom:1em;
 }
 
 .agileinfo-services-left h3 span {
@@ -3608,8 +3607,9 @@ ul.dropdown-menu {
 /*-- //news --*/
 /*-- footer --*/
 .footer {
-    padding: 4em 0;
+    padding: 2em 0;
     background: #3b363d;
+    font-family:Georgia;
 }
 
 .w3-agile-footer-
