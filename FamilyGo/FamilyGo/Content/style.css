@@ -114,7 +114,7 @@ ul.nav.navbar-nav.navbar-left {
 
 .navbar-default1 .navbar-nav > .active > a, .navbar-default1 .navbar-nav > .active > a:hover, .navbar-default1 .navbar-nav > .active > a:focus {
     background: none !important;
-    color: #ff2f68;
+    color: #66cdaa;
 }
 
 .navbar-nav > li {
@@ -137,7 +137,7 @@ ul.nav.navbar-nav.navbar-left {
 
 .navbar-default1 .navbar-nav > .open > a, .navbar-default1 .navbar-nav > .open > a:hover, .navbar-default1 .navbar-nav > .open > a:focus {
     background: none;
-    color: #ff2f68;
+    color: #66cdaa;
 }
 
 .navbar-default1 .navbar-nav > li > a:hover, .navbar-default1 .navbar-nav > li > a:focus {
@@ -145,7 +145,7 @@ ul.nav.navbar-nav.navbar-left {
 }
 
 .navbar-default1 .navbar-nav li.active1 a {
-    color: #ff2f68;
+    color: #66cdaa;
 }
 
 div#bs-example-navbar-collapse-1 {
@@ -2210,16 +2210,16 @@ h2.typoh2 {
     }
 
     .navbar-default1 .navbar-toggle {
-        border-color: #ff2f68;
+        border-color: #66cdaa;
         margin: 14px 0 0;
     }
 
         .navbar-default1 .navbar-toggle:hover, .navbar-default1 .navbar-toggle:focus {
-            background-color: #ff2f68;
+            background-color: #66cdaa;
         }
 
         .navbar-default1 .navbar-toggle .icon-bar {
-            background-color: #ff2f68;
+            background-color: #66cdaa;
         }
 
         .navbar-default1 .navbar-toggle:hover .icon-bar, .navbar-default1 .navbar-toggle:focus .icon-bar {
