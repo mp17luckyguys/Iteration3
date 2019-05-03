@@ -11,19 +11,22 @@
 
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style type="text/css">
 
     #pagination a {
-        background:#009688;
-        text-align:center;
-        font-family:Georgia;
-        color:white;
+        background: #009688;
+        text-align: center;
+        font-family: Georgia;
+        color: white;
         width: 100px;
         height: 20px;
         float: left;
         margin-left: 10px;
         cursor: pointer;
-        border-radius:20px;
+        border-radius: 20px;
     }
 </style>
 
@@ -36,41 +39,22 @@
         </h5>
     </div>
 
-    <div>
-        <div style="margin-top:5px;">
-            <div class="about-heading">
-                <div class="col-md-6">
-                    <!--
-                         <div>
-                           <h6> Children Age Group:</h6>
-                       </div>
-                    -->
 
-
-                    <div style="padding-top:0.2em">
-                        Age group:
-                        <input type="checkbox" name="age" value="6" />3-6 years old &nbsp;
-                        <input type="checkbox" name="age" value="7" />7-12 years old<br />
-                    </div>
-                </div>
-                <div class="col-md-offset-4">
-                    <div>
-
-                        <!--
-                            <h6>Change Activities:</h6>
-                        -->
-
-                        <div style="padding-top:0.2em">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Activities: <select id="Select1" onchange="search()" style="width:150px;"></select>
-
-                            <!--<input type="button" value="Search" id="searchButton" onclick="search()">-->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div style="margin-top:5px; font-family:Georgia">
+        <div class="col-md-4" style="padding-top:0.4em">
+            <p style="color:black">CHANGE TO ANOTHER ACTIVITY:</p>
         </div>
+        <div class="col-md-4" style="padding-top:0.2em">
+            <input type="checkbox" name="age" value="6" />3-6 years old &nbsp;
+            <input type="checkbox" name="age" value="7" />7-12 years old<br />
+        </div>
+        <div class="col-md-offset-8" style="padding-top:0.2em">
+            Activities: <select id="Select1" onchange="search()" style="width:150px;"></select>
+        </div>
+
+
     </div>
+
 
     <div class="mapanddata">
         <div id="map" style="height:425px; padding-top:3em">
@@ -162,7 +146,7 @@
                         </div>
                     </div>
                 }
-                
+
             </div>-->
             <!--
                         <div>
@@ -174,11 +158,11 @@
 
                         </div>
             -->
-
+            <!--  table card
 
             <div>
                 <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
-                   
+
                     <tbody id="pageInfo">
 
                         @foreach (var item in Model)
@@ -204,6 +188,29 @@
                     <a id="nexPage" onclick="pnextPage()">Next Page</a>
                     <a id="lasPage" onclick="lastPage()" style="width: 100px;">End</a>
                     <label id="numPage" style="width: 100px;margin-left: 10px;height: 20px;font-family:Georgia;background:#009688;color:white;border-radius:20px;text-align:center" />
+                </div>
+            </div>
+
+            -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -243,41 +250,42 @@
 
                 @foreach (var item in Model)
                 {
-                <tr class="coordinates" style="display:none;">
-                    <td class="id">
-                        @Html.DisplayFor(modelItem => item.PlaceId)
-                    </td>
-                    <td class="name">
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td class="description">
-                        @Html.DisplayFor(modelItem => item.Facility)
-                    </td>
-                    <td class="latitude">
-                        @Html.DisplayFor(modelItem => item.Lat)
-                    </td>
-                    <td class="longitude">
-                        @Html.DisplayFor(modelItem => item.Lon)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Suburb)
-                    </td>
-                    <td class="ActivityName">
-                        @Html.DisplayFor(modelItem => item.Activity.Name)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.PlaceId }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.PlaceId }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.PlaceId })
-                    </td>
-                </tr>
+                    <tr class="coordinates" style="display:none;">
+                        <td class="id">
+                            @Html.DisplayFor(modelItem => item.PlaceId)
+                        </td>
+                        <td class="name">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td class="description">
+                            @Html.DisplayFor(modelItem => item.Facility)
+                        </td>
+                        <td class="latitude">
+                            @Html.DisplayFor(modelItem => item.Lat)
+                        </td>
+                        <td class="longitude">
+                            @Html.DisplayFor(modelItem => item.Lon)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Suburb)
+                        </td>
+                        <td class="ActivityName">
+                            @Html.DisplayFor(modelItem => item.Activity.Name)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.PlaceId }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.PlaceId }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.PlaceId })
+                        </td>
+                    </tr>
                 }
             </table>
         </div>
     </div>
+
 
 </div>
 
@@ -375,7 +383,7 @@
             // Push them all into an array.
             //alert(locations);
         });
-        
+
         var image = {
             url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
             // This marker is 20 pixels wide by 32 pixels high.
@@ -397,8 +405,10 @@
 
     function addMarkerInfo() {
         for (var i = 0; i < locations.length; i++) {
-            var contentString = '<div id="content">' + '<h5 style="color:black;font-family:Georgia">' + locations[i].name + '</h4></br>'  +
-                '<a href = "Places/Details/?id=' + locations[i].id + '" style="color:blue"><u>More Details</u></a></div>';
+            //var contentString = '<div id="content">' + '<h5 style="color:black;font-family:Georgia">' + locations[i].name + '</h4></br>'  +
+            //'<a href = "Places/Details/?id=' + locations[i].id + '" style="color:blue"><u>More Details</u></a></div>';
+            var contentString = '<div id="content">' + '<h5 style="color:black;font-family:Georgia">' + locations[i].name + '</h4></br>' +
+                '<a href = "#myModal" style="color:blue" data-toggle="modal"><u>More Details</u></a></div>';
             const marker = new google.maps.Marker({
                 position: { lat: locations[i].latitude, lng: locations[i].longitude },
                 map: map
