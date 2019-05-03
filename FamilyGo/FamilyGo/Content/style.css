@@ -333,8 +333,9 @@ a.agilebtn {
     width: 100%;
     height: 100%;
     z-index: 1;
-    opacity: 0;
-    background-color: rgba(255,255,255,0.25);
+    opacity: 0.5;
+    /*-- background-color: rgba(255,255,255,0.25); --*/
+    background-color: none;
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -o-transition: all 0.3s;
@@ -344,7 +345,6 @@ a.agilebtn {
     -o-transform: scale(0.5,0.5);
     -ms-transform: scale(0.5,0.5);
     transform: scale(0.5,0.5);
-    
 }
 
 .agilebtn:hover::after {
@@ -733,7 +733,6 @@ h3.w3ltitle {
     font-family:Georgia;
     color: black;
     text-transform: uppercase;
-    text-align:center;
     margin:0.5em
 }
 
@@ -756,7 +755,7 @@ h3.w3ltitle {
 }
 
 .w3ls-pince {
-    margin-top: 2.5em;
+    margin-top: 1em;
 }
 
 .pince-left {
@@ -771,8 +770,8 @@ h3.w3ltitle {
 }
 
 .pince-right {
-    float: right;
-    width: 85%;
+   
+    width: 100%;
 }
 
 .w3ls-pince h4 {
@@ -1122,10 +1121,10 @@ h3.w3ltitle {
 /*-- address --*/
 .address-agileinfo {
     padding: 1em 0;
-    margin-top: 1em;
-    -webkit-box-shadow: 0px 0px 15px #66cdaa;
-    -moz-box-shadow: 0px 0px 15px #66cdaa;
-    box-shadow: 0px 0px 15px #66cdaa;
+    margin-top: 1.5em;
+    -webkit-box-shadow: 0px 0px 20px #66cdaa;
+    -moz-box-shadow: 0px 0px 20px #66cdaa;
+    box-shadow: 0px 0px 20px #66cdaa;
 }
 
     .address-agileinfo ul {
@@ -1825,10 +1824,11 @@ h2.typoh2 {
 }
 
 .modal-body h4 {
-    font-size: 1.6em;
-    color: #f08080;
+    font-size: 1.4em;
+    color: #66cdaa;
     font-weight: 300;
     margin: 1em 0 .3em;
+    font-family:Georgia;
 }
 
 .bnr-modal .modal-header {
@@ -1846,6 +1846,8 @@ h2.typoh2 {
 
 .modal-body p {
     font-weight: 300;
+    width:100% !important;
+    margin:0px !important;
 }
 /*-- //about-modal --*/
 /*-- slider-up-arrow --*/
@@ -1977,7 +1979,7 @@ h2.typoh2 {
     }
 
     .navbar-nav > li {
-        margin-right: 2em;
+        margin-right: 1em;
     }
 
     .banner-w3text h3, .banner-w3text h2 {
@@ -2004,8 +2006,7 @@ h2.typoh2 {
     }
     .news-w3left {
         margin-top: 1.5em;
-        padding-left: 0px;
-        padding-right: 0px;
+        
     }
 
     .news-w3left.news-w3left1 {
@@ -2042,8 +2043,8 @@ h2.typoh2 {
     }
 
     .about-wthreegrids img {
-        width:600px;
-        height:425px;
+        width:100%;
+        height:100%;
        
     }
     
@@ -2306,7 +2307,7 @@ h2.typoh2 {
     }
 
     .pince-right {
-        width: 82%;
+        width: 100%;
     }
 
     .about-slid h5 {
