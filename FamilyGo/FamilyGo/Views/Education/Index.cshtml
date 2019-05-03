@@ -48,6 +48,19 @@
         top: 625px;
     }
 
+    #svg {
+        height: 260px;
+        width: 250px;
+        border-style: solid;
+        border-color: darkgray;
+        border-width: 2px;
+        background-color: white;
+        position: absolute;
+        left: 4%;
+        bottom: 0;
+        top: 625px;
+    }
+
     #svg1 {
         width: 120px;
         border-style: solid;
@@ -82,7 +95,7 @@
     #filter {
         background: #fff;
         height: 750px;
-        width: 25%;
+        width: 22%;
         bottom: 0;
         float: left;
     }
@@ -202,28 +215,28 @@
 </style>
 
 <div style="margin-top:7.5em">
-    <div class="about-heading" style="margin-left:2.7em">
+    <div class="about-heading" style="margin-left:2em;margin-right:2em;">
         <h5>
             <a href="@Url.Action("Index","Home")">Home / </a>
             <a href="@Url.Action("Index","Education")">Education</a>
         </h5>
     </div>
 </div>
-<section>
-    <div class="about-heading container">
+
+    <div class="about-heading"  style="margin-left:2em;margin-right:2em;">
         <ul id="myTab" class="nav nav-tabs" role="tabpanel">
             <li role="presentation" id ="infoPresentation"class="active"><a href="javascript:initinformation();" role="tab">Information</a></li>
             <li role="presentation" id="languagePresentation"><a href="javascript:initlanguage();" role="tab">Language</a> </li>
             <li role="presentation" id="countryPresentation"><a href="javascript:initcountry();" role="tab">Country</a></li>
         </ul>
     </div>
-</section>
-<div id="info" style=" width:100%;">
+
+<div class="" id="info"  style="margin-left:2em;margin-right:2em;">
     <div><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
     <div style=" width:100%;">
         <p>There are three main kind of schools in Australia.</p>
     </div>
-    <div class="address-agileinfo" style=" margin-left:0.7em;">
+    <div class="address-agileinfo">
 
         <p><span class="glyphicon glyphicon-info-sign"></span><strong>Public School</strong></p>
         <p><strong>Benefits:</strong></p>
@@ -235,7 +248,7 @@
         <p>2.Quality of staff</p>
     </div>
 
-    <div class="address-agileinfo" style=" margin-left:0.7em;">
+    <div class="address-agileinfo">
 
         <p><span class="glyphicon glyphicon-info-sign"></span><strong>Cathoic School</strong></p>
         <p><strong>Benefits:</strong></p>
@@ -247,7 +260,7 @@
         <p>2.Your child may need to be prepared for strict but fair rules; learning to sit still in Mass and adopting slightly formal manners at a young age</p>
     </div>
 
-    <div class="address-agileinfo" style="margin-left:0.7em;">
+    <div class="address-agileinfo">
         <p><span class="glyphicon glyphicon-info-sign"></span><strong>Private School</strong></p>
         <p><strong>Benefits:</strong></p>
         <p>1.Private schools can promote their wide range of creative, sporting, community and adventuring activities, marketed as extending your child’s abilities, resilience and competitive drive.</p>
@@ -259,7 +272,7 @@
     </div>
 </div>
 <!--this container contains the filter and map-->
-<div id="wholeContiner" style="margin:2em">
+<div id="wholeContiner" class="" style="margin:2em">
     <div class="col-lg-2 box" id="filter">
         <!--<ul id="filter_name">-->
         <!-- <li id="attribute_name">
@@ -478,7 +491,7 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiemVrdW5kaSIsImEiOiJjamZ3OTRsbHQ0aWRzMzBudms4dGxoZmZnIn0.0yzmMvKJeh6Md9wQ4_Ozlw';
 
     var hoveredStateId = null;
-    var margin = { top: 100, right: 20, bottom: 70, left: 400 },
+    var margin = { top: 100, right: 20, bottom: 20, left: 380 },
         width = 600 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
     var map = new mapboxgl.Map({
