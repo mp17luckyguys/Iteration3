@@ -4,333 +4,436 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-   
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
-    <!--<script src='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>-->
-    <!--<link href='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />-->
-    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'></script>
-    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' type='text/css' />
-    <style>
-        body {
-            margin: 0 0 0 0;
-            padding: 0;
+
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
+<!--<script src='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>-->
+<!--<link href='https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />-->
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' type='text/css' />
+<style>
+    body {
+        margin: 0 0 0 0;
+        padding: 0;
+    }
+
+    #map {
+        position: relative;
+        height: 100%;
+        width: 75%;
+
+    }
+
+    #wholeContiner {
+        width: 100%;
+        height: 800px;
+    }
+
+    p {
+        font-family: Georgia;
+        line-height: 1.5em;
+    }
+
+    svg {
+        height: 200px;
+        width: 220px;
+        border-style: solid;
+        border-color: darkgray;
+        border-width: 2px;
+        background-color: white;
+        position: absolute;
+        left: 28%;
+        bottom: 0;
+        top: 625px;
+    }
+
+    #svg1 {
+        width: 120px;
+        border-style: solid;
+        border-color: darkgray;
+        border-width: 2px;
+        background-color: white;
+        left: 27%;
+        top: 190px;
+    }
+
+    #svg2 {
+        width: 120px;
+        border-style: solid;
+        border-color: darkgray;
+        border-width: 2px;
+        background-color: white;
+        left: 28%;
+        top: 190px;
+    }
+
+    .axis {
+        font: 10px sans-serif;
+    }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
         }
 
-        #map {
-            position: relative;
-            height: 100%;
-            width: 75%;
-            left: 25%;
-        }
+    #filter {
+        background: #fff;
+        height: 750px;
+        width: 25%;
+        bottom: 0;
+        float: left;
+    }
 
-        #wholeContiner {
-            width: 100%;
-            height: 800px;
-        }
 
-        p {
-            font-family:Georgia;
-            line-height:1.5em;
-        }
+    /* 清除li样式 */
 
-        svg {
-            height: 200px;
-            width: 220px;
-            border-style: solid;
-            border-color: darkgray;
-            border-width: 2px;
-            background-color: white;
-            position: absolute;
-            left: 28%;
-            bottom: 0;
-            top:625px;
-        }
+    ul, li {
+        list-style: none;
+    }
+    /* 将ul相对定位，目的是让内容的div绝对定位时相对ul定位，否则会相对body定位 */ /* ul弹性盒，目的是让li横着排，也可以将li浮动或者转行内块 */
 
-        #svg1 {
-            width: 120px;
-            border-style: solid;
-            border-color: darkgray;
-            border-width: 2px;
-            background-color: white;
-            left: 27%;
-            top: 190px;
-        }
+    #filter_name {
+        position: relative;
+        display: inline-flex;
+    }
+    /* 将三个li宽度平分，高度60px */
 
-        #svg2 {
-            width: 120px;
-            border-style: solid;
-            border-color: darkgray;
-            border-width: 2px;
-            background-color: white;
-            left: 28%;
-            top: 190px;
-        }
+    #attribute_name {
+        flex: 1;
+        height: 60px;
+    }
+    /* input隐藏 */
 
-        .axis {
-            font: 10px sans-serif;
-        }
+    .aa {
+        display: none;
+    }
+        /* 设置input的下一个节点label的样式 */
 
-            .axis path,
-            .axis line {
-                fill: none;
-                stroke: #000;
-                shape-rendering: crispEdges;
-            }
-
-        #filter {
-            position: absolute;
-            background: #fff;
-            height: 750px;
-            width: 25%;
-            bottom: 0;
-            top: 11em;
-        }
-
-        
-        /* 清除li样式 */
-
-        ul, li {
-            list-style: none;
-        }
-        /* 将ul相对定位，目的是让内容的div绝对定位时相对ul定位，否则会相对body定位 */ /* ul弹性盒，目的是让li横着排，也可以将li浮动或者转行内块 */
-
-        #filter_name {
-            position: relative;
-            display: inline-flex;
-        }
-        /* 将三个li宽度平分，高度60px */
-
-        #attribute_name {
-            flex: 1;
-            height: 60px;
-        }
-        /* input隐藏 */
-
-        .aa {
-            display: none;
-        }
-            /* 设置input的下一个节点label的样式 */
-
-            .aa + label {
-                display: block;
-                width: 100%;
-                height: 100%;
-                background: #ccc;
-                font-size: 16px;
-                text-align: center;
-                line-height: 60px;
-                color: #fff;
-                font-family:Georgia;
-            }
-                /* 设置div内容的基础样式 隐藏内容div*/
-
-                .aa + label + div {
-                    display: none;
-                    position: absolute;
-                    left: 0;
-                    top: 60px;
-                }
-            /* input选中状态时候对应的label的样式 */
-
-            .aa:checked + label {
-                background: #66cdaa;
-                color: #fff;
-            }
-                /* input选中时候显示对应的div */
-
-                .aa:checked + label + div {
-                    display: block;
-                }
-
-        .marker {
+        .aa + label {
             display: block;
-            border: none;
-            /*border-radius: 2%;*/
-            cursor: pointer;
-            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #ccc;
+            font-size: 16px;
+            text-align: center;
+            line-height: 60px;
+            color: #fff;
+            font-family: Georgia;
         }
+            /* 设置div内容的基础样式 隐藏内容div*/
 
-        .popup {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-            /* The actual popup */
-            .popup .popuptext {
-                visibility: hidden;
-                width: 260px;
-                background-color: #555;
-                color: #fff;
-                text-align: center;
-                border-radius: 6px;
-                padding: 8px 0;
+            .aa + label + div {
+                display: none;
                 position: absolute;
-                z-index: 1;
-                bottom: 125%;
-                left: 50%;
-                margin-left: -80px;
+                left: 0;
+                top: 60px;
             }
+        /* input选中状态时候对应的label的样式 */
 
-                /* Popup arrow */
-                .popup .popuptext::after {
-                    content: "";
-                    position: absolute;
-                    top: 100%;
-                    left: 50%;
-                    margin-left: -5px;
-                    border-width: 5px;
-                    border-style: solid;
-                    border-color: #555 transparent transparent transparent;
-                }
-
-            /* Toggle this class - hide and show the popup */
-            .popup .show {
-                visibility: visible;
-                -webkit-animation: fadeIn 1s;
-                animation: fadeIn 1s;
-            }
-
-        .usetitle {
-            border-radius: 25px;
+        .aa:checked + label {
+            background: #66cdaa;
+            color: #fff;
         }
-    </style>
+            /* input选中时候显示对应的div */
 
-    <div style="margin-top:7.5em">
-        <div class="about-heading" style="margin-left:2.7em">
-            <h5>
-                <a href="@Url.Action("Index","Home")">Home / </a>
-                <a href="@Url.Action("Index","Education")">Education</a>
-            </h5>
-        </div>
-        <!--this container contains the filter and map-->
-        <div id="wholeContiner" style="margin:2em">
-            <div class="col-lg-2 box" id="filter">
-                <ul id="filter_name">
-                    <li id="attribute_name">
-                        <input class="aa" type="radio" name="check" id="active1" value="information" checked><label for="active1" style="border:solid;border-radius:15px">Information</label>
-                        <div id="information" style=" overflow:scroll; width:100%; height:750px;">
-                            <div><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
-                            <div style=" width:100%;">
-                                <p>There are three main kind of schools in Australia.</p>
-                            </div>
-                            <div class="address-agileinfo" style=" width:90%;margin-left:0.7em;">
-
-                                <p><span class="glyphicon glyphicon-info-sign"></span><strong>Public School</strong></p>
-                                <p><strong>Benefits:</strong></p>
-                                <p>1.Close to your home</p>
-                                <p>2.Reduce cost</p>
-                                <p>3.Broader subject choices</p>
-                                <p><strong>Challenges:</strong></p>
-                                <p>1.If there are social problems in your area, they may filter into school.</p>
-                                <p>2.Quality of staff</p>
-                            </div>
-
-                            <div class="address-agileinfo" style=" width:90%;margin-left:0.7em;">
-
-                                <p><span class="glyphicon glyphicon-info-sign"></span><strong>Cathoic School</strong></p>
-                                <p><strong>Benefits:</strong></p>
-                                <p>1.Many Catholic schools encourage families to contribute to the Church’s social justice programs.</p>
-                                <p>2.The spiritual values of Faith, Hope and Charity all strongly feature in daily Catholic school activities.</p>
-                                <p>3.Catholic schools proudly note many staff have made it their mission to serve a school for the long term. </p>
-                                <p><strong>Challenges:</strong></p>
-                                <p>1.Strict participation after school or on weekends.</p>
-                                <p>2.Your child may need to be prepared for strict but fair rules; learning to sit still in Mass and adopting slightly formal manners at a young age</p>
-                            </div>
-
-                            <div class="address-agileinfo" style=" width:90%;margin-left:0.7em;">
-                                <p><span class="glyphicon glyphicon-info-sign"></span><strong>Private School</strong></p>
-                                <p><strong>Benefits:</strong></p>
-                                <p>1.Private schools can promote their wide range of creative, sporting, community and adventuring activities, marketed as extending your child’s abilities, resilience and competitive drive.</p>
-                                <p>2.Every private school has a building fund to maintain impressive architecture, lawns and extracurricular facilities</p>
-                                <p>3.Parents and former students make financial contributions to the school. </p>
-                                <p><strong>Challenges:</strong></p>
-                                <p>1.Higher tuition fees, extra activities, more expensive uniforms, text books, stationery with the school crest </p>
-                                <p>2.A bigger homework load than their public school peers</p>
-                            </div>
-
-                        </div>
-                    </li>
-                    <li id="attribute_name">
-                        <input class="aa" type="radio" name="check" id="active2" value="language"><label for="active2" style="border:solid;border-radius:15px">Language</label>
-                        <!--this is filter for language-->
-                        <div id="languageFilter" style="padding:2.5em" class="address-agileinfo">
-                            <div style="margin-top:0.5em">
-                                Select a Language:<br />
-                                <select id="selectLanguage" onchange="languageChange(this)"></select><br />
-                            </div>
-                            <div style="margin-top:0.5em">
-                                Select a Suburb:<br />
-                                <select id="selectSuburbL" onchange="suburbChange(this)"></select><br />
-                            </div>
-                            <div style="margin-top:0.5em">
-                                Select School Type:<br />
-                                <select id="selectSchoolTypeL" onchange="suburbChange(this)"></select><br />
-                            </div>
-                            <div style="margin-top:0.5em">
-                                <form>
-                                    <input class="clickMe" type="button" value="Clear" onclick="clear();" />
-                                </form>
-                            </div>
-                            <div style="margin-top:0.5em">
-                                <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li id="attribute_name">
-                        <input class="aa" type="radio" name="check" id="active3" value="country"><label for="active3" style="border:solid;border-radius:15px">Country</label>
-                        <!--this is filter for country-->
-                        <div id="countryFilter" style="padding:3em" class="address-agileinfo">
-                            <div style="margin-top:0.5em">
-                                Select a Country<br />
-                                <select id="selectCountry" onchange="countryChange(this)"></select><br />
-                            </div>
-                            <div style="margin-top:0.5em">
-                                Select a Suburb:<br />
-                                <select id="selectSuburbC" onchange="suburbChange(this)"></select><br />
-
-                            </div>
-                            <div style="margin-top:0.5em">
-                                Select School Type:<br />
-                                <select id="selectSchoolTypeC" onchange="suburbChange(this)"></select><br />
-                            </div>
-
-                            <div style="margin-top:0.5em">
-                                <form>
-                                    <input class="clickMe" type="button" value="Clear" onclick="clear();" />
-                                </form>
-                            </div>
-                            <div style="margin-top:0.5em">
-                                <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-lg-10" id='map'></div>
-        </div>
-        <script>
-            //sort the options in the select element based on alphabet
-            function sortSelectOptions(selectElement) {
-                var options = $(selectElement + " option");
-                options.sort(function (a, b) {
-                    if (a.text.toUpperCase() > b.text.toUpperCase()) return 1;
-                    else if (a.text.toUpperCase() < b.text.toUpperCase()) return -1;
-                    else return 0;
-                });
-                $(selectElement).empty().append(options);
+            .aa:checked + label + div {
+                display: block;
             }
-            var countryFunction = false;
-            var languageFunction = false;
-            var suburbSelected = "";
-            //this is the entry of country function
-            function initcountry() {
+
+    .marker {
+        display: block;
+        border: none;
+        /*border-radius: 2%;*/
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* The actual popup */
+        .popup .popuptext {
+            visibility: hidden;
+            width: 260px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 0;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -80px;
+        }
+
+            /* Popup arrow */
+            .popup .popuptext::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+            }
+
+        /* Toggle this class - hide and show the popup */
+        .popup .show {
+            visibility: visible;
+            -webkit-animation: fadeIn 1s;
+            animation: fadeIn 1s;
+        }
+
+    .usetitle {
+        border-radius: 25px;
+    }
+</style>
+
+<div style="margin-top:7.5em">
+    <div class="about-heading" style="margin-left:2.7em">
+        <h5>
+            <a href="@Url.Action("Index","Home")">Home / </a>
+            <a href="@Url.Action("Index","Education")">Education</a>
+        </h5>
+    </div>
+</div>
+<section>
+    <div class="about-heading container">
+        <ul id="myTab" class="nav nav-tabs" role="tabpanel">
+            <li role="presentation" id ="infoPresentation"class="active"><a href="javascript:initinformation();" role="tab">Information</a></li>
+            <li role="presentation" id="languagePresentation"><a href="javascript:initlanguage();" role="tab">Language</a> </li>
+            <li role="presentation" id="countryPresentation"><a href="javascript:initcountry();" role="tab">Country</a></li>
+        </ul>
+    </div>
+</section>
+<div id="info" style=" width:100%;">
+    <div><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
+    <div style=" width:100%;">
+        <p>There are three main kind of schools in Australia.</p>
+    </div>
+    <div class="address-agileinfo" style=" margin-left:0.7em;">
+
+        <p><span class="glyphicon glyphicon-info-sign"></span><strong>Public School</strong></p>
+        <p><strong>Benefits:</strong></p>
+        <p>1.Close to your home</p>
+        <p>2.Reduce cost</p>
+        <p>3.Broader subject choices</p>
+        <p><strong>Challenges:</strong></p>
+        <p>1.If there are social problems in your area, they may filter into school.</p>
+        <p>2.Quality of staff</p>
+    </div>
+
+    <div class="address-agileinfo" style=" margin-left:0.7em;">
+
+        <p><span class="glyphicon glyphicon-info-sign"></span><strong>Cathoic School</strong></p>
+        <p><strong>Benefits:</strong></p>
+        <p>1.Many Catholic schools encourage families to contribute to the Church’s social justice programs.</p>
+        <p>2.The spiritual values of Faith, Hope and Charity all strongly feature in daily Catholic school activities.</p>
+        <p>3.Catholic schools proudly note many staff have made it their mission to serve a school for the long term. </p>
+        <p><strong>Challenges:</strong></p>
+        <p>1.Strict participation after school or on weekends.</p>
+        <p>2.Your child may need to be prepared for strict but fair rules; learning to sit still in Mass and adopting slightly formal manners at a young age</p>
+    </div>
+
+    <div class="address-agileinfo" style="margin-left:0.7em;">
+        <p><span class="glyphicon glyphicon-info-sign"></span><strong>Private School</strong></p>
+        <p><strong>Benefits:</strong></p>
+        <p>1.Private schools can promote their wide range of creative, sporting, community and adventuring activities, marketed as extending your child’s abilities, resilience and competitive drive.</p>
+        <p>2.Every private school has a building fund to maintain impressive architecture, lawns and extracurricular facilities</p>
+        <p>3.Parents and former students make financial contributions to the school. </p>
+        <p><strong>Challenges:</strong></p>
+        <p>1.Higher tuition fees, extra activities, more expensive uniforms, text books, stationery with the school crest </p>
+        <p>2.A bigger homework load than their public school peers</p>
+    </div>
+</div>
+<!--this container contains the filter and map-->
+<div id="wholeContiner" style="margin:2em">
+    <div class="col-lg-2 box" id="filter">
+        <!--<ul id="filter_name">-->
+        <!-- <li id="attribute_name">
+        <input class="aa" type="radio" name="check" id="active1" value="information" checked><label for="active1" style="border:solid;border-radius:15px">Information</label>
+        <div id="information" style=" overflow:scroll; width:100%; height:750px;">
+
+            <div><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
+            <div style=" width:100%;">
+                <p>There are three main kind of schools in Australia.</p>
+            </div>
+            <div class="address-agileinfo" style=" width:90%;margin-left:0.7em;">
+
+                <p><span class="glyphicon glyphicon-info-sign"></span><strong>Public School</strong></p>
+                <p><strong>Benefits:</strong></p>
+                <p>1.Close to your home</p>
+                <p>2.Reduce cost</p>
+                <p>3.Broader subject choices</p>
+                <p><strong>Challenges:</strong></p>
+                <p>1.If there are social problems in your area, they may filter into school.</p>
+                <p>2.Quality of staff</p>
+            </div>
+
+            <div class="address-agileinfo" style=" width:90%;margin-left:0.7em;">
+
+                <p><span class="glyphicon glyphicon-info-sign"></span><strong>Cathoic School</strong></p>
+                <p><strong>Benefits:</strong></p>
+                <p>1.Many Catholic schools encourage families to contribute to the Church’s social justice programs.</p>
+                <p>2.The spiritual values of Faith, Hope and Charity all strongly feature in daily Catholic school activities.</p>
+                <p>3.Catholic schools proudly note many staff have made it their mission to serve a school for the long term. </p>
+                <p><strong>Challenges:</strong></p>
+                <p>1.Strict participation after school or on weekends.</p>
+                <p>2.Your child may need to be prepared for strict but fair rules; learning to sit still in Mass and adopting slightly formal manners at a young age</p>
+            </div>
+
+            <div class="address-agileinfo" style=" width:90%;margin-left:0.7em;">
+                <p><span class="glyphicon glyphicon-info-sign"></span><strong>Private School</strong></p>
+                <p><strong>Benefits:</strong></p>
+                <p>1.Private schools can promote their wide range of creative, sporting, community and adventuring activities, marketed as extending your child’s abilities, resilience and competitive drive.</p>
+                <p>2.Every private school has a building fund to maintain impressive architecture, lawns and extracurricular facilities</p>
+                <p>3.Parents and former students make financial contributions to the school. </p>
+                <p><strong>Challenges:</strong></p>
+                <p>1.Higher tuition fees, extra activities, more expensive uniforms, text books, stationery with the school crest </p>
+                <p>2.A bigger homework load than their public school peers</p>
+            </div>
+
+        </div>
+    </li>-->
+        <!--  <li id="attribute_name">
+      <input class="aa" type="radio" name="check" id="active2" value="language"><label for="active2" style="border:solid;border-radius:15px">Language</label>
+    -->
+        <!--this is filter for language-->
+        <div id="languageFilter" style="padding:2.5em" class="address-agileinfo">
+            <div style="margin-top:0.5em">
+                Select a Language:<br />
+                <select id="selectLanguage" onchange="languageChange(this)"></select><br />
+            </div>
+            <div style="margin-top:0.5em">
+                Select a Suburb:<br />
+                <select id="selectSuburbL" onchange="suburbChange(this)"></select><br />
+            </div>
+            <div style="margin-top:0.5em">
+                Select School Type:<br />
+                <select id="selectSchoolTypeL" onchange="suburbChange(this)"></select><br />
+            </div>
+            <div style="margin-top:0.5em">
+                <form>
+                    <input class="clickMe" type="button" value="Clear" />
+                </form>
+            </div>
+            <div style="margin-top:0.5em">
+                <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
+            </div>
+        </div>
+        <!--</li>
+    <li id="attribute_name">
+        <input class="aa" type="radio" name="check" id="active3" value="country"><label for="active3" style="border:solid;border-radius:15px">Country</label>
+        -->
+        <!--this is filter for country-->
+        <div id="countryFilter" style="padding:3em" class="address-agileinfo">
+            <div style="margin-top:0.5em">
+                Select a Country<br />
+                <select id="selectCountry" onchange="countryChange(this)"></select><br />
+            </div>
+            <div style="margin-top:0.5em">
+                Select a Suburb:<br />
+                <select id="selectSuburbC" onchange="suburbChange(this)"></select><br />
+
+            </div>
+            <div style="margin-top:0.5em">
+                Select School Type:<br />
+                <select id="selectSchoolTypeC" onchange="suburbChange(this)"></select><br />
+            </div>
+
+            <div style="margin-top:0.5em">
+                <form>
+                    <input class="clickMe" type="button" value="Clear" />
+                </form>
+            </div>
+            <div style="margin-top:0.5em">
+                <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
+            </div>
+        </div>
+        <!-- </li>-->
+        <!-- </ul>-->
+    </div>
+    <div class="col-lg-10" id='map'></div>
+</div>
+<script>
+
+    //sort the options in the select element based on alphabet
+    function sortSelectOptions(selectElement) {
+        var options = $(selectElement + " option");
+        options.sort(function (a, b) {
+            if (a.text.toUpperCase() > b.text.toUpperCase()) return 1;
+            else if (a.text.toUpperCase() < b.text.toUpperCase()) return -1;
+            else return 0;
+        });
+        $(selectElement).empty().append(options);
+    }
+    var countryFunction = false;
+    var languageFunction = false;
+    var suburbSelected = "";
+    //this is the entry of country function
+    function initcountry() {
+        document.getElementById("countryPresentation").classList.add("active");
+        document.getElementById("languagePresentation").classList.remove("active");
+        document.getElementById("infoPresentation").classList.remove("active");
+        document.getElementById("wholeContiner").style.display = "";
+        document.getElementById("info").style.display = "none";
+        document.getElementById("languageFilter").style.display = "none";
+        document.getElementById("countryFilter").style.display = "";
+        countryFunction = true;
+        languageFunction = false;
+        if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
+        //
+        loadSuburb();
+        document.getElementById("selectSuburbC").options[0].selected = true;
+
+        country();
+    }
+    //this is the entry of language function
+    function initlanguage() {
+        document.getElementById("countryPresentation").classList.remove("active");
+        document.getElementById("infoPresentation").classList.remove("active");
+        document.getElementById("languagePresentation").classList.add("active");
+        document.getElementById("wholeContiner").style.display = "";
+        document.getElementById("info").style.display = "none";
+        document.getElementById("countryFilter").style.display = "none";
+        document.getElementById("languageFilter").style.display = "";
+        languageFunction = true;
+        countryFunction = false;
+        if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
+        loadSuburb();
+        document.getElementById("selectSuburbL").options[0].selected = true;
+        language();
+    }
+    //this is the entry of information funtion
+    function initinformation() {
+        document.getElementById("countryPresentation").classList.remove("active");
+        document.getElementById("infoPresentation").classList.add("active");
+        document.getElementById("languagePresentation").classList.remove("active");
+        document.getElementById("wholeContiner").style.display = "none";
+        document.getElementById("info").style.display = "";
+        d3.select("#svg").remove();
+        d3.select("#svg1").remove();
+        d3.select("#svg2").remove();
+    }
+    initinformation();
+    //this is the original entry, going to be removed
+    /*
+    $(function () {
+        $(":radio").click(function () {
+            if ($(this).val() == "information") { }
+            if ($(this).val() == "country") {
                 countryFunction = true;
                 languageFunction = false;
                 if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
@@ -340,8 +443,7 @@
 
                 country();
             }
-            //this is the entry of language function
-            function initlanguage() {
+            if ($(this).val() == "language") {
                 languageFunction = true;
                 countryFunction = false;
                 if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
@@ -349,952 +451,930 @@
                 document.getElementById("selectSuburbL").options[0].selected = true;
                 language();
             }
-            //this is the entry of information funtion
-            function initinformation() { }
-            //this is the original entry, going to be removed
-            $(function () {
-                $(":radio").click(function () {
-                    if ($(this).val() == "information") { }
-                    if ($(this).val() == "country") {
-                        countryFunction = true;
-                        languageFunction = false;
-                        if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
-                        //
-                        loadSuburb();
-                        document.getElementById("selectSuburbC").options[0].selected = true;
+        });
+    });
+    */
+</script>
+<script>
+    var boundaries;
+    var country;
+    var language;
+    var languageColor = [{ 'id': 1, 'language': 'Vietnamese', 'color': '#EEC7C3' }, { 'id': 2, 'language': 'Italian', 'color': '#844773' }, { 'id': 3, 'language': 'Punjabi', 'color': '#375EB3' }, { 'id': 4, 'language': 'Greek', 'color': '#CABD27' }, { 'id': 5, 'language': 'Arabic', 'color': '#D43155' }, { 'id': 6, 'language': 'Mandarin', 'color': '#E492CE' }, { 'id': 7, 'language': 'French', 'color': '#B4766D' }, { 'id': 8, 'language': 'German', 'color': '#54E859' }, { 'id': 9, 'language': 'Cantonese', 'color': '#2937C6' }, { 'id': 10, 'language': 'Dutch', 'color': '#E7C92A' }, { 'id': 11, 'language': 'Sinhalese', 'color': '#4FD755' }, { 'id': 12, 'language': 'Tagalog', 'color': '#C45DEA' }, { 'id': 13, 'language': 'Hindi', 'color': '#FBCA22' }, { 'id': 14, 'language': 'Hebrew', 'color': '#E55A49' }, { 'id': 15, 'language': 'Russian', 'color': '#1F73F1' }, { 'id': 16, 'language': 'Turkish', 'color': '#C86AA5' }, { 'id': 17, 'language': 'Samoan', 'color': '#C93EC2' }, { 'id': 18, 'language': 'Japanese', 'color': '#7A5F3A' }, { 'id': 19, 'language': 'Dari', 'color': '#F3BB57' }, { 'id': 20, 'language': 'Albanian', 'color': '#655C79' }, { 'id': 21, 'language': 'Serbian', 'color': '#81E1E4' }, { 'id': 22, 'language': 'Macedonian', 'color': '#112318' }, { 'id': 23, 'language': 'Bosnian', 'color': '#BBF8DF' }, { 'id': 24, 'language': 'Afrikaans', 'color': '#CA3EB6' }, { 'id': 25, 'language': 'Somali', 'color': '#D79E64' }, { 'id': 26, 'language': 'Maltese', 'color': '#6CBD43' }, { 'id': 27, 'language': 'Spanish', 'color': '#2ADD8A' }, { 'id': 28, 'language': 'Maori (New Zealand)', 'color': '#8E1372' }, { 'id': 29, 'language': 'Yiddish', 'color': '#C51569' }]
+    var countryColor = [{ 'id': 1, 'country': 'Vietnam', 'color': '#8D41C3' }, { 'id': 2, 'country': 'England', 'color': '#A85329' }, { 'id': 3, 'country': 'Italy', 'color': '#7A1E25' }, { 'id': 4, 'country': 'India', 'color': '#122B96' }, { 'id': 5, 'country': 'China', 'color': '#D5F4B1' }, { 'id': 6, 'country': 'Greece', 'color': '#43ADFE' }, { 'id': 7, 'country': 'Iraq', 'color': '#438344' }, { 'id': 8, 'country': 'Philippines', 'color': '#757ED9' }, { 'id': 9, 'country': 'Poland', 'color': '#39517C' }, { 'id': 10, 'country': 'South Africa', 'color': '#E14578' }, { 'id': 11, 'country': 'New Zealand', 'color': '#EBEF8B' }, { 'id': 12, 'country': 'Turkey', 'color': '#8AD886' }, { 'id': 13, 'country': 'Sri Lanka', 'color': '#7C9116' }, { 'id': 14, 'country': 'Afghanistan', 'color': '#228E8C' }, { 'id': 15, 'country': 'Somalia', 'color': '#A31DDD' }, { 'id': 16, 'country': 'FYR Macedonia', 'color': '#F89614' }, { 'id': 17, 'country': 'Malaysia', 'color': '#6F5ABE' }]
 
-                        country();
-                    }
-                    if ($(this).val() == "language") {
-                        languageFunction = true;
-                        countryFunction = false;
-                        if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
-                        loadSuburb();
-                        document.getElementById("selectSuburbL").options[0].selected = true;
-                        language();
-                    }
-                });
+    $.ajax({
+        url: "/Education/GetJsonFromFile",
+        type: "GET",//请求方式为get
+        dataType: "json", //返回数据格式为json
+        data: { path: "~/json/new1.geojson" },
+        async: false,//是否同步
+        success: function (data) {//请求成功完成后要执行的方法
+            boundaries = data;
+        },
+        error: function () {
+            console.log("error");
+        }
+    })
+    mapboxgl.accessToken = 'pk.eyJ1IjoiemVrdW5kaSIsImEiOiJjamZ3OTRsbHQ0aWRzMzBudms4dGxoZmZnIn0.0yzmMvKJeh6Md9wQ4_Ozlw';
+
+    var hoveredStateId = null;
+    var margin = { top: 100, right: 20, bottom: 70, left: 400 },
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [144.964194, -37.824898],
+        zoom: 10
+    });
+
+    var svg;
+    var svgContainer;
+    var canvas = map.getCanvasContainer();
+    //language();
+    function country() {
+        d3.select("#svg").remove();
+        d3.select("#svg1").remove();
+        d3.select("#svg2").remove();
+        map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [144.964194, -37.824898],
+            zoom: 10
+        });
+        map.on('load', function () {
+            map.addSource("states", {
+                "type": "geojson",
+                "data": boundaries
             });
-        </script>
-        <script>
-            var boundaries;
-            var country;
-            var language;
-            var languageColor = [{ 'id': 1, 'language': 'Vietnamese', 'color': '#EEC7C3' }, { 'id': 2, 'language': 'Italian', 'color': '#844773' }, { 'id': 3, 'language': 'Punjabi', 'color': '#375EB3' }, { 'id': 4, 'language': 'Greek', 'color': '#CABD27' }, { 'id': 5, 'language': 'Arabic', 'color': '#D43155' }, { 'id': 6, 'language': 'Mandarin', 'color': '#E492CE' }, { 'id': 7, 'language': 'French', 'color': '#B4766D' }, { 'id': 8, 'language': 'German', 'color': '#54E859' }, { 'id': 9, 'language': 'Cantonese', 'color': '#2937C6' }, { 'id': 10, 'language': 'Dutch', 'color': '#E7C92A' }, { 'id': 11, 'language': 'Sinhalese', 'color': '#4FD755' }, { 'id': 12, 'language': 'Tagalog', 'color': '#C45DEA' }, { 'id': 13, 'language': 'Hindi', 'color': '#FBCA22' }, { 'id': 14, 'language': 'Hebrew', 'color': '#E55A49' }, { 'id': 15, 'language': 'Russian', 'color': '#1F73F1' }, { 'id': 16, 'language': 'Turkish', 'color': '#C86AA5' }, { 'id': 17, 'language': 'Samoan', 'color': '#C93EC2' }, { 'id': 18, 'language': 'Japanese', 'color': '#7A5F3A' }, { 'id': 19, 'language': 'Dari', 'color': '#F3BB57' }, { 'id': 20, 'language': 'Albanian', 'color': '#655C79' }, { 'id': 21, 'language': 'Serbian', 'color': '#81E1E4' }, { 'id': 22, 'language': 'Macedonian', 'color': '#112318' }, { 'id': 23, 'language': 'Bosnian', 'color': '#BBF8DF' }, { 'id': 24, 'language': 'Afrikaans', 'color': '#CA3EB6' }, { 'id': 25, 'language': 'Somali', 'color': '#D79E64' }, { 'id': 26, 'language': 'Maltese', 'color': '#6CBD43' }, { 'id': 27, 'language': 'Spanish', 'color': '#2ADD8A' }, { 'id': 28, 'language': 'Maori (New Zealand)', 'color': '#8E1372' }, { 'id': 29, 'language': 'Yiddish', 'color': '#C51569' }]
-            var countryColor = [{ 'id': 1, 'country': 'Vietnam', 'color': '#8D41C3' }, { 'id': 2, 'country': 'England', 'color': '#A85329' }, { 'id': 3, 'country': 'Italy', 'color': '#7A1E25' }, { 'id': 4, 'country': 'India', 'color': '#122B96' }, { 'id': 5, 'country': 'China', 'color': '#D5F4B1' }, { 'id': 6, 'country': 'Greece', 'color': '#43ADFE' }, { 'id': 7, 'country': 'Iraq', 'color': '#438344' }, { 'id': 8, 'country': 'Philippines', 'color': '#757ED9' }, { 'id': 9, 'country': 'Poland', 'color': '#39517C' }, { 'id': 10, 'country': 'South Africa', 'color': '#E14578' }, { 'id': 11, 'country': 'New Zealand', 'color': '#EBEF8B' }, { 'id': 12, 'country': 'Turkey', 'color': '#8AD886' }, { 'id': 13, 'country': 'Sri Lanka', 'color': '#7C9116' }, { 'id': 14, 'country': 'Afghanistan', 'color': '#228E8C' }, { 'id': 15, 'country': 'Somalia', 'color': '#A31DDD' }, { 'id': 16, 'country': 'FYR Macedonia', 'color': '#F89614' }, { 'id': 17, 'country': 'Malaysia', 'color': '#6F5ABE' }]
+            svg1 = d3.select("body").append("svg")
+                .attr("id", "svg1")
+                .attr("style", "height:200px")
+                .attr("transform", "translate(" + 25 + "," + 51 + ")");
+            legendArea = svg1.append("g")
+                .attr("transform", "translate(0,20)");
 
+            var legend = legendArea.selectAll("g")
+                .data(countryColor)
+                .enter()
+                .append("g")
+                .attr("transform", function (d, i) {
+                    return "translate(" + 10 + "," + 10 * i + ")";
+                });
+
+            legend.append("rect")
+                .attr("width", 8)
+                .attr("height", 8)
+                .style("fill", function (d, i) {
+                    return d['color']
+                });
+
+            legend.append("text")
+                .attr("x", 24)
+                .attr("y", 9)
+                .style("fill", function (d, i) {
+                    return d['color']
+                })
+                .attr("dy", ".05em")
+                .attr("font-size", "10px")
+                .text(function (d, i) {
+                    return d['country'];
+                });
+
+            map.addLayer({
+                "id": "state-fills",
+                "type": "fill",
+                "source": "states",
+                "layout": {},
+                'paint': {
+                    'fill-color': {
+                        "property": "main_country_id", "stops": [[0, 'white'],
+                        [1, '#8D41C3'],
+                        [2, '#A85329'],
+                        [3, '#7A1E25'],
+                        [4, '#122B96'],
+                        [5, '#D5F4B1'],
+                        [6, '#43ADFE'],
+                        [7, '#438344'],
+                        [8, '#757ED9'],
+                        [9, '#39517C'],
+                        [10, '#E14578'],
+                        [11, '#EBEF8B'],
+                        [12, '#8AD886'],
+                        [13, '#7C9116'],
+                        [14, '#228E8C'],
+                        [15, '#A31DDD'],
+                        [16, '#F89614'],
+                        [17, '#6F5ABE']]
+                    }, 'fill-opacity':
+                        ["case",
+                            ["boolean", ["feature-state", "hover"], false], 1, 0.5
+                        ]
+                },
+            });
+
+            map.addLayer({
+                "id": "state-borders",
+                "type": "line",
+                "source": "states",
+                "layout": {},
+                "paint": {
+                    "line-color": "#627BC1",
+                    "line-width": 1
+                }
+            });
+            var tooltip = d3.select("body")
+                .append("div")
+                .style("border-style", "solid")
+                .style("border-width", "1px")
+                .style("background-color", "lightgray")
+                .style("position", "absolute")
+                .style("opacity", 0.8)
+                .style("visibility", "visible");
+            var Ddata;
             $.ajax({
                 url: "/Education/GetJsonFromFile",
                 type: "GET",//请求方式为get
                 dataType: "json", //返回数据格式为json
-                data: { path: "~/json/new1.geojson" },
+                data: { path: "~/json/Country.json" },
                 async: false,//是否同步
                 success: function (data) {//请求成功完成后要执行的方法
-                    boundaries = data;
+                    Ddata = data;
                 },
                 error: function () {
                     console.log("error");
                 }
             })
-            mapboxgl.accessToken = 'pk.eyJ1IjoiemVrdW5kaSIsImEiOiJjamZ3OTRsbHQ0aWRzMzBudms4dGxoZmZnIn0.0yzmMvKJeh6Md9wQ4_Ozlw';
 
-            var hoveredStateId = null;
-            var margin = { top: 100, right: 20, bottom: 70, left: 400 },
-                width = 600 - margin.left - margin.right,
-                height = 300 - margin.top - margin.bottom;
-            var map = new mapboxgl.Map({
-                container: 'map',
-                style: 'mapbox://styles/mapbox/streets-v11',
-                center: [144.964194, -37.824898],
-                zoom: 10
+            // When the user moves their mouse over the state-fill layer, we'll update the
+            // feature state for the feature under the mouse.
+            map.on("mousemove", "state-fills", function (thisElement) {
+                if (thisElement.features.length > 0) {
+                    if (hoveredStateId) {
+                        map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
+                    }
+                    hoveredStateId = thisElement.features[0].id;
+                    map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: true });
+                }
+                tooltip.style("visibility", "visible").text(thisElement.features[0].properties.vic_loca_2);
+                var a = a || window.event;
+                tooltip.style("top", (a.clientY + document.body.scrollTop + document.documentElement.scrollTop + 20) + "px").style("left", (a.clientX + document.body.scrollLeft + document.documentElement.scrollLeft) + "px");
+                //tooltip.style("top", (thisElement.point.y/0.75) + "px").style("left", (thisElement.point.x) + "px");
+                clicked = thisElement.features[0].properties.vic_loca_2;
+                Ddata.forEach(function (e) {
+                    if (e["Suburb"].toUpperCase() == clicked) {
+                        barchartForCountry(e);
+                    }
+                })
+            });
+            // When the mouse leaves the state-fill layer, update the feature state of the
+            // previously hovered feature.
+            map.on("mouseleave", "state-fills", function () {
+                if (hoveredStateId) {
+                    map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
+                }
+                hoveredStateId = null;
+                tooltip.style("visibility", "hidden");
             });
 
-            var svg;
-            var svgContainer;
-            var canvas = map.getCanvasContainer();
-            language();
-            function country() {
-                d3.select("#svg").remove();
-                d3.select("#svg1").remove();
-                d3.select("#svg2").remove();
-                map = new mapboxgl.Map({
-                    container: 'map',
-                    style: 'mapbox://styles/mapbox/streets-v11',
-                    center: [144.964194, -37.824898],
-                    zoom: 10
-                });
-                map.on('load', function () {
-                    map.addSource("states", {
-                        "type": "geojson",
-                        "data": boundaries
-                    });
-                    svg1 = d3.select("body").append("svg")
-                        .attr("id", "svg1")
-                        .attr("style", "height:200px")
-                        .attr("transform", "translate(" + 10 + "," + 10 + ")");
-                    legendArea = svg1.append("g")
-                        .attr("transform", "translate(0,20)");
-
-                    var legend = legendArea.selectAll("g")
-                        .data(countryColor)
-                        .enter()
-                        .append("g")
-                        .attr("transform", function (d, i) {
-                            return "translate(" + 10 + "," + 10 * i + ")";
-                        });
-
-                    legend.append("rect")
-                        .attr("width", 8)
-                        .attr("height", 8)
-                        .style("fill", function (d, i) {
-                            return d['color']
-                        });
-
-                    legend.append("text")
-                        .attr("x", 24)
-                        .attr("y", 9)
-                        .style("fill", function (d, i) {
-                            return d['color']
-                        })
-                        .attr("dy", ".05em")
-                        .attr("font-size", "10px")
-                        .text(function (d, i) {
-                            return d['country'];
-                        });
-
-                    map.addLayer({
-                        "id": "state-fills",
-                        "type": "fill",
-                        "source": "states",
-                        "layout": {},
-                        'paint': {
-                            'fill-color': {
-                                "property": "main_country_id", "stops": [[0, 'white'],
-                                [1, '#8D41C3'],
-                                [2, '#A85329'],
-                                [3, '#7A1E25'],
-                                [4, '#122B96'],
-                                [5, '#D5F4B1'],
-                                [6, '#43ADFE'],
-                                [7, '#438344'],
-                                [8, '#757ED9'],
-                                [9, '#39517C'],
-                                [10, '#E14578'],
-                                [11, '#EBEF8B'],
-                                [12, '#8AD886'],
-                                [13, '#7C9116'],
-                                [14, '#228E8C'],
-                                [15, '#A31DDD'],
-                                [16, '#F89614'],
-                                [17, '#6F5ABE']]
-                            }, 'fill-opacity':
-                                ["case",
-                                    ["boolean", ["feature-state", "hover"], false], 1, 0.5
-                                ]
-                        },
-                    });
-
-                    map.addLayer({
-                        "id": "state-borders",
-                        "type": "line",
-                        "source": "states",
-                        "layout": {},
-                        "paint": {
-                            "line-color": "#627BC1",
-                            "line-width": 1
-                        }
-                    });
-                    var tooltip = d3.select("body")
-                        .append("div")
-                        .style("border-style", "solid")
-                        .style("border-width", "1px")
-                        .style("background-color", "lightgray")
-                        .style("position", "absolute")
-                        .style("opacity", 0.8)
-                        .style("visibility", "visible");
-                    var Ddata;
-                    $.ajax({
-                        url: "/Education/GetJsonFromFile",
-                        type: "GET",//请求方式为get
-                        dataType: "json", //返回数据格式为json
-                        data: { path: "~/json/Country.json" },
-                        async: false,//是否同步
-                        success: function (data) {//请求成功完成后要执行的方法
-                            Ddata = data;
-                        },
-                        error: function () {
-                            console.log("error");
-                        }
-                    })
-
-                    // When the user moves their mouse over the state-fill layer, we'll update the
-                    // feature state for the feature under the mouse.
-                    map.on("mousemove", "state-fills", function (thisElement) {
-                        if (thisElement.features.length > 0) {
-                            if (hoveredStateId) {
-                                map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
-                            }
-                            hoveredStateId = thisElement.features[0].id;
-                            map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: true });
-                        }
-                        tooltip.style("visibility", "visible").text(thisElement.features[0].properties.vic_loca_2);
-                        var a = a || window.event;
-                        tooltip.style("top", (a.clientY + document.body.scrollTop + document.documentElement.scrollTop + 20) + "px").style("left", (a.clientX + document.body.scrollLeft + document.documentElement.scrollLeft) + "px");
-                        //tooltip.style("top", (thisElement.point.y/0.75) + "px").style("left", (thisElement.point.x) + "px");
-                        clicked = thisElement.features[0].properties.vic_loca_2;
-                        Ddata.forEach(function (e) {
-                            if (e["Suburb"].toUpperCase() == clicked) {
-                                barchartForCountry(e);
-                            }
-                        })
-                    });
-                    // When the mouse leaves the state-fill layer, update the feature state of the
-                    // previously hovered feature.
-                    map.on("mouseleave", "state-fills", function () {
-                        if (hoveredStateId) {
-                            map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
-                        }
-                        hoveredStateId = null;
-                        tooltip.style("visibility", "hidden");
-                    });
-
-                    map.on("click", "state-fills", function (thisElement) {
-                        suburbSelected = thisElement.features[0].properties.vic_loca_2;
-                        $("#selectSuburbC").val(suburbSelected);
-                        suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
-                    });
-                });
-            }
-            function language() {
-                d3.select("#svg").remove();
-                d3.select("#svg1").remove();
-                d3.select("#svg2").remove();
-                map = new mapboxgl.Map({
-                    container: 'map',
-                    style: 'mapbox://styles/mapbox/streets-v11',
-                    center: [144.964194, -37.824898],
-                    zoom: 10
-                });
-                map.on('load', function () {
-                    map.addSource("states", {
-                        "type": "geojson",
-                        "data": boundaries
-                    });
-
-                    svg1 = d3.select("body").append("svg")
-                        .attr("id", "svg1")
-                        .attr("style", "height:330px")
-                        .attr("transform", "translate(" + 10 + "," + 10 + ")");
-                    legendArea = svg1.append("g")
-                        .attr("transform", "translate(0,20)");
-
-                    var legend = legendArea.selectAll("g")
-                        .data(languageColor)
-                        .enter()
-                        .append("g")
-                        .attr("transform", function (d, i) {
-                            return "translate(" + 10 + "," + 10 * i + ")";
-                        });
-
-                    legend.append("rect")
-                        .attr("width", 8)
-                        .attr("height", 8)
-                        .style("fill", function (d, i) {
-                            return d['color']
-                        });
-
-                    legend.append("text")
-                        .attr("x", 24)
-                        .attr("y", 9)
-                        .style("fill", function (d, i) {
-                            return d['color']
-                        })
-                        .attr("dy", ".05em")
-                        .attr("font-size", "10px")
-                        .text(function (d, i) {
-                            return d['language'];
-                        });
-                    // The feature-state dependent fill-opacity expression will render the hover effect
-                    // when a feature's hover state is set to true.
-                    map.addLayer({
-                        "id": "state-fills",
-                        "type": "fill",
-                        "source": "states",
-                        "layout": {},
-                        'paint': {
-                            'fill-color': {
-                                "property": "main_language_id", "stops": [[0, 'white'],
-                                [1, '#EEC7C3'],
-                                [2, '#844773'],
-                                [3, '#375EB3'],
-                                [4, '#CABD27'],
-                                [5, '#D43155'],
-                                [6, '#E492CE'],
-                                [7, '#B4766D'],
-                                [8, '#54E859'],
-                                [9, '#2937C6'],
-                                [10, '#E7C92A'],
-                                [11, '#4FD755'],
-                                [12, '#C45DEA'],
-                                [13, '#FBCA22'],
-                                [14, '#E55A49'],
-                                [15, '#1F73F1'],
-                                [16, '#C86AA5'],
-                                [17, '#C93EC2'],
-                                [18, '#7A5F3A'],
-                                [19, '#F3BB57'],
-                                [20, '#655C79'],
-                                [21, '#81E1E4'],
-                                [22, '#112318'],
-                                [23, '#BBF8DF'],
-                                [24, '#CA3EB6'],
-                                [25, '#D79E64'],
-                                [26, '#6CBD43'],
-                                [27, '#2ADD8A'],
-                                [28, '#8E1372'],
-                                [29, '#C51569']]
-                            }, 'fill-opacity':
-                                ["case",
-                                    ["boolean", ["feature-state", "hover"], false], 1, 0.5
-                                ]
-                        },
-                    });
-
-                    map.addLayer({
-                        "id": "state-borders",
-                        "type": "line",
-                        "source": "states",
-                        "layout": {},
-                        "paint": {
-                            "line-color": "#627BC1",
-                            "line-width": 1
-                        }
-                    });
-                    var tooltip = d3.select("body")
-                        .append("div")
-                        .style("border-style", "solid")
-                        .style("border-width", "1px")
-                        .style("background-color", "lightgray")
-                        .style("position", "absolute")
-                        .style("opacity", 0.8)
-                        .style("visibility", "visible");
-                    var Ddata;
-                    $.ajax({
-                        url: "/Education/GetJsonFromFile",
-                        type: "GET",//请求方式为get
-                        dataType: "json", //返回数据格式为json
-                        data: { path: "~/json/Language.json" },
-                        async: false,//是否同步
-                        success: function (data) {//请求成功完成后要执行的方法
-                            Ddata = data;
-                        },
-                        error: function () {
-                            console.log("error");
-                        }
-                    })
-
-                    // When the user moves their mouse over the state-fill layer, we'll update the
-                    // feature state for the feature under the mouse.
-                    map.on("mousemove", "state-fills", function (thisElement) {
-                        if (thisElement.features.length > 0) {
-                            if (hoveredStateId) {
-                                map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
-                            }
-                            hoveredStateId = thisElement.features[0].id;
-                            map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: true });
-                        }
-                        tooltip.style("visibility", "visible").text(thisElement.features[0].properties.vic_loca_2);
-                        var a = a || window.event;
-                        tooltip.style("top", (a.clientY + document.body.scrollTop + document.documentElement.scrollTop + 20) + "px").style("left", (a.clientX + document.body.scrollLeft + document.documentElement.scrollLeft) + "px");
-                        clicked = thisElement.features[0].properties.vic_loca_2;
-                        Ddata.forEach(function (e) {
-                            if (e["Suburb"].toUpperCase() == clicked) {
-                                barchartForLanguage(e);
-                            }
-                        })
-                    });
-                    // When the mouse leaves the state-fill layer, update the feature state of the
-                    // previously hovered feature.
-                    map.on("mouseleave", "state-fills", function () {
-                        if (hoveredStateId) {
-                            map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
-                        }
-                        hoveredStateId = null;
-                        tooltip.style("visibility", "hidden");
-                    });
-
-                    map.on("click", "state-fills", function (thisElement) {
-                        suburbSelected = thisElement.features[0].properties.vic_loca_2;
-                        $("#selectSuburbL").val(suburbSelected);
-                        suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
-                    });
-                });
-            }
-            function barchartForCountry(e) {
-                d3.select("#svg").remove();
-                d3.select("#tooltip1").remove();
-                var x = d3.scale.ordinal().rangeRoundBands([0, width], .5);
-
-                var y = d3.scale.linear().range([height, 0]);
-
-                var xAxis = d3.svg.axis()
-                    .scale(x)
-                    .orient("bottom");
-
-                var yAxis = d3.svg.axis()
-                    .scale(y)
-                    .orient("left")
-                    .ticks(10);
-                svg = d3.select("body").append("svg")
-                    .attr("id", "svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate(" + 30 + "," + 10 + ")");
-                var tooltip1 = d3.select("body")
-                    .append("div")
-                    .attr("id", "tooltip1")
-                    .style("border-style", "solid")
-                    .style("border-width", "1px")
-                    .style("background-color", "lightgray")
-                    .style("position", "absolute")
-                    .style("opacity", 0.8)
-                    .style("visibility", "visible");
-
-                data = [{ "CountryName": e["Top country of birth"], "value": e["Top country of birth, %"] },
-                { "CountryName": e["2nd top country of birth"], "value": e["2nd top country of birth, %"] },
-                { "CountryName": e["3rd top country of birth"], "value": e["3rd top country of birth, %"] },
-                { "CountryName": e["4th top country of birth"], "value": e["4th top country of birth, %"] },
-                { "CountryName": e["5th top country of birth"], "value": e["5th top country of birth, %"] },];
-                data.forEach(function (d) {
-                    d.CountryName = d.CountryName;
-                    d.value = +d.value;
-                });
-                //console.log(data);
-                x.domain(data.map(function (d) { return d.CountryName; }));
-                y.domain([0, d3.max(data, function (d) { return d.value; })]);
-
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(xAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-                    .attr("dx", "-.8em")
-                    .attr("dy", "-.55em")
-                    .attr("transform", "rotate(-30)");
-
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .call(yAxis)
-                    .append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", 6)
-                    .attr("dy", "0.32em")
-                    .style("text-anchor", "end")
-                    .text("Value ($)");
-
-                svg.selectAll("bar")
-                    .data(data)
-                    .enter().append("rect")
-                    .style("fill", "steelblue")
-                    .attr("x", function (d) { return x(d.CountryName); })
-                    .attr("width", x.rangeBand())
-                    .attr("y", function (d) { return y(d.value); })
-                    .attr("height", function (d) { return height - y(d.value); });
-
-                svg.selectAll("rect")
-                    .on("mouseover", function (thisElement, index) {
-                        tooltip1.style("visibility", "visible").text(thisElement["value"]);
-                        d3.selectAll("rect").attr("opacity", 0.7); // grey out all circles
-                        d3.select(this).attr("opacity", 1);
-                    })
-                    .on("mousemove", function () { tooltip1.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px"); })
-                    .on("mouseout", function (thisElement, index) {
-                        tooltip1.style("visibility", "hidden");
-                        svg.selectAll("rect") // restore all circles to normal mode
-                            .attr("opacity", 1);
-                    });
-            }
-            function barchartForLanguage(e) {
-                d3.select("#svg").remove();
-                d3.select("#tooltip1").remove();
-
-                svg = d3.select("body").append("svg")
-                    .attr("id", "svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", "translate(" + 30 + "," + 10 + ")");
-                var tooltip1 = d3.select("body")
-                    .append("div")
-                    .attr("id", "tooltip1")
-                    .style("border-style", "solid")
-                    .style("border-width", "1px")
-                    .style("background-color", "lightgray")
-                    .style("position", "absolute")
-                    .style("opacity", 0.8)
-                    .style("visibility", "visible");
-                var x = d3.scale.ordinal().rangeRoundBands([0, width], .5);
-
-                var y = d3.scale.linear().range([height, 0]);
-
-                var xAxis = d3.svg.axis()
-                    .scale(x)
-                    .orient("bottom");
-
-                var yAxis = d3.svg.axis()
-                    .scale(y)
-                    .orient("left")
-                    .ticks(10);
-
-                data = [{ "LanguageName": e["Top language spoken"], "value": e["Top language spoken, %"] },
-                { "LanguageName": e["2nd top language spoken"], "value": e["2nd top language spoken, %"] },
-                { "LanguageName": e["3rd top language spoken"], "value": e["3rd top language spoken, %"] },
-                { "LanguageName": e["4th top language spoken"], "value": e["4th top language spoken, %"] },
-                { "LanguageName": e["5th top language spoken"], "value": e["5th top language spoken, %"] },];
-                data.forEach(function (d) {
-                    d.LanguageName = d.LanguageName;
-                    d.value = +d.value;
-                });
-                x.domain(data.map(function (d) { return d.LanguageName; }));
-                y.domain([0, d3.max(data, function (d) { return d.value; })]);
-                svg.append("g")
-                    .attr("class", "x axis")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(xAxis)
-                    .selectAll("text")
-                    .style("text-anchor", "end")
-                    .attr("dx", "-.8em")
-                    .attr("dy", "-.55em")
-                    .attr("transform", "rotate(-30)");
-
-                svg.append("g")
-                    .attr("class", "y axis")
-                    .call(yAxis)
-                    .append("text")
-                    .attr("transform", "rotate(-90)")
-                    .attr("y", 6)
-                    .attr("dy", "0.32em")
-                    .style("text-anchor", "end")
-                    .text("percentage of language %");
-
-                svg.selectAll("bar")
-                    .data(data)
-                    .enter().append("rect")
-                    .style("fill", "steelblue")
-                    .attr("x", function (d) { return x(d.LanguageName); })
-                    .attr("width", x.rangeBand())
-                    .attr("y", function (d) { return y(d.value); })
-                    .attr("height", function (d) { return height - y(d.value); });
-
-                svg.selectAll("rect")
-                    .on("mouseover", function (thisElement, index) {
-                        tooltip1.style("visibility", "visible").text(thisElement["value"]);
-                        d3.selectAll("rect").attr("opacity", 0.7); // grey out all circles
-                        d3.select(this).attr("opacity", 1);
-                    })
-                    .on("mousemove", function () { tooltip1.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px"); })
-                    .on("mouseleave", function (thisElement, index) {
-                        tooltip1.style("visibility", "hidden");
-                        svg.selectAll("rect") // restore all circles to normal mode
-                            .attr("opacity", 1);
-                    });
-            }
-
-        </script>
-        <script>
-            var selectCountry = document.getElementById("selectCountry");
-            var selectLanguage = document.getElementById("selectLanguage");
-            var selectSuburbL = document.getElementById("selectSuburbL");
-            var selectSuburbC = document.getElementById("selectSuburbC");
-            var selectSchoolTypeC = document.getElementById("selectSchoolTypeC");
-            var selectSchoolTypeL = document.getElementById("selectSchoolTypeL");
-            var selectAgeL = document.getElementById("selectAgeL");
-            var selectAgeC = document.getElementById("selectAgeC");
-            var countrySelected = 0;
-            var languageSelected = 0;
-            var suburbs = [];
-            selectCountry.options.add(new Option("-select country-", 0));
-
-            for (var i = 0; i < countryColor.length; i++) {
-                selectCountry.options.add(new Option(countryColor[i]["country"], countryColor[i]["id"]));
-            }
-            sortSelectOptions("#selectCountry");
-            selectLanguage.options.add(new Option("-select language-", 0));
-            for (var i = 0; i < languageColor.length; i++) {
-                selectLanguage.options.add(new Option(languageColor[i]["language"], languageColor[i]["id"]));
-            }
-            sortSelectOptions("#selectLanguage");
-            function countryChange(obj) {
-                d3.select("#svg2").remove();
-                document.getElementById("svg1").style.display = "block";
-                var a = document.getElementById("svg");
-                if (a) { document.getElementById("svg").style.display = "block"; }
-                $('.marker').remove();
-                map.setLayoutProperty("state-fills", 'visibility', 'visible');
-                map.setLayoutProperty("state-borders", 'visibility', 'visible');
-                map.flyTo({
-                    center: [144.964194, -37.824898],
-                    zoom: 10
-                });
-                var m = parseInt(obj.options[obj.selectedIndex].value);
-                countrySelected = m;
-                if (m != 0) {
-                    map.setPaintProperty("state-fills", 'fill-color', {
-                        "property": "main_country_id",
-                        "stops": [[m - 1, 'white'], [m, 'gray'], [m + 1, 'white']]
-                    });
-                }
-                loadSuburb();
-            }
-            function languageChange(obj) {
-                d3.select("#svg2").remove();
-                document.getElementById("svg1").style.display = "block";
-                var a = document.getElementById("svg");
-                if (a) { document.getElementById("svg").style.display = "block"; }
-                $('.marker').remove();
-                map.setLayoutProperty("state-fills", 'visibility', 'visible');
-                map.setLayoutProperty("state-borders", 'visibility', 'visible');
-                map.flyTo({
-                    center: [144.964194, -37.824898],
-                    zoom: 10
-                });
-                var m = parseInt(obj.options[obj.selectedIndex].value);
-                languageSelected = m;
-                if (m != 0) {
-                    map.setPaintProperty("state-fills", 'fill-color', {
-                        "property": "main_language_id",
-                        "stops": [[m - 1, 'white'], [m, 'gray'], [m + 1, 'white']]
-                    });
-                }
-                loadSuburb();
-            }
-            loadSuburb();
-            function loadSuburb() {
-                selectSchoolTypeC.options.length = 0;
-                selectSchoolTypeC.options.add(new Option("All school type", "none"));
-                selectSchoolTypeC.options.add(new Option("Government", "Government"));
-                selectSchoolTypeC.options.add(new Option("Independent", "Independent"));
-                selectSchoolTypeC.options.add(new Option("Catholic", "Catholic"));
-                selectSchoolTypeC.options.add(new Option("LanguageSchool", "LanguageSchool"));
-                selectSchoolTypeL.options.length = 0;
-                selectSchoolTypeL.options.add(new Option("All school type", "none"));
-                selectSchoolTypeL.options.add(new Option("Government", "Government"));
-                selectSchoolTypeL.options.add(new Option("Independent", "Independent"));
-                selectSchoolTypeL.options.add(new Option("Catholic", "Catholic"));
-                selectSchoolTypeL.options.add(new Option("LanguageSchool", "LanguageSchool"));
-                /*  selectAgeL.options.length = 0;
-                  selectAgeL.options.add(new Option("All Age Group", "none"));
-                  selectAgeL.options.add(new Option("3-6 Years", "3-6 Years"));
-                  selectAgeL.options.add(new Option("7-12 Years", "7-12 Years"));
-                  selectAgeC.options.length = 0;
-                  selectAgeC.options.add(new Option("All Age Group", "none"));
-                  selectAgeC.options.add(new Option("3-6 Years", "3-6 Years"));
-                  selectAgeC.options.add(new Option("7-12 Years", "7-12 Years"));*/
-                if (countryFunction) {
-                    selectSuburbC.options.length = 0;
-                    suburbs = [];
-                    for (var i = 0; i < boundaries["features"].length; i++) {
-                        if (countrySelected == 0) { suburbs.push(boundaries["features"][i]); }
-                        else {
-                            if (countrySelected == boundaries["features"][i]["main_country_id"]) { suburbs.push(boundaries["features"][i]); }
-                        }
-
-                    }
-                    selectSuburbC.options.add(new Option("-select suburb-", 0))
-                    for (var i = 0; i < suburbs.length; i++) {
-                        selectSuburbC.options.add(new Option(suburbs[i]["properties"]["vic_loca_2"].toLowerCase(), suburbs[i]["properties"]["vic_loca_2"].toUpperCase()));
-                    }
-                    sortSelectOptions("#selectSuburbC");
-                }
-                if (languageFunction) {
-                    selectSuburbL.options.length = 0;
-                    suburbs = [];
-                    for (var i = 0; i < boundaries["features"].length; i++) {
-                        if (languageSelected == 0) { suburbs.push(boundaries["features"][i]); }
-                        else {
-                            if (languageSelected == boundaries["features"][i]["main_language_id"]) { suburbs.push(boundaries["features"][i]); }
-                        }
-                    }
-                    selectSuburbL.options.add(new Option("-select suburb-", 0))
-                    for (var i = 0; i < suburbs.length; i++) {
-                        selectSuburbL.options.add(new Option(suburbs[i]["properties"]["vic_loca_2"].toLowerCase(), suburbs[i]["properties"]["vic_loca_2"].toUpperCase()));
-                    }
-                    sortSelectOptions("#selectSuburbL");
-                }
-
-            }
-            function suburbChange(obj) {
-                d3.select("#svg2").remove();
-                var clicked = "";
-                if (obj.clickState) { clicked = "clicked"; }
-
-                if (obj.id == "selectSuburbC") { exe(obj); }
-                if (obj.id == "selectSchoolTypeC") {
-                    if (selectSuburbC.options[selectSuburbC.selectedIndex].value != 0) { exe(obj); }
-                }
-                if (obj.id == "selectAgeC") {
-                    if (selectSuburbC.options[selectSuburbC.selectedIndex].value != 0) { exe(obj); }
-                }
-                if (obj.id == "selectSuburbL") { exe(obj); }
-                if (obj.id == "selectSchoolTypeL") {
-                    if (selectSuburbL.options[selectSuburbL.selectedIndex].value != 0) { exe(obj); }
-                }
-                if (obj.id == "selectAgeL") {
-                    if (selectSuburbL.options[selectSuburbL.selectedIndex].value != 0) { exe(obj); }
-                }
-                function exe(obj) {
-
-                    svg2 = d3.select("body").append("svg")
-                        .attr("id", "svg2")
-                        .attr("style", "height:100px")
-                        .attr("transform", "translate(" + 10 + "," + 10 + ")");
-                    legendArea = svg2.append("g")
-                        .attr("transform", "translate(0,20)");
-
-                    var l = [{ "tp": "Kindergarten", "color": "purple", "sp": "rect" }]
-                    var l2 = [{ "tp": "G", "color": "white", "sp": "rect" }, { "tp": "Government", "color": "purple", "sp": "rect" }, { "tp": "Independent", "color": "blue", "sp": "rect" }, { "tp": "Catholic", "color": "red", "sp": "rect" }, { "tp": "LanguageSchool", "color": "green", "sp": "rect" }]
-
-
-                    var legend2 = legendArea.selectAll("g")
-                        .data(l2)
-                        .enter()
-                        .append("g")
-                        .attr("transform", function (d, i) {
-                            return "translate(" + 10 + "," + 10 * i + ")";
-                        });
-
-                    legend2.append("circle")
-                        .attr("r", 4)
-                        .attr("cx", 4)
-                        .attr("cy", 8)
-                        .style("fill", function (d, i) {
-                            return d['color']
-                        });
-
-                    legend2.append("text")
-                        .attr("x", 24)
-                        .attr("y", 9)
-                        .style("fill", function (d, i) {
-                            return d['color']
-                        })
-                        .attr("dy", ".05em")
-                        .attr("font-size", "10px")
-                        .text(function (d, i) {
-                            return d['tp'];
-                        });
-
-                    var schoolTypeSelected = "";
-                    if (countryFunction) {
-                        schoolTypeSelected = selectSchoolTypeC.options[selectSchoolTypeC.selectedIndex].value;
-                    }
-                    if (languageFunction) {
-                        schoolTypeSelected = selectSchoolTypeL.options[selectSchoolTypeL.selectedIndex].value;
-                    }
-                    document.getElementById("svg1").style.display = "none";
-                    var a = document.getElementById("svg");
-                    if (a) { document.getElementById("svg").style.display = "none"; }
-
-                    $('.marker').remove();
-                    map.setLayoutProperty("state-fills", 'visibility', 'none');
-                    map.setLayoutProperty("state-borders", 'visibility', 'none');
-                    var lat = 0;
-                    var lon = 0;
-
-                    if (countryFunction) {
-                        if (clicked == "clicked") { } else { suburbSelected = selectSuburbC.options[selectSuburbC.selectedIndex].value }
-                    }
-                    if (languageFunction) {
-                        if (clicked == "clicked") { } else { suburbSelected = selectSuburbL.options[selectSuburbL.selectedIndex].value }
-                    }
-                    console.log(suburbSelected);
-                    $.ajax({
-                        url: "/Education/GetJsonSuburb",
-                        type: "GET",//请求方式为get
-                        dataType: "json", //返回数据格式为json
-                        data: { suburbName: suburbSelected },
-                        async: false,//是否同步
-                        success: function (data) {//请求成功完成后要执行的方法
-                            lat = parseFloat(data["Lat"]);
-                            lon = parseFloat(data["Lon"]);
-                        },
-                        error: function () {
-                            console.log("error");
-                        }
-                    })
-                    map.flyTo({
-                        center: [lon, lat],
-                        zoom: 13
-                    });
-
-                    var schools = [];
-                    $.ajax({
-                        url: "/Education/GetJsonSchools",
-                        type: "GET",//请求方式为get
-                        dataType: "json", //返回数据格式为json
-                        data: { suburbName: suburbSelected },
-                        async: false,//是否同步
-                        success: function (data) {//请求成功完成后要执行的方法
-                            schools = data;
-                        },
-                        error: function () {
-                            console.log("error");
-                        }
-                    })
-                    //console.log(schools);
-                    var geojson = { "type": "FeatureCollection", "features": [] };
-                    if (schoolTypeSelected == "none"
-                        //&& ageSelected == "none"
-                    ) {
-
-                        for (i = 0; i < schools.length; i++) {
-
-                            var feature = {
-                                "type": "Feature",
-                                "properties": {
-                                    "message": schools[i].School_Name.trim(),
-                                    "iconSize": [15, 15],
-                                    "Education_Sector": schools[i].Education_Sector.trim(),
-                                    "School_Type": schools[i].School_Type.trim()
-                                },
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        parseFloat(schools[i].Y.trim()),
-                                        parseFloat(schools[i].X.trim())
-                                    ]
-                                }
-                            };
-                            if (schools[i].Education_Sector.trim() == "LanguageSchool") { feature["properties"]["language"] = schools[i].Secondary_language.trim(); }
-                            else { feature["properties"]["language"] = ""; }
-                            geojson["features"].push(feature);
-                        }
-                    }
-                    else if (schoolTypeSelected != "none"
-                    ) {
-                        for (i = 0; i < schools.length; i++) {
-                            if (schools[i].Education_Sector.trim() == schoolTypeSelected
-                                //|| schools[i].School_Type.trim() == "Kindergarten"
-                            ) {
-                                var feature = {
-                                    "type": "Feature",
-                                    "properties": {
-                                        "message": schools[i].School_Name.trim(),
-                                        "iconSize": [15, 15],
-                                        "Education_Sector": schools[i].Education_Sector.trim(),
-                                        "School_Type": schools[i].School_Type.trim()
-                                    },
-                                    "geometry": {
-                                        "type": "Point",
-                                        "coordinates": [
-                                            parseFloat(schools[i].Y.trim()),
-                                            parseFloat(schools[i].X.trim())
-                                        ]
-                                    }
-                                };
-                                if (schools[i].Education_Sector.trim() == "LanguageSchool") { feature["properties"]["language"] = schools[i].Secondary_language.trim(); }
-                                else { feature["properties"]["language"] = ""; }
-                                geojson["features"].push(feature);
-                            }
-                        }
-                    }
-                    if (geojson["features"].length == 0) { alert("Sorry, no result was fund!"); }
-                    // add markers to map
-                    geojson.features.forEach(function (marker) {
-                        // create a DOM element for the marker
-                        var el = document.createElement('div');
-                        el.className = 'marker';
-                        //el.style.backgroundImage = 'url(https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png)';
-                        var markerColor = "purple";
-                        if (marker.properties.Education_Sector == "Government") { markerColor = "purple"; }
-                        else if (marker.properties.Education_Sector == "Independent") { markerColor = "blue"; }
-                        else if (marker.properties.Education_Sector == "Catholic") { markerColor = "red"; }
-                        else if (marker.properties.Education_Sector == "LanguageSchool") { markerColor = "green"; }
-                        el.style.backgroundColor = markerColor;
-                        el.style.width = marker.properties.iconSize[0] + 'px';
-                        el.style.height = marker.properties.iconSize[1] + 'px';
-                        var radius = "50%"
-                        if (marker.properties.School_Type == "Kindergarten") { radius = "5%"; }
-                        el.style.borderRadius = radius;
-                        el.addEventListener('click', function () {
-                            if (document.getElementById("myPopup")) {
-                                var x = document.getElementsByClassName("popuptext");
-
-                                var i;
-                                for (i = 0; i < x.length; i++) {
-                                    x[i].parentNode.removeChild(x[i]);
-
-                                }
-
-                            }
-                            var span = document.createElement("span");
-                            span.setAttribute('class', "popuptext");
-                            span.style.width = "200px";
-                            span.style.whiteSpace = "pre-wrap";
-                            span.style.border = "solid";
-                            span.style.background = "white";
-                            span.id = "myPopup";
-                            var div1 = document.createElement("div");
-                            div1.textContent = marker.properties.message;
-                            div1.style.fontSize = "13px";
-                            var div2 = document.createElement("div");
-                            console.log("yes");
-                            if (marker.properties.School_Type == "LanguageSchool") { console.log("yes"); div2.textContent = marker.properties.School_Type + "/" + marker.properties.language; }
-                            else { div2.textContent = marker.properties.School_Type + "/" + marker.properties.Education_Sector; }
-
-                            div2.style.fontSize = "10px";
-                            span.appendChild(div1);
-                            span.appendChild(div2);
-                            el.appendChild(span);
-                            //span.textContent = marker.properties.message;
-                            var popup = document.getElementById("myPopup");
-                            popup.classList.toggle("show");
-                        });
-                        // add marker to map
-                        new mapboxgl.Marker(el)
-                            .setLngLat(marker.geometry.coordinates)
-                            .addTo(map);
-                    });
-                    document.addEventListener("click", clickHidden);
-
-                    function clickHidden(eve) {
-                        if (eve.target.className != "marker mapboxgl-marker mapboxgl-marker-anchor-center" && document.getElementById("myPopup")) {
-                            var x = document.getElementsByClassName("popuptext");
-                            var i;
-                            for (i = 0; i < x.length; i++) {
-                                x[i].parentNode.removeChild(x[i]);
-
-                            }
-
-                        }
-                    }
-                }
-            }
-        </script>
-        <script type="text/javascript">
-
-            $(function () {
-                $(".clickMe").click(function () {
-                    if (countryFunction) {
-                        if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
-                        //
-                        loadSuburb();
-                        document.getElementById("selectSuburbC").options[0].selected = true;
-                        country();
-                    }
-                    if (languageFunction) {
-                        if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
-                        loadSuburb();
-                        document.getElementById("selectSuburbL").options[0].selected = true;
-                        language();
-                    }
-                });
+            map.on("click", "state-fills", function (thisElement) {
+                suburbSelected = thisElement.features[0].properties.vic_loca_2;
+                $("#selectSuburbC").val(suburbSelected);
+                suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
+            });
+        });
+    }
+    function language() {
+        d3.select("#svg").remove();
+        d3.select("#svg1").remove();
+        d3.select("#svg2").remove();
+        map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [144.964194, -37.824898],
+            zoom: 10
+        });
+        map.on('load', function () {
+            map.addSource("states", {
+                "type": "geojson",
+                "data": boundaries
             });
 
+            svg1 = d3.select("body").append("svg")
+                .attr("id", "svg1")
+                .attr("style", "height:330px")
+                .attr("transform", "translate(" + 25 + "," + 51 + ")");
+            legendArea = svg1.append("g")
+                .attr("transform", "translate(0,20)");
+
+            var legend = legendArea.selectAll("g")
+                .data(languageColor)
+                .enter()
+                .append("g")
+                .attr("transform", function (d, i) {
+                    return "translate(" + 10 + "," + 10 * i + ")";
+                });
+
+            legend.append("rect")
+                .attr("width", 8)
+                .attr("height", 8)
+                .style("fill", function (d, i) {
+                    return d['color']
+                });
+
+            legend.append("text")
+                .attr("x", 24)
+                .attr("y", 9)
+                .style("fill", function (d, i) {
+                    return d['color']
+                })
+                .attr("dy", ".05em")
+                .attr("font-size", "10px")
+                .text(function (d, i) {
+                    return d['language'];
+                });
+            // The feature-state dependent fill-opacity expression will render the hover effect
+            // when a feature's hover state is set to true.
+            map.addLayer({
+                "id": "state-fills",
+                "type": "fill",
+                "source": "states",
+                "layout": {},
+                'paint': {
+                    'fill-color': {
+                        "property": "main_language_id", "stops": [[0, 'white'],
+                        [1, '#EEC7C3'],
+                        [2, '#844773'],
+                        [3, '#375EB3'],
+                        [4, '#CABD27'],
+                        [5, '#D43155'],
+                        [6, '#E492CE'],
+                        [7, '#B4766D'],
+                        [8, '#54E859'],
+                        [9, '#2937C6'],
+                        [10, '#E7C92A'],
+                        [11, '#4FD755'],
+                        [12, '#C45DEA'],
+                        [13, '#FBCA22'],
+                        [14, '#E55A49'],
+                        [15, '#1F73F1'],
+                        [16, '#C86AA5'],
+                        [17, '#C93EC2'],
+                        [18, '#7A5F3A'],
+                        [19, '#F3BB57'],
+                        [20, '#655C79'],
+                        [21, '#81E1E4'],
+                        [22, '#112318'],
+                        [23, '#BBF8DF'],
+                        [24, '#CA3EB6'],
+                        [25, '#D79E64'],
+                        [26, '#6CBD43'],
+                        [27, '#2ADD8A'],
+                        [28, '#8E1372'],
+                        [29, '#C51569']]
+                    }, 'fill-opacity':
+                        ["case",
+                            ["boolean", ["feature-state", "hover"], false], 1, 0.5
+                        ]
+                },
+            });
+
+            map.addLayer({
+                "id": "state-borders",
+                "type": "line",
+                "source": "states",
+                "layout": {},
+                "paint": {
+                    "line-color": "#627BC1",
+                    "line-width": 1
+                }
+            });
+            var tooltip = d3.select("body")
+                .append("div")
+                .style("border-style", "solid")
+                .style("border-width", "1px")
+                .style("background-color", "lightgray")
+                .style("position", "absolute")
+                .style("opacity", 0.8)
+                .style("visibility", "visible");
+            var Ddata;
+            $.ajax({
+                url: "/Education/GetJsonFromFile",
+                type: "GET",//请求方式为get
+                dataType: "json", //返回数据格式为json
+                data: { path: "~/json/Language.json" },
+                async: false,//是否同步
+                success: function (data) {//请求成功完成后要执行的方法
+                    Ddata = data;
+                },
+                error: function () {
+                    console.log("error");
+                }
+            })
+
+            // When the user moves their mouse over the state-fill layer, we'll update the
+            // feature state for the feature under the mouse.
+            map.on("mousemove", "state-fills", function (thisElement) {
+                if (thisElement.features.length > 0) {
+                    if (hoveredStateId) {
+                        map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
+                    }
+                    hoveredStateId = thisElement.features[0].id;
+                    map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: true });
+                }
+                tooltip.style("visibility", "visible").text(thisElement.features[0].properties.vic_loca_2);
+                var a = a || window.event;
+                tooltip.style("top", (a.clientY + document.body.scrollTop + document.documentElement.scrollTop + 20) + "px").style("left", (a.clientX + document.body.scrollLeft + document.documentElement.scrollLeft) + "px");
+                clicked = thisElement.features[0].properties.vic_loca_2;
+                Ddata.forEach(function (e) {
+                    if (e["Suburb"].toUpperCase() == clicked) {
+                        barchartForLanguage(e);
+                    }
+                })
+            });
+            // When the mouse leaves the state-fill layer, update the feature state of the
+            // previously hovered feature.
+            map.on("mouseleave", "state-fills", function () {
+                if (hoveredStateId) {
+                    map.setFeatureState({ source: 'states', id: hoveredStateId }, { hover: false });
+                }
+                hoveredStateId = null;
+                tooltip.style("visibility", "hidden");
+            });
+
+            map.on("click", "state-fills", function (thisElement) {
+                suburbSelected = thisElement.features[0].properties.vic_loca_2;
+                $("#selectSuburbL").val(suburbSelected);
+                suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
+            });
+        });
+    }
+    function barchartForCountry(e) {
+        d3.select("#svg").remove();
+        d3.select("#tooltip1").remove();
+        var x = d3.scale.ordinal().rangeRoundBands([0, width], .5);
+
+        var y = d3.scale.linear().range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .ticks(10);
+        svg = d3.select("body").append("svg")
+            .attr("id", "svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + 30 + "," + 10 + ")");
+        var tooltip1 = d3.select("body")
+            .append("div")
+            .attr("id", "tooltip1")
+            .style("border-style", "solid")
+            .style("border-width", "1px")
+            .style("background-color", "lightgray")
+            .style("position", "absolute")
+            .style("opacity", 0.8)
+            .style("visibility", "visible");
+
+        data = [{ "CountryName": e["Top country of birth"], "value": e["Top country of birth, %"] },
+        { "CountryName": e["2nd top country of birth"], "value": e["2nd top country of birth, %"] },
+        { "CountryName": e["3rd top country of birth"], "value": e["3rd top country of birth, %"] },
+        { "CountryName": e["4th top country of birth"], "value": e["4th top country of birth, %"] },
+        { "CountryName": e["5th top country of birth"], "value": e["5th top country of birth, %"] },];
+        data.forEach(function (d) {
+            d.CountryName = d.CountryName;
+            d.value = +d.value;
+        });
+        //console.log(data);
+        x.domain(data.map(function (d) { return d.CountryName; }));
+        y.domain([0, d3.max(data, function (d) { return d.value; })]);
+
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-.55em")
+            .attr("transform", "rotate(-30)");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.32em")
+            .style("text-anchor", "end")
+            .text("Value ($)");
+
+        svg.selectAll("bar")
+            .data(data)
+            .enter().append("rect")
+            .style("fill", "steelblue")
+            .attr("x", function (d) { return x(d.CountryName); })
+            .attr("width", x.rangeBand())
+            .attr("y", function (d) { return y(d.value); })
+            .attr("height", function (d) { return height - y(d.value); });
+
+        svg.selectAll("rect")
+            .on("mouseover", function (thisElement, index) {
+                tooltip1.style("visibility", "visible").text(thisElement["value"]);
+                d3.selectAll("rect").attr("opacity", 0.7); // grey out all circles
+                d3.select(this).attr("opacity", 1);
+            })
+            .on("mousemove", function () { tooltip1.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px"); })
+            .on("mouseout", function (thisElement, index) {
+                tooltip1.style("visibility", "hidden");
+                svg.selectAll("rect") // restore all circles to normal mode
+                    .attr("opacity", 1);
+            });
+    }
+    function barchartForLanguage(e) {
+        d3.select("#svg").remove();
+        d3.select("#tooltip1").remove();
+
+        svg = d3.select("body").append("svg")
+            .attr("id", "svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + 30 + "," + 10 + ")");
+        var tooltip1 = d3.select("body")
+            .append("div")
+            .attr("id", "tooltip1")
+            .style("border-style", "solid")
+            .style("border-width", "1px")
+            .style("background-color", "lightgray")
+            .style("position", "absolute")
+            .style("opacity", 0.8)
+            .style("visibility", "visible");
+        var x = d3.scale.ordinal().rangeRoundBands([0, width], .5);
+
+        var y = d3.scale.linear().range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left")
+            .ticks(10);
+
+        data = [{ "LanguageName": e["Top language spoken"], "value": e["Top language spoken, %"] },
+        { "LanguageName": e["2nd top language spoken"], "value": e["2nd top language spoken, %"] },
+        { "LanguageName": e["3rd top language spoken"], "value": e["3rd top language spoken, %"] },
+        { "LanguageName": e["4th top language spoken"], "value": e["4th top language spoken, %"] },
+        { "LanguageName": e["5th top language spoken"], "value": e["5th top language spoken, %"] },];
+        data.forEach(function (d) {
+            d.LanguageName = d.LanguageName;
+            d.value = +d.value;
+        });
+        x.domain(data.map(function (d) { return d.LanguageName; }));
+        y.domain([0, d3.max(data, function (d) { return d.value; })]);
+        svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-.55em")
+            .attr("transform", "rotate(-30)");
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(yAxis)
+            .append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6)
+            .attr("dy", "0.32em")
+            .style("text-anchor", "end")
+            .text("percentage of language %");
+
+        svg.selectAll("bar")
+            .data(data)
+            .enter().append("rect")
+            .style("fill", "steelblue")
+            .attr("x", function (d) { return x(d.LanguageName); })
+            .attr("width", x.rangeBand())
+            .attr("y", function (d) { return y(d.value); })
+            .attr("height", function (d) { return height - y(d.value); });
+
+        svg.selectAll("rect")
+            .on("mouseover", function (thisElement, index) {
+                tooltip1.style("visibility", "visible").text(thisElement["value"]);
+                d3.selectAll("rect").attr("opacity", 0.7); // grey out all circles
+                d3.select(this).attr("opacity", 1);
+            })
+            .on("mousemove", function () { tooltip1.style("top", (d3.event.pageY - 10) + "px").style("left", (d3.event.pageX + 10) + "px"); })
+            .on("mouseleave", function (thisElement, index) {
+                tooltip1.style("visibility", "hidden");
+                svg.selectAll("rect") // restore all circles to normal mode
+                    .attr("opacity", 1);
+            });
+    }
+
+</script>
+<script>
+    var selectCountry = document.getElementById("selectCountry");
+    var selectLanguage = document.getElementById("selectLanguage");
+    var selectSuburbL = document.getElementById("selectSuburbL");
+    var selectSuburbC = document.getElementById("selectSuburbC");
+    var selectSchoolTypeC = document.getElementById("selectSchoolTypeC");
+    var selectSchoolTypeL = document.getElementById("selectSchoolTypeL");
+    var selectAgeL = document.getElementById("selectAgeL");
+    var selectAgeC = document.getElementById("selectAgeC");
+    var countrySelected = 0;
+    var languageSelected = 0;
+    var suburbs = [];
+    selectCountry.options.add(new Option("-select country-", 0));
+
+    for (var i = 0; i < countryColor.length; i++) {
+        selectCountry.options.add(new Option(countryColor[i]["country"], countryColor[i]["id"]));
+    }
+    sortSelectOptions("#selectCountry");
+    selectLanguage.options.add(new Option("-select language-", 0));
+    for (var i = 0; i < languageColor.length; i++) {
+        selectLanguage.options.add(new Option(languageColor[i]["language"], languageColor[i]["id"]));
+    }
+    sortSelectOptions("#selectLanguage");
+    function countryChange(obj) {
+        d3.select("#svg2").remove();
+        document.getElementById("svg1").style.display = "block";
+        var a = document.getElementById("svg");
+        if (a) { document.getElementById("svg").style.display = "block"; }
+        $('.marker').remove();
+        map.setLayoutProperty("state-fills", 'visibility', 'visible');
+        map.setLayoutProperty("state-borders", 'visibility', 'visible');
+        map.flyTo({
+            center: [144.964194, -37.824898],
+            zoom: 10
+        });
+        var m = parseInt(obj.options[obj.selectedIndex].value);
+        countrySelected = m;
+        if (m != 0) {
+            map.setPaintProperty("state-fills", 'fill-color', {
+                "property": "main_country_id",
+                "stops": [[m - 1, 'white'], [m, 'gray'], [m + 1, 'white']]
+            });
+        }
+        loadSuburb();
+    }
+    function languageChange(obj) {
+        d3.select("#svg2").remove();
+        document.getElementById("svg1").style.display = "block";
+        var a = document.getElementById("svg");
+        if (a) { document.getElementById("svg").style.display = "block"; }
+        $('.marker').remove();
+        map.setLayoutProperty("state-fills", 'visibility', 'visible');
+        map.setLayoutProperty("state-borders", 'visibility', 'visible');
+        map.flyTo({
+            center: [144.964194, -37.824898],
+            zoom: 10
+        });
+        var m = parseInt(obj.options[obj.selectedIndex].value);
+        languageSelected = m;
+        if (m != 0) {
+            map.setPaintProperty("state-fills", 'fill-color', {
+                "property": "main_language_id",
+                "stops": [[m - 1, 'white'], [m, 'gray'], [m + 1, 'white']]
+            });
+        }
+        loadSuburb();
+    }
+    loadSuburb();
+    function loadSuburb() {
+        selectSchoolTypeC.options.length = 0;
+        selectSchoolTypeC.options.add(new Option("All school type", "none"));
+        selectSchoolTypeC.options.add(new Option("Government", "Government"));
+        selectSchoolTypeC.options.add(new Option("Independent", "Independent"));
+        selectSchoolTypeC.options.add(new Option("Catholic", "Catholic"));
+        selectSchoolTypeC.options.add(new Option("LanguageSchool", "LanguageSchool"));
+        selectSchoolTypeL.options.length = 0;
+        selectSchoolTypeL.options.add(new Option("All school type", "none"));
+        selectSchoolTypeL.options.add(new Option("Government", "Government"));
+        selectSchoolTypeL.options.add(new Option("Independent", "Independent"));
+        selectSchoolTypeL.options.add(new Option("Catholic", "Catholic"));
+        selectSchoolTypeL.options.add(new Option("LanguageSchool", "LanguageSchool"));
+        /*  selectAgeL.options.length = 0;
+            selectAgeL.options.add(new Option("All Age Group", "none"));
+            selectAgeL.options.add(new Option("3-6 Years", "3-6 Years"));
+            selectAgeL.options.add(new Option("7-12 Years", "7-12 Years"));
+            selectAgeC.options.length = 0;
+            selectAgeC.options.add(new Option("All Age Group", "none"));
+            selectAgeC.options.add(new Option("3-6 Years", "3-6 Years"));
+            selectAgeC.options.add(new Option("7-12 Years", "7-12 Years"));*/
+        if (countryFunction) {
+            selectSuburbC.options.length = 0;
+            suburbs = [];
+            for (var i = 0; i < boundaries["features"].length; i++) {
+                if (countrySelected == 0) { suburbs.push(boundaries["features"][i]); }
+                else {
+                    if (countrySelected == boundaries["features"][i]["main_country_id"]) { suburbs.push(boundaries["features"][i]); }
+                }
+
+            }
+            selectSuburbC.options.add(new Option("-select suburb-", 0))
+            for (var i = 0; i < suburbs.length; i++) {
+                selectSuburbC.options.add(new Option(suburbs[i]["properties"]["vic_loca_2"].toLowerCase(), suburbs[i]["properties"]["vic_loca_2"].toUpperCase()));
+            }
+            sortSelectOptions("#selectSuburbC");
+        }
+        if (languageFunction) {
+            selectSuburbL.options.length = 0;
+            suburbs = [];
+            for (var i = 0; i < boundaries["features"].length; i++) {
+                if (languageSelected == 0) { suburbs.push(boundaries["features"][i]); }
+                else {
+                    if (languageSelected == boundaries["features"][i]["main_language_id"]) { suburbs.push(boundaries["features"][i]); }
+                }
+            }
+            selectSuburbL.options.add(new Option("-select suburb-", 0))
+            for (var i = 0; i < suburbs.length; i++) {
+                selectSuburbL.options.add(new Option(suburbs[i]["properties"]["vic_loca_2"].toLowerCase(), suburbs[i]["properties"]["vic_loca_2"].toUpperCase()));
+            }
+            sortSelectOptions("#selectSuburbL");
+        }
+
+    }
+    function suburbChange(obj) {
+        d3.select("#svg2").remove();
+        var clicked = "";
+        if (obj.clickState) { clicked = "clicked"; }
+
+        if (obj.id == "selectSuburbC") { exe(obj); }
+        if (obj.id == "selectSchoolTypeC") {
+            if (selectSuburbC.options[selectSuburbC.selectedIndex].value != 0) { exe(obj); }
+        }
+        if (obj.id == "selectAgeC") {
+            if (selectSuburbC.options[selectSuburbC.selectedIndex].value != 0) { exe(obj); }
+        }
+        if (obj.id == "selectSuburbL") { exe(obj); }
+        if (obj.id == "selectSchoolTypeL") {
+            if (selectSuburbL.options[selectSuburbL.selectedIndex].value != 0) { exe(obj); }
+        }
+        if (obj.id == "selectAgeL") {
+            if (selectSuburbL.options[selectSuburbL.selectedIndex].value != 0) { exe(obj); }
+        }
+        function exe(obj) {
+
+            svg2 = d3.select("body").append("svg")
+                .attr("id", "svg2")
+                .attr("style", "height:100px")
+                .attr("transform", "translate(" + 10 + "," + 10 + ")");
+            legendArea = svg2.append("g")
+                .attr("transform", "translate(0,20)");
+
+            var l = [{ "tp": "Kindergarten", "color": "purple", "sp": "rect" }]
+            var l2 = [{ "tp": "G", "color": "white", "sp": "rect" }, { "tp": "Government", "color": "purple", "sp": "rect" }, { "tp": "Independent", "color": "blue", "sp": "rect" }, { "tp": "Catholic", "color": "red", "sp": "rect" }, { "tp": "LanguageSchool", "color": "green", "sp": "rect" }]
+
+
+            var legend2 = legendArea.selectAll("g")
+                .data(l2)
+                .enter()
+                .append("g")
+                .attr("transform", function (d, i) {
+                    return "translate(" + 10 + "," + 10 * i + ")";
+                });
+
+            legend2.append("circle")
+                .attr("r", 4)
+                .attr("cx", 4)
+                .attr("cy", 8)
+                .style("fill", function (d, i) {
+                    return d['color']
+                });
+
+            legend2.append("text")
+                .attr("x", 24)
+                .attr("y", 9)
+                .style("fill", function (d, i) {
+                    return d['color']
+                })
+                .attr("dy", ".05em")
+                .attr("font-size", "10px")
+                .text(function (d, i) {
+                    return d['tp'];
+                });
+
+            var schoolTypeSelected = "";
+            if (countryFunction) {
+                schoolTypeSelected = selectSchoolTypeC.options[selectSchoolTypeC.selectedIndex].value;
+            }
+            if (languageFunction) {
+                schoolTypeSelected = selectSchoolTypeL.options[selectSchoolTypeL.selectedIndex].value;
+            }
+            document.getElementById("svg1").style.display = "none";
+            var a = document.getElementById("svg");
+            if (a) { document.getElementById("svg").style.display = "none"; }
+
+            $('.marker').remove();
+            map.setLayoutProperty("state-fills", 'visibility', 'none');
+            map.setLayoutProperty("state-borders", 'visibility', 'none');
+            var lat = 0;
+            var lon = 0;
+
+            if (countryFunction) {
+                if (clicked == "clicked") { } else { suburbSelected = selectSuburbC.options[selectSuburbC.selectedIndex].value }
+            }
+            if (languageFunction) {
+                if (clicked == "clicked") { } else { suburbSelected = selectSuburbL.options[selectSuburbL.selectedIndex].value }
+            }
+            console.log(suburbSelected);
+            $.ajax({
+                url: "/Education/GetJsonSuburb",
+                type: "GET",//请求方式为get
+                dataType: "json", //返回数据格式为json
+                data: { suburbName: suburbSelected },
+                async: false,//是否同步
+                success: function (data) {//请求成功完成后要执行的方法
+                    lat = parseFloat(data["Lat"]);
+                    lon = parseFloat(data["Lon"]);
+                },
+                error: function () {
+                    console.log("error");
+                }
+            })
+            map.flyTo({
+                center: [lon, lat],
+                zoom: 13
+            });
+
+            var schools = [];
+            $.ajax({
+                url: "/Education/GetJsonSchools",
+                type: "GET",//请求方式为get
+                dataType: "json", //返回数据格式为json
+                data: { suburbName: suburbSelected },
+                async: false,//是否同步
+                success: function (data) {//请求成功完成后要执行的方法
+                    schools = data;
+                },
+                error: function () {
+                    console.log("error");
+                }
+            })
+            //console.log(schools);
+            var geojson = { "type": "FeatureCollection", "features": [] };
+            if (schoolTypeSelected == "none"
+                //&& ageSelected == "none"
+            ) {
+
+                for (i = 0; i < schools.length; i++) {
+
+                    var feature = {
+                        "type": "Feature",
+                        "properties": {
+                            "message": schools[i].School_Name.trim(),
+                            "iconSize": [15, 15],
+                            "Education_Sector": schools[i].Education_Sector.trim(),
+                            "School_Type": schools[i].School_Type.trim()
+                        },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                parseFloat(schools[i].Y.trim()),
+                                parseFloat(schools[i].X.trim())
+                            ]
+                        }
+                    };
+                    if (schools[i].Education_Sector.trim() == "LanguageSchool") { feature["properties"]["language"] = schools[i].Secondary_language.trim(); }
+                    else { feature["properties"]["language"] = ""; }
+                    geojson["features"].push(feature);
+                }
+            }
+            else if (schoolTypeSelected != "none"
+            ) {
+                for (i = 0; i < schools.length; i++) {
+                    if (schools[i].Education_Sector.trim() == schoolTypeSelected
+                        //|| schools[i].School_Type.trim() == "Kindergarten"
+                    ) {
+                        var feature = {
+                            "type": "Feature",
+                            "properties": {
+                                "message": schools[i].School_Name.trim(),
+                                "iconSize": [15, 15],
+                                "Education_Sector": schools[i].Education_Sector.trim(),
+                                "School_Type": schools[i].School_Type.trim()
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    parseFloat(schools[i].Y.trim()),
+                                    parseFloat(schools[i].X.trim())
+                                ]
+                            }
+                        };
+                        if (schools[i].Education_Sector.trim() == "LanguageSchool") { feature["properties"]["language"] = schools[i].Secondary_language.trim(); }
+                        else { feature["properties"]["language"] = ""; }
+                        geojson["features"].push(feature);
+                    }
+                }
+            }
+            if (geojson["features"].length == 0) { alert("Sorry, no result was fund!"); }
+            // add markers to map
+            geojson.features.forEach(function (marker) {
+                // create a DOM element for the marker
+                var el = document.createElement('div');
+                el.className = 'marker';
+                //el.style.backgroundImage = 'url(https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png)';
+                var markerColor = "purple";
+                if (marker.properties.Education_Sector == "Government") { markerColor = "purple"; }
+                else if (marker.properties.Education_Sector == "Independent") { markerColor = "blue"; }
+                else if (marker.properties.Education_Sector == "Catholic") { markerColor = "red"; }
+                else if (marker.properties.Education_Sector == "LanguageSchool") { markerColor = "green"; }
+                el.style.backgroundColor = markerColor;
+                el.style.width = marker.properties.iconSize[0] + 'px';
+                el.style.height = marker.properties.iconSize[1] + 'px';
+                var radius = "50%"
+                if (marker.properties.School_Type == "Kindergarten") { radius = "5%"; }
+                el.style.borderRadius = radius;
+                el.addEventListener('click', function () {
+                    if (document.getElementById("myPopup")) {
+                        var x = document.getElementsByClassName("popuptext");
+
+                        var i;
+                        for (i = 0; i < x.length; i++) {
+                            x[i].parentNode.removeChild(x[i]);
+
+                        }
+
+                    }
+                    var span = document.createElement("span");
+                    span.setAttribute('class', "popuptext");
+                    span.style.width = "200px";
+                    span.style.whiteSpace = "pre-wrap";
+                    span.style.border = "solid";
+                    span.style.background = "white";
+                    span.id = "myPopup";
+                    var div1 = document.createElement("div");
+                    div1.textContent = marker.properties.message;
+                    div1.style.fontSize = "13px";
+                    var div2 = document.createElement("div");
+                    console.log("yes");
+                    if (marker.properties.School_Type == "LanguageSchool") { console.log("yes"); div2.textContent = marker.properties.School_Type + "/" + marker.properties.language; }
+                    else { div2.textContent = marker.properties.School_Type + "/" + marker.properties.Education_Sector; }
+
+                    div2.style.fontSize = "10px";
+                    span.appendChild(div1);
+                    span.appendChild(div2);
+                    el.appendChild(span);
+                    //span.textContent = marker.properties.message;
+                    var popup = document.getElementById("myPopup");
+                    popup.classList.toggle("show");
+                });
+                // add marker to map
+                new mapboxgl.Marker(el)
+                    .setLngLat(marker.geometry.coordinates)
+                    .addTo(map);
+            });
+            document.addEventListener("click", clickHidden);
+
+            function clickHidden(eve) {
+                if (eve.target.className != "marker mapboxgl-marker mapboxgl-marker-anchor-center" && document.getElementById("myPopup")) {
+                    var x = document.getElementsByClassName("popuptext");
+                    var i;
+                    for (i = 0; i < x.length; i++) {
+                        x[i].parentNode.removeChild(x[i]);
+
+                    }
+
+                }
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+
+    $(function () {
+        $(".clickMe").click(function () {
+            if (countryFunction) {
+                if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
+                countrySelected = 0;
+                loadSuburb();
+                document.getElementById("selectSuburbC").options[0].selected = true;
+                country();
+            }
+            if (languageFunction) {
+                if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
+                languageSelected = 0;
+                loadSuburb();
+                document.getElementById("selectSuburbL").options[0].selected = true;
+                language();
+            }
+        });
+    });
+
+    
 
 
 
+</script>
 
-        </script>
-    </!-->
