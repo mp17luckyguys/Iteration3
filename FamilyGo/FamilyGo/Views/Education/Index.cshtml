@@ -45,7 +45,7 @@
         position: absolute;
         left: 28%;
         bottom: 0;
-        top: 625px;
+
     }
 
     #svg {
@@ -55,10 +55,10 @@
         border-color: darkgray;
         border-width: 2px;
         background-color: white;
-        position: absolute;
-        left: 4%;
+        position: relative;
+        margin-top: 20px;
+        left: 0;
         bottom: 0;
-        top: 625px;
     }
 
     #svg1 {
@@ -523,7 +523,7 @@
             svg1 = d3.select("body").append("svg")
                 .attr("id", "svg1")
                 .attr("style", "height:200px")
-                .attr("transform", "translate(" + 25 + "," + 51 + ")");
+                .attr("transform", "translate(" + 25 + "," + 100 + ")");
             legendArea = svg1.append("g")
                 .attr("transform", "translate(0,20)");
 
@@ -676,7 +676,7 @@
             svg1 = d3.select("body").append("svg")
                 .attr("id", "svg1")
                 .attr("style", "height:330px")
-                .attr("transform", "translate(" + 25 + "," + 51 + ")");
+                .attr("transform", "translate(" + 25 + "," + 100 + ")");
             legendArea = svg1.append("g")
                 .attr("transform", "translate(0,20)");
 
@@ -837,7 +837,7 @@
             .scale(y)
             .orient("left")
             .ticks(10);
-        svg = d3.select("body").append("svg")
+        svg = d3.select("#filter").append("svg")
             .attr("id", "svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -912,7 +912,7 @@
         d3.select("#svg").remove();
         d3.select("#tooltip1").remove();
 
-        svg = d3.select("body").append("svg")
+        svg = d3.select("#filter").append("svg")
             .attr("id", "svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
