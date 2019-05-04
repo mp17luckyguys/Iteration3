@@ -353,47 +353,47 @@
                 })
                 //console.log(x);
                 function initmodal(x) {
-                document.getElementById("address").innerText = x.address;
-                document.getElementById("rating").innerText = x.rating;
-                document.getElementById("phone").innerText = x.phoneNumber;
-                document.getElementById("website").innerText = x.website;
-                document.getElementById("open").innerText = x.openingNow;
-                document.getElementById("name").innerText = x.name;
+                    document.getElementById("address").innerText = x.address;
+                    document.getElementById("rating").innerText = x.rating;
+                    document.getElementById("phone").innerText = x.phoneNumber;
+                    document.getElementById("website").innerText = x.website;
+                    document.getElementById("open").innerText = x.openingNow;
+                    document.getElementById("name").innerText = x.name;
 
-                var weekdayStr = "";
-                if (x.weekday != "No weekday information avaliable.") {
-                    var json1 = JSON.parse(x.weekday);
-                    for (var i = 0; i < json1.length; i++) {
-                        //console.log(json1[i]);
-                        weekdayStr = weekdayStr + json1[i] + "\n";
+                    var weekdayStr = "";
+                    if (x.weekday != "No weekday information avaliable.") {
+                        var json1 = JSON.parse(x.weekday);
+                        for (var i = 0; i < json1.length; i++) {
+                            //console.log(json1[i]);
+                            weekdayStr = weekdayStr + json1[i] + "\n";
+                        }
                     }
-                }
-                else {
-                    weekdayStr = x.weekday + "\n";
-                }
+                    else {
+                        weekdayStr = x.weekday + "\n";
+                    }
 
-                document.getElementById("weekday").innerText = weekdayStr;
-                document.getElementById("address").innerText = x.address;
-                //document.getElementById("review").innerText = x.review;
-                //console.log(x.review);
-                var reviewStr = "";
-                if (x.review != "No review avaliable.")
-                {
-                    var json = JSON.parse(x.review);
-                    for (var i = 0; i < json.length; i++)
+                    document.getElementById("weekday").innerText = weekdayStr;
+                    document.getElementById("address").innerText = x.address;
+                    //document.getElementById("review").innerText = x.review;
+                    //console.log(x.review);
+                    var reviewStr = "";
+                    if (x.review != "No review avaliable.")
                     {
-                        //console.log(json[i]);
-                        reviewStr = reviewStr + json[i].author_name + "\n";
-                        reviewStr = reviewStr + json[i].relative_time_description + "\n";
-                        reviewStr = reviewStr + json[i].text + "\n\n";
+                        var json = JSON.parse(x.review);
+                        for (var i = 0; i < json.length; i++)
+                        {
+                            //console.log(json[i]);
+                            reviewStr = reviewStr + json[i].author_name + "\n";
+                            reviewStr = reviewStr + json[i].relative_time_description + "\n";
+                            reviewStr = reviewStr + json[i].text + "\n\n";
+                        }
                     }
-                }
-                else
-                {
-                    reviewStr = x.review + "\n";
-                }
-                //console.log(reviewStr);
-                document.getElementById("review").innerText = reviewStr;
+                    else
+                    {
+                        reviewStr = x.review + "\n";
+                    }
+                    //console.log(reviewStr);
+                    document.getElementById("review").innerText = reviewStr;
                     document.getElementById("image").setAttribute("src", x.imUrl);
                 }
                 closeOtherInfo();
