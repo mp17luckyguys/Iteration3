@@ -363,7 +363,8 @@ a.agilebtn {
 }
 
 .about {
-    background: url(../Image/family4.jpg) no-repeat 0px 0px;
+    background: url(../Image/family.jpg) no-repeat 0px 0px;
+    background-size: cover;
 }
 
     .about h4 {
