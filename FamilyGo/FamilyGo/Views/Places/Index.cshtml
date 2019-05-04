@@ -342,15 +342,17 @@
                     type: "GET",//请求方式为get
                     dataType: "json", //返回数据格式为json
                     data: { id: marker.id },
-                    async: false,//是否同步
+                    async: true,//是否同步
                     success: function (data) {//请求成功完成后要执行的方法
-                        x = data
+                        x = data;
+                        initmodal(x);
                     },
                     error: function () {
                         console.log("error");
                     }
                 })
                 //console.log(x);
+                function initmodal(x) {
                 document.getElementById("address").innerText = x.address;
                 document.getElementById("rating").innerText = x.rating;
                 document.getElementById("phone").innerText = x.phoneNumber;
@@ -392,7 +394,8 @@
                 }
                 //console.log(reviewStr);
                 document.getElementById("review").innerText = reviewStr;
-                document.getElementById("image").setAttribute("src", x.imUrl);;
+                    document.getElementById("image").setAttribute("src", x.imUrl);
+                }
                 closeOtherInfo();
                 infowindow.open(marker.get('map'), marker);
                 InforObj[0] = infowindow;
