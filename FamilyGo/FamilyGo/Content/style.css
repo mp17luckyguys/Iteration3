@@ -117,7 +117,7 @@ ul.nav.navbar-nav.navbar-left {
 }
 
 .navbar-nav > li {
-    margin-right: 2.5em;
+    margin-right: 1.5em;
 }
 
     .navbar-nav > li:nth-child(5) {
@@ -1123,9 +1123,9 @@ h3.w3ltitle {
 .address-agileinfo {
     padding: 1em 0;
     margin-top: 1.5em;
-    -webkit-box-shadow: 0px 0px 20px #66cdaa;
-    -moz-box-shadow: 0px 0px 20px #66cdaa;
-    box-shadow: 0px 0px 20px #66cdaa;
+    -webkit-box-shadow: 0px 0px 30px #66cdaa;
+    -moz-box-shadow: 0px 0px 30px #66cdaa;
+    box-shadow: 0px 0px 30px #66cdaa;
 }
 
     .address-agileinfo ul {
@@ -1980,7 +1980,7 @@ h2.typoh2 {
     }
 
     .navbar-nav > li {
-        margin-right: 1em;
+       
     }
 
     .banner-w3text h3, .banner-w3text h2 {
@@ -2207,7 +2207,7 @@ h2.typoh2 {
 
     .navbar-default1 .navbar-toggle {
         border-color: #66cdaa;
-        margin: 14px 0 0;
+        margin: 10px 0 0;
     }
 
         .navbar-default1 .navbar-toggle:hover, .navbar-default1 .navbar-toggle:focus {
@@ -2219,7 +2219,7 @@ h2.typoh2 {
         }
 
         .navbar-default1 .navbar-toggle:hover .icon-bar, .navbar-default1 .navbar-toggle:focus .icon-bar {
-            background-color: #fff;
+            background-color:#f5f5f5;
         }
 
     .social-icons ul li a.fa {

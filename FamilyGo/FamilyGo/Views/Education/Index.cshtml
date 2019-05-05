@@ -1,7 +1,7 @@
 ﻿
 @Scripts.Render("~/bundles/jquery")
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Education";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/font-awesome.css" rel="stylesheet" />
@@ -22,7 +22,6 @@
         position: relative;
         height: 100%;
         width: 75%;
-
     }
 
     #wholeContiner {
@@ -45,7 +44,6 @@
         position: absolute;
         left: 28%;
         bottom: 0;
-
     }
 
     #svg {
@@ -214,6 +212,7 @@
     }
 </style>
 
+<!--navigation bar-->
 <div style="margin-top:7.5em">
     <div class="about-heading" style="margin-left:2em;margin-right:2em;">
         <h5>
@@ -222,22 +221,23 @@
         </h5>
     </div>
 </div>
-
-    <div class="about-heading"  style="margin-left:2em;margin-right:2em;">
-        <ul id="myTab" class="nav nav-tabs" role="tabpanel" style="font-family:Georgia">
-            <li role="presentation" id ="infoPresentation"class="active"><a href="javascript:initinformation();" role="tab">Education Information</a></li>
-            <li role="presentation" id="languagePresentation"><a href="javascript:initlanguage();" role="tab">Find schools by Native Language </a> </li>
-            <li role="presentation" id="countryPresentation"><a href="javascript:initcountry();" role="tab"> Find schools by Nationality</a></li>
-        </ul>
-    </div>
-
-<div id="info"  style="margin-left:2em;margin-right:2em;margin-bottom:2em;">
+<!--//navigation bar-->
+<!--tab selection -->
+<div class="about-heading" style="margin-left:2em;margin-right:2em;">
+    <ul id="myTab" class="nav nav-tabs" role="tabpanel" style="font-family:Georgia">
+        <li role="presentation" id="infoPresentation" class="active"><a href="javascript:initinformation();" role="tab">Education Information</a></li>
+        <li role="presentation" id="languagePresentation"><a href="javascript:initlanguage();" role="tab">Find schools by Native Language </a> </li>
+        <li role="presentation" id="countryPresentation"><a href="javascript:initcountry();" role="tab"> Find schools by Nationality</a></li>
+    </ul>
+</div>
+<!--//tab selection-->
+<!--school information-->
+<div id="info" style="margin-left:2em;margin-right:2em;margin-bottom:2em;">
     <div><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
     <div>
         <p>There are three main kind of schools in Australia.</p>
     </div>
     <div class="address-agileinfo" style="padding:1em">
-
         <p><span class="fa fa-tag"></span><strong> Public School</strong></p>
         <p><strong>Benefits:</strong></p>
         <p>1.Close to your home</p>
@@ -247,9 +247,7 @@
         <p>1.If there are social problems in your area, they may filter into school.</p>
         <p>2.Quality of staff</p>
     </div>
-
     <div class="address-agileinfo" style="padding:1em">
-
         <p><span class="fa fa-tag"></span><strong> Cathoic School</strong></p>
         <p><strong>Benefits:</strong></p>
         <p>1.Many Catholic schools encourage families to contribute to the Church’s social justice programs.</p>
@@ -259,7 +257,6 @@
         <p>1.Strict participation after school or on weekends.</p>
         <p>2.Your child may need to be prepared for strict but fair rules; learning to sit still in Mass and adopting slightly formal manners at a young age</p>
     </div>
-
     <div class="address-agileinfo" style="padding:1em">
         <p><span class="fa fa-tag"></span><strong> Private School</strong></p>
         <p><strong>Benefits:</strong></p>
@@ -271,58 +268,10 @@
         <p>2.A bigger homework load than their public school peers</p>
     </div>
 </div>
+<!--//school information-->
 <!--this container contains the filter and map-->
 <div id="wholeContiner" style="margin:2em">
-    <div class="col-lg-2 box" id="filter">
-        <!--<ul id="filter_name">-->
-        <!-- <li id="attribute_name">
-        <input class="aa" type="radio" name="check" id="active1" value="information" checked><label for="active1" style="border:solid;border-radius:15px">Information</label>
-        <div id="information" style=" overflow:scroll; width:100%; height:750px;">
-
-            <div><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
-            <div style=" width:100%;">
-                <p>There are three main kind of schools in Australia.</p>
-            </div>
-            <div class="address-agileinfo" style=" width:90%;margin-left:0.7em;">
-
-                <p><span class="glyphicon glyphicon-info-sign"></span><strong>Public School</strong></p>
-                <p><strong>Benefits:</strong></p>
-                <p>1.Close to your home</p>
-                <p>2.Reduce cost</p>
-                <p>3.Broader subject choices</p>
-                <p><strong>Challenges:</strong></p>
-                <p>1.If there are social problems in your area, they may filter into school.</p>
-                <p>2.Quality of staff</p>
-            </div>
-
-            <div class="address-agileinfo" style=" width:90%;margin-left:0.7em;">
-
-                <p><span class="glyphicon glyphicon-info-sign"></span><strong>Cathoic School</strong></p>
-                <p><strong>Benefits:</strong></p>
-                <p>1.Many Catholic schools encourage families to contribute to the Church’s social justice programs.</p>
-                <p>2.The spiritual values of Faith, Hope and Charity all strongly feature in daily Catholic school activities.</p>
-                <p>3.Catholic schools proudly note many staff have made it their mission to serve a school for the long term. </p>
-                <p><strong>Challenges:</strong></p>
-                <p>1.Strict participation after school or on weekends.</p>
-                <p>2.Your child may need to be prepared for strict but fair rules; learning to sit still in Mass and adopting slightly formal manners at a young age</p>
-            </div>
-
-            <div class="address-agileinfo" style=" width:90%;margin-left:0.7em;">
-                <p><span class="glyphicon glyphicon-info-sign"></span><strong>Private School</strong></p>
-                <p><strong>Benefits:</strong></p>
-                <p>1.Private schools can promote their wide range of creative, sporting, community and adventuring activities, marketed as extending your child’s abilities, resilience and competitive drive.</p>
-                <p>2.Every private school has a building fund to maintain impressive architecture, lawns and extracurricular facilities</p>
-                <p>3.Parents and former students make financial contributions to the school. </p>
-                <p><strong>Challenges:</strong></p>
-                <p>1.Higher tuition fees, extra activities, more expensive uniforms, text books, stationery with the school crest </p>
-                <p>2.A bigger homework load than their public school peers</p>
-            </div>
-
-        </div>
-    </li>-->
-        <!--  <li id="attribute_name">
-      <input class="aa" type="radio" name="check" id="active2" value="language"><label for="active2" style="border:solid;border-radius:15px">Language</label>
-    -->
+    <div class="col-lg-2 box" id="filter">       
         <!--this is filter for language-->
         <div id="languageFilter" style="padding:2.5em" class="address-agileinfo">
             <div style="margin-top:0.5em">
@@ -346,10 +295,6 @@
                 <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
             </div>
         </div>
-        <!--</li>
-    <li id="attribute_name">
-        <input class="aa" type="radio" name="check" id="active3" value="country"><label for="active3" style="border:solid;border-radius:15px">Country</label>
-        -->
         <!--this is filter for country-->
         <div id="countryFilter" style="padding:3em" class="address-agileinfo">
             <div style="margin-top:0.5em">
@@ -359,13 +304,11 @@
             <div style="margin-top:0.5em">
                 Select a Suburb:<br />
                 <select id="selectSuburbC" onchange="suburbChange(this)"></select><br />
-
             </div>
             <div style="margin-top:0.5em">
                 Select School Type:<br />
                 <select id="selectSchoolTypeC" onchange="suburbChange(this)"></select><br />
             </div>
-
             <div style="margin-top:0.5em">
                 <form>
                     <input class="clickMe" type="button" value="Clear" />
@@ -375,13 +318,11 @@
                 <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
             </div>
         </div>
-        <!-- </li>-->
-        <!-- </ul>-->
     </div>
     <div class="col-lg-10" id='map'></div>
 </div>
-<script>
 
+<script>
     //sort the options in the select element based on alphabet
     function sortSelectOptions(selectElement) {
         var options = $(selectElement + " option");
@@ -1365,7 +1306,6 @@
     }
 </script>
 <script type="text/javascript">
-
     $(function () {
         $(".clickMe").click(function () {
             if (countryFunction) {
@@ -1384,10 +1324,4 @@
             }
         });
     });
-
-    
-
-
-
 </script>
-
