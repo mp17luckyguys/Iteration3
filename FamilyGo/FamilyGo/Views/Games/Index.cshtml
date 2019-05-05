@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <style type="text/css">
 
     #pagination a {
@@ -35,25 +36,58 @@
 
 <div class="container" style="padding-top:2em">
     <div style="margin-left:40px">
+
+        @foreach (var item in Model)
+        {
+            <div class="w3-card-4 col-md-4" style="width:270px;height:270px;margin:1em;font-family:Georgia" data-toggle="modal" data-target="#myModal">
+                <img src="~/Image/@Html.DisplayFor(modelItem => item.Name) .jpg" alt="No Image avalible" style="width:100%">
+                <div class="w3-container w3-center">
+                    <h4 style="margin:0.5em;font-size:1.2em"><strong>@Html.DisplayFor(modelItem => item.Name)</strong></h4>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" id="name">@Html.DisplayFor(modelItem => item.Name)</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p id="description">@Html.DisplayFor(modelItem => item.Description)</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--
         <table border="0" cellspacing="0" cellpadding="0" style="width:100%;">
             <tbody id="pageInfo">
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td>
-                            <div class="w3-card-4 col-sm-12" style="height:100%; margin:1em;padding-bottom:2em" data-toggle="modal" data-target="#myModal">
+                            <div class="w3-card-4 col-sm-12" style="height:100%; margin:1em;padding-bottom:2em">
+                            <a href="#myModal" data-toggle="modal">
                                 <header class="w3-container w3-teal">
                                     <h3 class="name" style="font-family:Georgia">@Html.DisplayFor(modelItem => item.Name)</h3>
                                 </header>
                                 <div class="w3-container" style="margin-top:1em; line-height:1.2em;font-family:Georgia">
+                                    <img src="~/Image/@Html.DisplayFor(modelItem => item.Name) .jpg" />
                                     <p class="description">@Html.DisplayFor(modelItem => item.Description)</p>
                                 </div>
-                            </div>
+                            </a>
+                        </div>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+    -->
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog">
@@ -73,15 +107,7 @@
             </div>
         </div>
         <!--//Modal-->
-        <!--pagination-->
-        <div id="pagination" style="margin-bottom:10px;height: 20px;margin-top:10px;margin-left:22%">
-            <!--<a id="firPage" onclick="firstPage()" style="width: 100px;">First Page</a>-->
-            <a id="prePage" onclick="prevPage()">Previous Page</a>
-            <a id="nexPage" onclick="pnextPage()">Next Page</a>
-            <!--<a id="lasPage" onclick="lastPage()" style="width: 100px;">End</a>-->
-            <label id="numPage" style="width: 100px;margin-left: 10px;height: 20px;font-family:Georgia;background:#009688;color:white;border-radius:20px;text-align:center" />
-        </div>
-        <!--//pagination-->
+
     </div>
 </div>
 
