@@ -3,8 +3,30 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <h2>Index</h2>
+<p id="testjson">
 <p>
-    @ViewBag.a
-    <p>
+    <script>
+        var json;
+        var x;
+        $.ajax({
+            url: "/Event/GetEvents",
+            type: "GET",//请求方式为get
+            dataType: "json", //返回数据格式为json
+            data: {},
+            async: false,//是否同步
+            success: function (data) {//请求成功完成后要执行的方法
+                json = data;
+            },
+            error: function () {
+                console.log("error");
+            }
+        })
+        document.getElementById("testjson").innerText = JSON.stringify(json);
+    </script>
+    @section Scripts{
+        @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+        @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    }

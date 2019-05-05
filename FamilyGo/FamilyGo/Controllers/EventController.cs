@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,33 +15,52 @@ namespace FamilyGo.Controllers
         // GET: Event
         public ActionResult Index()
         {
-            var username = "familygo";
-            var password = "4d5xkkb92bcr";
-            /* Uri uri = new Uri("http://api.eventfinda.co.nz/v2/events.json");
-             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
-             request.Headers.Add("Authorization", "Basic" + Convert.ToBase64String(new System.Text.ASCIIEncoding().GetBytes(username + ":" + password)));
-             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-             StreamReader reader = new StreamReader(response.GetResponseStream());
-             string tmp = reader.ReadToEnd();
-             response.Close();
-             Response.Write(tmp);*/
-            HttpWebRequest request = WebRequest.Create("http://api.eventfinda.co.nz/v2/events.json?location=1&category=52") as HttpWebRequest;
 
+            return View();
+        }
+
+
+
+
+
+
+
+        public ActionResult GetEvents()
+        {
+            /*
+             * category: <id>11</id>< name > Exhibitions </ name >
+             * <id>73</id>< name >< ![CDATA[A & P Shows, Field Days]] ></ name >
+             * <id>5</id><name>Children, Kids, Holidays</name>
+             * <id>52</id><name>Family Entertainment</name>
+             * <id>30</id><name>Festivals</name>
+             * <id>321</id><name>Film</name>
+             * <id>49</id><name>Games, Hobbies</name>
+             * <id>192</id><name>Lifestyle Shows, Expos</name>
+             * <id>1</id><name>Performing Arts</name>
+            
+    */
+            var username = "familygo2";
+            var password = "gr6rmmwzjtwd";
+            HttpWebRequest request = WebRequest.Create("http://api.eventfinda.com.au/v2/events.json?rows=20&q=concert&order=date&radius=20&point=-37.813611,144.963056&category=11,73,5,52,30,321,49,192,1") as HttpWebRequest;
             request.Method = "GET";
             // Add authentication to request  
-            request.Credentials = new NetworkCredential("familygo", "4d5xkkb92bcr");
+            request.Credentials = new NetworkCredential(username, password);
             string tmp = "";
+            JObject jo;
             // Get response  
             using (WebResponse response = request.GetResponse())
             {
                 // Get the response stream  
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 tmp = reader.ReadToEnd();
+                jo = (JObject)JsonConvert.DeserializeObject(tmp);
                 // Console application output  
                 Console.WriteLine(reader.ReadToEnd());
             }
-            ViewBag.a = tmp;
-            return View();
+            ViewBag.a = jo;
+
+
+            return Content(jo.ToString());
         }
     }
 }
