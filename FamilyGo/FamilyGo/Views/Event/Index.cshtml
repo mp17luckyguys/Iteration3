@@ -5,28 +5,56 @@
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <h2>Index</h2>
-<p id="testjson">
-<p>
-    <script>
-        var json;
-        var x;
-        $.ajax({
-            url: "/Event/GetEvents",
-            type: "GET",//请求方式为get
-            dataType: "json", //返回数据格式为json
-            data: {},
-            async: false,//是否同步
-            success: function (data) {//请求成功完成后要执行的方法
-                json = data;
-            },
-            error: function () {
-                console.log("error");
-            }
-        })
-        document.getElementById("testjson").innerText = JSON.stringify(json);
-    </script>
-    @section Scripts{
-        @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
-        @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+<p id="testjson"></p>
+<div id="eventGallery"  style="display:inline-block; justify-content:center; "></div>
+
+<script>
+    var json;
+    $.ajax({
+        url: "/Event/GetEvents",
+        type: "GET",//请求方式为get
+        dataType: "json", //返回数据格式为json
+        data: {},
+        async: false,//是否同步
+        success: function (data) {//请求成功完成后要执行的方法
+            json = data["events"];
+        },
+        error: function () {
+            console.log("error");
+        }
+    })
+    //document.getElementById("testjson").innerText = JSON.stringify(json);
+    var eventGallery = document.getElementById("eventGallery");
+    var div1;
+    var image;
+    var nameDiv;
+    var nameH4;
+    for (var i = 0; i < json.length; i++) {
+        div1 = document.createElement("div");
+        div1.setAttribute("class", "w3-card-4 col-md-4 col-lg-4");
+        div1.setAttribute("id", json[i]["id"]);
+        div1.setAttribute("style", "width:270px;height:270px;margin:1em;font-family:Georgia");
+        // .setAttribute("onclick", "EventClicked(this)");
+        image = document.createElement("img");
+        image.setAttribute("src", json[i]["images"]["images"][0]["transforms"]["transforms"][2]["url"]);
+        image.setAttribute("alt", "No Image avalible");
+        image.setAttribute("style", "width:100%");
+        nameDiv = document.createElement("div");
+        nameDiv.setAttribute("class", "w3-container w3-center");
+        nameH4 = document.createElement("h4");
+        nameH4.setAttribute("style", "margin:0.5em;font-size:1.2em");
+        nameH4.innerText = json[i]["name"];
+        nameDiv.appendChild(nameH4);
+        div1.appendChild(image);
+        div1.appendChild(nameDiv);
+        eventGallery.appendChild(div1);
     }
+
+
+</script>
+@section Scripts{
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+}
