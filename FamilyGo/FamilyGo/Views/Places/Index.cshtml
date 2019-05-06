@@ -62,42 +62,42 @@
                                         <div class="w3ls-pince">
                                             <div class="pince-right">
                                                 <h4>RATING:</h4>
-                                                <p id="rating">@ViewBag.rating</p>
+                                                <p id="rating">No rating avaliable</p>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
                                         <div class="w3ls-pince agileits-w3layouts">
                                             <div class="pince-right">
                                                 <h4>PHONE NUMBER:</h4>
-                                                <p id="phone">@ViewBag.phoneNumber</p>
+                                                <p id="phone">No phone number avaliable</p>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
                                         <div class="w3ls-pince agileits-w3layouts">
                                             <div class="pince-right">
                                                 <h4>WEBSITE:</h4>
-                                                <p id="website">@ViewBag.website</p>
+                                                <p id="website">No website avaliable</p>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
                                         <div class="w3ls-pince agileits-w3layouts">
                                             <div class="pince-right">
                                                 <h4>OPEN: </h4>
-                                                <p id="open">@ViewBag.openingNow</p>
+                                                <p id="open">No opening status avabliable</p>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
                                         <div class="w3ls-pince agileits-w3layouts">
                                             <div class="pince-right">
                                                 <h4>WEEKDAY: </h4>
-                                                <p id="weekday">@ViewBag.weekday</p>
+                                                <p id="weekday">No weekday information avaliable</p>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
                                         <div class="w3ls-pince agileits-w3layouts">
                                             <div class="pince-right">
                                                 <h4>ADDRESS: </h4>
-                                                <p id="address">@ViewBag.address</p>
+                                                <p id="address">No address information avaliable</p>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
@@ -105,21 +105,7 @@
                                             <div class="pince-right">
                                                 <h4>REVIEWS: </h4>
                                                 <p id="review">
-                                                    @if (ViewBag.review.ToString() != "No review avaliable.")
-                                                    {
-                                                        foreach (var item in ViewBag.review)
-                                                        {
-                                                            @item.author_name<br />
-                                                            @item.relative_time_description<br />
-                                                            @item.text<br />
-                                                            <br />
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        ViewBag.review.ToString();
-                                                        <br />
-                                                    }
+                                                   No review avaliable
                                                 </p>
                                             </div>
                                             <div class="clearfix"> </div>

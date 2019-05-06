@@ -18,13 +18,6 @@ namespace FamilyGo.Controllers
 
             return View();
         }
-
-
-
-
-
-
-
         public ActionResult GetEvents()
         {
             /*

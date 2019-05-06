@@ -37,65 +37,6 @@ namespace FamilyGo.Controllers
             var newL = newPlacesList.OrderBy(x => x.Name).ToList();
 
             var a = ViewBag.ageGroup;
-
-
-
-
-
-
-
-
-
-
-
-
-
-            int id = 1;
-            Place place1 = db.Places.Find(id);
-            if (place1 == null)
-            {
-                return HttpNotFound();
-            }
-            string googleTextSearchReasult = HttpUtils.Get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + place1.Name + "&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA");
-            JObject jo = (JObject)JsonConvert.DeserializeObject(googleTextSearchReasult);
-            if (jo["status"].ToString() != "ZERO_RESULTS")
-            {
-                string placeId = jo["results"][0]["place_id"].ToString();
-                if (jo["results"][0]["photos"] != null)
-                {
-
-                    string joPhotoRef = jo["results"][0]["photos"][0]["photo_reference"].ToString();
-
-                    //Image googlePhoto = HttpUtils.GetImage("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + joPhotoRef + "& sensor=false&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA");
-                    string imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + joPhotoRef + "& sensor=false&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA";
-                    ViewBag.imUrl = imageUrl;
-
-                }
-                string detailUrl = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "& fields=name,rating,formatted_phone_number,reviews,website,opening_hours&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA";
-                string googleDetailReasult = HttpUtils.Get(detailUrl);
-                JObject joDetail = (JObject)JsonConvert.DeserializeObject(googleDetailReasult);
-                if (joDetail["result"]["rating"] != null)
-                { ViewBag.rating = joDetail["result"]["rating"]; }
-                else { ViewBag.rating = "No rating avaliable."; }
-                if (joDetail["result"]["formatted_address"] != null) { ViewBag.address = joDetail["result"]["formatted_address"]; } else { ViewBag.address = "No address avaliable."; }
-                if (joDetail["result"]["formatted_phone_number"] != null) { ViewBag.phoneNumber = joDetail["result"]["formatted_phone_number"]; } else { ViewBag.phoneNumber = "No phone number avaliable."; }
-                if (joDetail["result"]["website"] != null) { ViewBag.website = joDetail["result"]["website"]; } else { ViewBag.website = "No website avaliable."; }
-                if (joDetail["result"]["opening_hours"] != null) { if (joDetail["result"]["opening_hours"]["open_now"].ToString() == "true") { ViewBag.openingNow = "Opening"; } else { ViewBag.openingNow = "Closed"; } } else { ViewBag.openingNow = "Unknown"; }
-                if (joDetail["result"]["opening_hours"] != null) { ViewBag.weekday = joDetail["result"]["opening_hours"]["weekday_text"]; } else { ViewBag.weekday = "No weekday information avaliable."; }
-                if (joDetail["result"]["reviews"] != null) { ViewBag.review = joDetail["result"]["reviews"]; } else { ViewBag.review = "No review avaliable."; }
-            }
-            else { ViewBag.imUrl = "../../Image/noPhoto.png"; ViewBag.openingNow = "Unknown"; ViewBag.website = "No website avaliable."; ViewBag.phoneNumber = "No phone number avaliable."; ViewBag.rating = "No rating avaliable."; ViewBag.weekday = "No opening hours avaliable."; ViewBag.review = "No review avaliable."; }
-
-
-
-
-
-
-
-
-
-
-
             return View(newL);
         }
 
@@ -111,36 +52,6 @@ namespace FamilyGo.Controllers
             {
                 return HttpNotFound();
             }
-            string googleTextSearchReasult = HttpUtils.Get("https://maps.googleapis.com/maps/api/place/textsearch/json?query="+ place.Name + "&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA");
-            JObject jo = (JObject)JsonConvert.DeserializeObject(googleTextSearchReasult);
-            if (jo["status"].ToString() != "ZERO_RESULTS")
-            {
-                string placeId = jo["results"][0]["place_id"].ToString(); 
-                if (jo["results"][0]["photos"] != null)
-                {
-                    
-                    string joPhotoRef = jo["results"][0]["photos"][0]["photo_reference"].ToString();
-
-                    //Image googlePhoto = HttpUtils.GetImage("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + joPhotoRef + "& sensor=false&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA");
-                    string imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + joPhotoRef + "& sensor=false&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA";
-                    ViewBag.imUrl = imageUrl;
-
-                }
-                string detailUrl = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "& fields=name,rating,formatted_phone_number,reviews,website,opening_hours&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA";
-                string googleDetailReasult = HttpUtils.Get(detailUrl);
-                JObject joDetail = (JObject)JsonConvert.DeserializeObject(googleDetailReasult);
-                if (joDetail["result"]["rating"] != null)
-                { ViewBag.rating = joDetail["result"]["rating"]; }
-                else { ViewBag.rating = "No rating avaliable."; }
-                if (joDetail["result"]["formatted_address"] != null) { ViewBag.address = joDetail["result"]["formatted_address"]; } else { ViewBag.address = "No address avaliable."; }
-                if (joDetail["result"]["formatted_phone_number"] != null) { ViewBag.phoneNumber = joDetail["result"]["formatted_phone_number"]; } else { ViewBag.phoneNumber = "No phone number avaliable."; }
-                if (joDetail["result"]["website"] != null) { ViewBag.website = joDetail["result"]["website"]; } else { ViewBag.website = "No website avaliable."; }
-                if (joDetail["result"]["opening_hours"] != null) { if (joDetail["result"]["opening_hours"]["open_now"].ToString() == "true") { ViewBag.openingNow = "Opening"; } else { ViewBag.openingNow = "Closed"; } } else { ViewBag.openingNow = "Unknown"; }
-                if (joDetail["result"]["opening_hours"] != null) { ViewBag.weekday = joDetail["result"]["opening_hours"]["weekday_text"]; } else { ViewBag.weekday = "No weekday information avaliable."; }
-                if (joDetail["result"]["reviews"] != null) { ViewBag.review = joDetail["result"]["reviews"]; } else { ViewBag.review = "No review avaliable."; }
-            }
-            else { ViewBag.imUrl = "../../Image/noPhoto.png"; ViewBag.openingNow = "Unknown"; ViewBag.website = "No website avaliable."; ViewBag.phoneNumber = "No phone number avaliable."; ViewBag.rating = "No rating avaliable."; ViewBag.weekday = "No opening hours avaliable."; ViewBag.review = "No review avaliable."; }
-
             return View(place);
         }
 
