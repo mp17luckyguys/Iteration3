@@ -4,8 +4,10 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using FamilyGo.Models;
 
 namespace FamilyGo.Controllers
@@ -125,5 +127,17 @@ namespace FamilyGo.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
+        public ActionResult GetGame(int? id)
+        {
+            Game game = db.Games.Find(id);
+            game.Description = game.Description.Replace("/", "\n\n");
+            StringBuilder stringBuilder = new StringBuilder();
+            JavaScriptSerializer json = new JavaScriptSerializer();
+            json.Serialize(game, stringBuilder);
+            return Content(stringBuilder.ToString());
+        }
+            
     }
 }
