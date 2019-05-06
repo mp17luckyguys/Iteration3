@@ -17,6 +17,7 @@ namespace FamilyGo.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.IFrameSrc = "https://gemmacc.shinyapps.io/exe2/";
             return View();
         }
 
