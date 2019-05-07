@@ -10,6 +10,44 @@
 <p id="testjson"></p>
 <div id="eventGallery"  style="display:inline-block; justify-content:center; "></div>
 
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="name" style="color:black"> </h4>
+            </div>
+            <div class="modal-body">
+                <img id="image" />
+                <h4>Description</h4>
+                <p id="description"> </p>
+                <br />
+                <h4>Category</h4>
+                <p id="category"> </p>
+                <br />
+                <h4>Time</h4>
+                <p id="time"> </p>
+                <br />
+                <h4>Address</h4>
+                <p id="address"> </p>
+                <br />
+                <h4>Official Website</h4>
+                <p id="website"> </p>
+                <br />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script>
     var json;
     $.ajax({
@@ -36,7 +74,7 @@
         div1.setAttribute("class", "w3-card-4 col-md-4 col-lg-4");
         div1.setAttribute("id", json[i]["id"]);
         div1.setAttribute("style", "width:270px;height:270px;margin:1em;font-family:Georgia");
-        // .setAttribute("onclick", "EventClicked(this)");
+        div1.setAttribute("onclick", "EventClicked(this)");
         image = document.createElement("img");
         image.setAttribute("src", json[i]["images"]["images"][0]["transforms"]["transforms"][2]["url"]);
         image.setAttribute("alt", "No Image avalible");
@@ -44,7 +82,7 @@
         nameDiv = document.createElement("div");
         nameDiv.setAttribute("class", "w3-container w3-center");
         nameH4 = document.createElement("h4");
-        nameH4.setAttribute("style", "margin:0.5em;font-size:1.2em");
+        nameH4.setAttribute("style", "margin:0.5em;font-size:1.2em; color: black");
         nameH4.innerText = json[i]["name"];
         nameDiv.appendChild(nameH4);
         div1.appendChild(image);
@@ -52,7 +90,24 @@
         eventGallery.appendChild(div1);
     }
 
-
+    function EventClicked(obj)
+    {
+        var eventId = parseInt(obj.id);
+        var selectedEvent;
+        for (var i = 0; i < json.length; i++)
+        {
+            if (eventId == json[i]["id"])
+            { selectedEvent = json[i]; }
+        }
+        document.getElementById("image").setAttribute("src", selectedEvent["images"]["images"][0]["transforms"]["transforms"][3]["url"]);
+        document.getElementById("name").innerText = selectedEvent.name;
+        document.getElementById("description").innerText = selectedEvent.description;
+        document.getElementById("category").innerText = selectedEvent.category.name;
+        document.getElementById("address").innerText = selectedEvent.location_summary;
+        document.getElementById("website").innerText = selectedEvent.web_sites.web_sites[0].url;
+        document.getElementById("time").innerText = "From: " + selectedEvent.datetime_start + "\u00A0\u00A0\u00A0To: " + selectedEvent.datetime_end;
+        $("#myModal").modal();
+    }
 </script>
 @section Scripts{
     @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
