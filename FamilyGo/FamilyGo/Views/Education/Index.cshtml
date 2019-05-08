@@ -20,8 +20,8 @@
 
     #map {
         position: relative;
-        height: 100%;
-        width: 75%;
+        height: 75%;
+        width: 100%;
     }
 
     #wholeContiner {
@@ -47,16 +47,15 @@
     }
 
     #svg {
-        height: 260px;
+        height: 250px;
         width: 250px;
         border-style: solid;
         border-color: darkgray;
         border-width: 2px;
         background-color: white;
-        position: relative;
-        margin-top: 20px;
-        left: 0;
-        bottom: 0;
+        left: 25%;
+        top:82%;
+        border-radius:20px;
     }
 
     #svg1 {
@@ -64,9 +63,10 @@
         border-style: solid;
         border-color: darkgray;
         border-width: 2px;
-        background-color: white;
-        left: 23%;
-        top: 190px;
+        background-color: white;      
+        top: 44%;
+        border-radius:20px;
+        left:10%
     }
 
     #svg2 {
@@ -75,8 +75,9 @@
         border-color: darkgray;
         border-width: 2px;
         background-color: white;
-        left: 23%;
-        top: 190px;
+        left: 10%;
+        top: 44%;
+        border-radius:20px;
     }
 
     .axis {
@@ -92,10 +93,12 @@
 
     #filter {
         background: #fff;
-        height: 750px;
-        width: 22%;
         bottom: 0;
-        float: left;
+        /*
+           height: 750px;
+           width: 22%;
+           float: left;
+       */
     }
 
 
@@ -214,7 +217,7 @@
 
 <!--navigation bar-->
 <div style="margin-top:7.5em">
-    <div class="about-heading" style="margin-left:2em;margin-right:2em;">
+    <div class="about-heading container">
         <h5>
             <a href="@Url.Action("Index","Home")">Home / </a>
             <a href="@Url.Action("Index","Education")">Education</a>
@@ -223,7 +226,7 @@
 </div>
 <!--//navigation bar-->
 <!--tab selection -->
-<div class="about-heading" style="margin-left:2em;margin-right:2em;">
+<div class="about-heading container">
     <ul id="myTab" class="nav nav-tabs" role="tabpanel" style="font-family:Georgia">
         <li role="presentation" id="infoPresentation" class="active"><a href="javascript:initinformation();" role="tab">Education Information</a></li>
         <li role="presentation" id="languagePresentation"><a href="javascript:initlanguage();" role="tab">Find schools by Native Language </a> </li>
@@ -232,12 +235,12 @@
 </div>
 <!--//tab selection-->
 <!--school information-->
-<div id="info" style="margin-left:2em;margin-right:2em;margin-bottom:2em;">
-    <div><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
+<div id="info" class="container" style="margin-bottom:2em;">
+    <div ><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
     <div>
         <p>There are three main kind of schools in Australia.</p>
     </div>
-    <div class="address-agileinfo" style="padding:1em">
+    <div class="address-agileinfo" style="margin:1.5em; padding:1em">
         <p><span class="fa fa-tag"></span><strong> Public School</strong></p>
         <p><strong>Benefits:</strong></p>
         <p>1.Close to your home</p>
@@ -247,7 +250,7 @@
         <p>1.If there are social problems in your area, they may filter into school.</p>
         <p>2.Quality of staff</p>
     </div>
-    <div class="address-agileinfo" style="padding:1em">
+    <div class="address-agileinfo " style="padding:1em;margin:1.5em">
         <p><span class="fa fa-tag"></span><strong> Cathoic School</strong></p>
         <p><strong>Benefits:</strong></p>
         <p>1.Many Catholic schools encourage families to contribute to the Church’s social justice programs.</p>
@@ -257,7 +260,7 @@
         <p>1.Strict participation after school or on weekends.</p>
         <p>2.Your child may need to be prepared for strict but fair rules; learning to sit still in Mass and adopting slightly formal manners at a young age</p>
     </div>
-    <div class="address-agileinfo" style="padding:1em">
+    <div class="address-agileinfo " style="padding:1em;margin:1.5em">
         <p><span class="fa fa-tag"></span><strong> Private School</strong></p>
         <p><strong>Benefits:</strong></p>
         <p>1.Private schools can promote their wide range of creative, sporting, community and adventuring activities, marketed as extending your child’s abilities, resilience and competitive drive.</p>
@@ -270,56 +273,55 @@
 </div>
 <!--//school information-->
 <!--this container contains the filter and map-->
-<div id="wholeContiner" style="margin:2em">
-    <div class="col-lg-2 box" id="filter">       
-        <!--this is filter for language-->
-        <div id="languageFilter" style="padding:2.5em" class="address-agileinfo">
-            <div style="margin-top:0.5em">
-                Select a Language:<br />
-                <select id="selectLanguage" onchange="languageChange(this)"></select><br />
-            </div>
-            <div style="margin-top:0.5em">
-                Select a Suburb:<br />
-                <select id="selectSuburbL" onchange="suburbChange(this)"></select><br />
-            </div>
-            <div style="margin-top:0.5em">
-                Select School Type:<br />
-                <select id="selectSchoolTypeL" onchange="suburbChange(this)"></select><br />
-            </div>
-            <div style="margin-top:0.5em">
-                <form>
-                    <input class="clickMe" type="button" value="Clear" />
-                </form>
-            </div>
-            <div style="margin-top:0.5em">
-                <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
-            </div>
-        </div>
+<div id="wholeContiner" class="container">
+    <div class="box " id="filter">       
+        <!--this is filter for language-->       
+            <div id="languageFilter" style="margin-top:1em;font-family:Georgia;padding-bottom:2.8em" class="address-agileinfo">
+                <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                    <select id="selectLanguage" onchange="languageChange(this)" style="padding-left:inherit;"></select>
+                </div>
+                <div class="col-sm-3" style=" padding-top:0.2em;vertical-align:middle">
+                    <select id="selectSuburbL" onchange="suburbChange(this)" style="padding-left:inherit;"></select>
+                </div>
+                <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                    <select id="selectSchoolTypeL" onchange="suburbChange(this)" style="padding-left:inherit"></select>
+                </div>
+                <div class="col-sm-3" style="vertical-align:middle">
+                    <form>
+                        <input class="clickMe" type="button" value="Clear" />
+                    </form>
+                </div>
+                <!--
+                    <div class="col-md-12" style="padding-bottom:0.2em">
+                    <p style="color:gray;padding-left:inherit"><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
+                    </div>
+                -->                                           
+            </div>      
         <!--this is filter for country-->
-        <div id="countryFilter" style="padding:3em" class="address-agileinfo">
-            <div style="margin-top:0.5em">
-                Select a Country<br />
-                <select id="selectCountry" onchange="countryChange(this)"></select><br />
+        <div id="countryFilter" style="margin-top:1em;font-family:Georgia;padding-bottom:2.8em" class="address-agileinfo">
+            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                <select id="selectCountry" onchange="countryChange(this)" style="padding-left:inherit;"></select>
             </div>
-            <div style="margin-top:0.5em">
-                Select a Suburb:<br />
-                <select id="selectSuburbC" onchange="suburbChange(this)"></select><br />
+            <div class="col-sm-3" style=" padding-top:0.2em;vertical-align:middle">
+                <select id="selectSuburbC" onchange="suburbChange(this)" style="padding-left:inherit;"></select>
             </div>
-            <div style="margin-top:0.5em">
-                Select School Type:<br />
-                <select id="selectSchoolTypeC" onchange="suburbChange(this)"></select><br />
+            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                <select id="selectSchoolTypeC" onchange="suburbChange(this)" style="padding-left:inherit"></select>
             </div>
-            <div style="margin-top:0.5em">
+            <div class="col-sm-3" style="vertical-align:middle">
                 <form>
                     <input class="clickMe" type="button" value="Clear" />
                 </form>
             </div>
-            <div style="margin-top:0.5em">
+            <!--
+                <div style="margin-top:0.5em">
                 <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
             </div>
+            -->
+            
         </div>
     </div>
-    <div class="col-lg-10" id='map'></div>
+    <div id='map' style="margin-bottom:2em;margin-top:2em"></div>
 </div>
 
 <script>
@@ -853,7 +855,7 @@
         d3.select("#svg").remove();
         d3.select("#tooltip1").remove();
 
-        svg = d3.select("#filter").append("svg")
+        svg = d3.select("body").append("svg")
             .attr("id", "svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -976,7 +978,7 @@
         if (m != 0) {
             map.setPaintProperty("state-fills", 'fill-color', {
                 "property": "main_country_id",
-                "stops": [[m - 1, 'white'], [m, 'gray'], [m + 1, 'white']]
+                "stops": [[m - 1, 'white'], [m, '#ff7373'], [m + 1, 'white']]
             });
         }
         loadSuburb();
@@ -998,7 +1000,7 @@
         if (m != 0) {
             map.setPaintProperty("state-fills", 'fill-color', {
                 "property": "main_language_id",
-                "stops": [[m - 1, 'white'], [m, 'gray'], [m + 1, 'white']]
+                "stops": [[m - 1, 'white'], [m, '#ff7373'], [m + 1, 'white']]
             });
         }
         loadSuburb();
@@ -1081,13 +1083,13 @@
 
             svg2 = d3.select("body").append("svg")
                 .attr("id", "svg2")
-                .attr("style", "height:100px")
+                .attr("style", "height:90px")
                 .attr("transform", "translate(" + 25 + "," + 100 + ")");
             legendArea = svg2.append("g")
                 .attr("transform", "translate(0,20)");
 
-            var l = [{ "tp": "Kindergarten", "color": "purple", "sp": "rect" }]
-            var l2 = [{ "tp": "G", "color": "white", "sp": "rect" }, { "tp": "Government", "color": "purple", "sp": "rect" }, { "tp": "Independent", "color": "blue", "sp": "rect" }, { "tp": "Catholic", "color": "red", "sp": "rect" }, { "tp": "LanguageSchool", "color": "green", "sp": "rect" }]
+           /**var l = [{ "tp": "Kindergarten", "color": "purple", "sp": "rect" }] */
+            var l2 = [ { "tp": "Government", "color": "purple", "sp": "rect" }, { "tp": "Independent", "color": "blue", "sp": "rect" }, { "tp": "Catholic", "color": "red", "sp": "rect" }, { "tp": "LanguageSchool", "color": "green", "sp": "rect" }]
 
 
             var legend2 = legendArea.selectAll("g")
@@ -1187,7 +1189,7 @@
                         "type": "Feature",
                         "properties": {
                             "message": schools[i].School_Name.trim(),
-                            "iconSize": [15, 15],
+                            "iconSize": [50, 50],
                             "Education_Sector": schools[i].Education_Sector.trim(),
                             "School_Type": schools[i].School_Type.trim()
                         },
@@ -1214,7 +1216,7 @@
                             "type": "Feature",
                             "properties": {
                                 "message": schools[i].School_Name.trim(),
-                                "iconSize": [15, 15],
+                                "iconSize": [50, 50],
                                 "Education_Sector": schools[i].Education_Sector.trim(),
                                 "School_Type": schools[i].School_Type.trim()
                             },
