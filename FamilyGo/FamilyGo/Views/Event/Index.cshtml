@@ -3,15 +3,76 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/js/select2.min.js"></script>
 
+<style>
+    input[type="text"] {
+        padding: 6px;
+        border-radius: 4px;
+    }
+
+    input.form-control {
+        font-size: 14px;
+    }
+
+    .btn:not(:disabled):not(.disabled) {
+        cursor: pointer;
+    }
+
+    .daterangepicker .drp-buttons .btn {
+        margin-left: 8px;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 4px 8px;
+        line-height: 1.5;
+        border-radius: .2rem;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -webkit-appearance: button;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+</style>
 <h2>Index</h2>
 <p id="testjson"></p>
-<div id="eventGallery"  style="display:inline-block; justify-content:center; "></div>
-
-
-
+<div>
+    Select suburb
+    <select id="selectSuburb"></select>
+    Is Free
+    <!--   <select id="isFree">
+           <option value="0">--Please Select--</option>
+           <option value="1">Free</option>
+           <option value="2">Not Free</option>
+       </select>-->
+    <input type="checkbox" id="free" value="Is Free" onclick="freeOrNot()" />
+    Date Range
+    <input type="text" name="daterange" />
+    Category
+    <select id="categories">
+        <option value="0">--Select Category--</option>
+        <option value="1">Exhibitions</option>
+        <option value="2">Shows</option>
+        <option value="3">Family</option>
+        <option value="4">Festivals and Carnivals</option>
+        <option value="5">Education</option>
+        <option value="6">Film</option>
+        <option value="7">Hiking and Camping</option>
+    </select>
+    <button onclick="go()">Go</button>
+    <button onclick="clear123()">Clear</button>
+</div>
+<div id="eventGallery" style="display:inline-block; justify-content:center; "></div>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -47,57 +108,96 @@
 </div>
 
 
-
 <script>
+    var start_time = "0", end_time = "0";
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left',
+            minDate: (new Date()),
+        }, function (start, end, label) {
+            start_time = start.format('YYYY-MM-DD');
+            end_time = end.format('YYYY-MM-DD');
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        }).val('');
+
+    });
+</script>
+<script>
+    var isFree = "0", point = "0", category = "0";
     var json;
-    $.ajax({
-        url: "/Event/GetEvents",
-        type: "GET",//请求方式为get
-        dataType: "json", //返回数据格式为json
-        data: {},
-        async: false,//是否同步
-        success: function (data) {//请求成功完成后要执行的方法
-            json = data["events"];
-        },
-        error: function () {
-            console.log("error");
-        }
-    })
-    //document.getElementById("testjson").innerText = JSON.stringify(json);
     var eventGallery = document.getElementById("eventGallery");
+    var suburbs;
     var div1;
     var image;
     var nameDiv;
     var nameH4;
-    for (var i = 0; i < json.length; i++) {
-        div1 = document.createElement("div");
-        div1.setAttribute("class", "w3-card-4 col-md-4 col-lg-4");
-        div1.setAttribute("id", json[i]["id"]);
-        div1.setAttribute("style", "width:270px;height:270px;margin:1em;font-family:Georgia");
-        div1.setAttribute("onclick", "EventClicked(this)");
-        image = document.createElement("img");
-        image.setAttribute("src", json[i]["images"]["images"][0]["transforms"]["transforms"][2]["url"]);
-        image.setAttribute("alt", "No Image avalible");
-        image.setAttribute("style", "width:100%");
-        nameDiv = document.createElement("div");
-        nameDiv.setAttribute("class", "w3-container w3-center");
-        nameH4 = document.createElement("h4");
-        nameH4.setAttribute("style", "margin:0.5em;font-size:1.2em; color: black");
-        nameH4.innerText = json[i]["name"];
-        nameDiv.appendChild(nameH4);
-        div1.appendChild(image);
-        div1.appendChild(nameDiv);
-        eventGallery.appendChild(div1);
+    basicEvents(isFree, point, start_time, end_time, category);
+   
+    loadSuburb();
+    function go()
+    {
+        point = document.getElementById("selectSuburb").options[document.getElementById("selectSuburb").selectedIndex].value;
+
+        category = document.getElementById("categories").options[document.getElementById("categories").selectedIndex].value;
+        basicEvents(isFree, point, start_time, end_time, category);
+    }
+    function basicEvents(isFree, point, start_time, end_time, category) {
+        $.ajax({
+            url: "/Event/GetEvents",
+            type: "GET",//请求方式为get
+            dataType: "json", //返回数据格式为json
+            data: { isFree: isFree, point: point, start_time: start_time, end_time: end_time, category: category },
+            async: false,//是否同步
+            success: function (data) {//请求成功完成后要执行的方法
+                json = data["events"];
+                console.log(json);
+            },
+            error: function () {
+                console.log("error");
+            }
+        });
+        loadEvents();
     }
 
-    function EventClicked(obj)
-    {
+    //document.getElementById("testjson").innerText = JSON.stringify(json);
+
+    function loadEvents() {
+        paras = document.getElementsByClassName("w3-card-4 col-md-4 col-lg-4 events");
+        var parasLength = paras.length;
+        for (var i = 0; i < parasLength; i++) {
+            //删除元素 元素.parentNode.removeChild(元素);
+            if (paras[0] != null) { paras[0].parentNode.removeChild(paras[0]); }
+                
+        }
+        if (json.length == 0) { alert("Sorry, no result was found!!!"); }
+        for (var i = 0; i < json.length; i++) {
+            div1 = document.createElement("div");
+            div1.setAttribute("class", "w3-card-4 col-md-4 col-lg-4 events");
+            div1.setAttribute("id", json[i]["id"]);
+            div1.setAttribute("style", "width:270px;height:270px;margin:1em;font-family:Georgia");
+            div1.setAttribute("onclick", "EventClicked(this)");
+            image = document.createElement("img");
+            image.setAttribute("src", json[i]["images"]["images"][0]["transforms"]["transforms"][2]["url"]);
+            image.setAttribute("alt", "No Image avalible");
+            image.setAttribute("style", "width:100%");
+            nameDiv = document.createElement("div");
+            nameDiv.setAttribute("class", "w3-container w3-center");
+            nameH4 = document.createElement("h4");
+            nameH4.setAttribute("style", "margin:0.5em;font-size:1.2em; color: black");
+            nameH4.innerText = json[i]["name"];
+            nameDiv.appendChild(nameH4);
+            div1.appendChild(image);
+            div1.appendChild(nameDiv);
+            eventGallery.appendChild(div1);
+        }
+    }
+
+
+    function EventClicked(obj) {
         var eventId = parseInt(obj.id);
         var selectedEvent;
-        for (var i = 0; i < json.length; i++)
-        {
-            if (eventId == json[i]["id"])
-            { selectedEvent = json[i]; }
+        for (var i = 0; i < json.length; i++) {
+            if (eventId == json[i]["id"]) { selectedEvent = json[i]; }
         }
         document.getElementById("image").setAttribute("src", selectedEvent["images"]["images"][0]["transforms"]["transforms"][3]["url"]);
         document.getElementById("name").innerText = selectedEvent.name;
@@ -107,6 +207,47 @@
         document.getElementById("website").innerText = selectedEvent.web_sites.web_sites[0].url;
         document.getElementById("time").innerText = "From: " + selectedEvent.datetime_start + "\u00A0\u00A0\u00A0To: " + selectedEvent.datetime_end;
         $("#myModal").modal();
+    }
+    function loadSuburb() {
+        document.getElementById("selectSuburb").options.add(new Option("-select suburb-", 0));
+        $.ajax({
+            url: "/Event/GetSuburbs",
+            type: "GET",//请求方式为get
+            dataType: "json", //返回数据格式为json
+            data: {},
+            async: true,//是否同步
+            success: function (data) {//请求成功完成后要执行的方法
+                suburbs = data;
+                for (var i = 0; i < suburbs.length; i++) {
+                    document.getElementById("selectSuburb").options.add(new Option(suburbs[i].SuburbName, suburbs[i].Lat + "," + suburbs[i].Lon));
+                }
+            },
+            error: function () {
+                console.log("error");
+            }
+        })
+    }
+    function clear123()
+    {
+        console.log("clicked");
+        document.getElementById("selectSuburb").options[0].selected = true;
+        document.getElementById("free").checked = false;
+        document.getElementById("categories").options[0].selected = true;
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left',
+            minDate: (new Date()),
+        }, function (start, end, label) {
+            start_time = start.format('YYYY-MM-DD');
+            end_time = end.format('YYYY-MM-DD');
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            }).val('');
+        isFree = "0"; point = "0"; category = "0"; start_time = "0"; end_time = "0";
+        go();
+    }
+    function freeOrNot()
+    {
+        if (document.getElementById("free").checked) { isFree = "1"; }
+        else { isFree = "0"; }
     }
 </script>
 @section Scripts{
