@@ -76,7 +76,7 @@
         border-width: 2px;
         background-color: white;
         left: 10%;
-        top: 30%;
+        top: 44%;
         border-radius:20px;
     }
 
@@ -236,7 +236,7 @@
 <!--//tab selection-->
 <!--school information-->
 <div id="info" class="container" style="margin-bottom:2em;">
-    <div><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
+    <div ><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
     <div>
         <p>There are three main kind of schools in Australia.</p>
     </div>
@@ -978,7 +978,7 @@
         if (m != 0) {
             map.setPaintProperty("state-fills", 'fill-color', {
                 "property": "main_country_id",
-                "stops": [[m - 1, 'white'], [m, 'gray'], [m + 1, 'white']]
+                "stops": [[m - 1, 'white'], [m, '#ff7373'], [m + 1, 'white']]
             });
         }
         loadSuburb();
@@ -1000,7 +1000,7 @@
         if (m != 0) {
             map.setPaintProperty("state-fills", 'fill-color', {
                 "property": "main_language_id",
-                "stops": [[m - 1, 'white'], [m, 'gray'], [m + 1, 'white']]
+                "stops": [[m - 1, 'white'], [m, '#ff7373'], [m + 1, 'white']]
             });
         }
         loadSuburb();
