@@ -44,9 +44,8 @@
         border-color: #007bff;
     }
 </style>
-<h2>Index</h2>
 <p id="testjson"></p>
-<div>
+<div style="text-align: center;width:100%">
     Select suburb
     <select id="selectSuburb"></select>
     Is Free
@@ -72,7 +71,9 @@
     <button onclick="go()">Go</button>
     <button onclick="clear123()">Clear</button>
 </div>
-<div id="eventGallery" style="display:inline-block; justify-content:center; "></div>
+<div id="eventGallery" style="display:inline-block; justify-content:center; text-align: center;width:100%">
+    <h3 id ="noResult" style="text-align:center;color:gray">Sorry, no result was found!!!</h3>    
+</div>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -169,7 +170,11 @@
             if (paras[0] != null) { paras[0].parentNode.removeChild(paras[0]); }
                 
         }
-        if (json.length == 0) { alert("Sorry, no result was found!!!"); }
+        if (json.length == 0) {
+            alert("Sorry, no result was found!!!");
+            document.getElementById("noResult").style.display = "";
+        }
+        else { document.getElementById("noResult").style.display = "none";}
         for (var i = 0; i < json.length; i++) {
             div1 = document.createElement("div");
             div1.setAttribute("class", "w3-card-4 col-md-4 col-lg-4 events");
