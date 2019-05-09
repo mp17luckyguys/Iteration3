@@ -3,13 +3,16 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript">
+    var $datepicker = $;//新的命名
+</script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/js/select2.min.js"></script>
+
 
 <style>
     input[type="text"] {
@@ -72,7 +75,7 @@
     <button onclick="clear123()">Clear</button>
 </div>
 <div id="eventGallery" style="display:inline-block; justify-content:center; text-align: center;width:100%">
-    <h3 id ="noResult" style="text-align:center;color:gray">Sorry, no result was found!!!</h3>    
+    <h3 id="noResult" style="text-align:center;color:gray">Sorry, no result was found!!!</h3>
 </div>
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -133,10 +136,9 @@
     var nameDiv;
     var nameH4;
     basicEvents(isFree, point, start_time, end_time, category);
-   
+
     loadSuburb();
-    function go()
-    {
+    function go() {
         point = document.getElementById("selectSuburb").options[document.getElementById("selectSuburb").selectedIndex].value;
 
         category = document.getElementById("categories").options[document.getElementById("categories").selectedIndex].value;
@@ -168,13 +170,13 @@
         for (var i = 0; i < parasLength; i++) {
             //删除元素 元素.parentNode.removeChild(元素);
             if (paras[0] != null) { paras[0].parentNode.removeChild(paras[0]); }
-                
+
         }
         if (json.length == 0) {
             alert("Sorry, no result was found!!!");
             document.getElementById("noResult").style.display = "";
         }
-        else { document.getElementById("noResult").style.display = "none";}
+        else { document.getElementById("noResult").style.display = "none"; }
         for (var i = 0; i < json.length; i++) {
             div1 = document.createElement("div");
             div1.setAttribute("class", "w3-card-4 col-md-4 col-lg-4 events");
@@ -232,25 +234,23 @@
             }
         })
     }
-    function clear123()
-    {
+    function clear123() {
         console.log("clicked");
         document.getElementById("selectSuburb").options[0].selected = true;
         document.getElementById("free").checked = false;
         document.getElementById("categories").options[0].selected = true;
-        $('input[name="daterange"]').daterangepicker({
+        $datepicker('input[name="daterange"]').daterangepicker({
             opens: 'left',
             minDate: (new Date()),
         }, function (start, end, label) {
             start_time = start.format('YYYY-MM-DD');
             end_time = end.format('YYYY-MM-DD');
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-            }).val('');
+        }).val('');
         isFree = "0"; point = "0"; category = "0"; start_time = "0"; end_time = "0";
         go();
     }
-    function freeOrNot()
-    {
+    function freeOrNot() {
         if (document.getElementById("free").checked) { isFree = "1"; }
         else { isFree = "0"; }
     }

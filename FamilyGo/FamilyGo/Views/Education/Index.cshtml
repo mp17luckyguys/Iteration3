@@ -35,15 +35,7 @@
     }
 
     svg {
-        height: 200px;
-        width: 220px;
-        border-style: solid;
-        border-color: darkgray;
-        border-width: 2px;
-        background-color: white;
-        position: absolute;
-        left: 28%;
-        bottom: 0;
+
     }
 
     #svg {
@@ -53,9 +45,11 @@
         border-color: darkgray;
         border-width: 2px;
         background-color: white;
-        left: 25%;
-        top:82%;
-        border-radius:20px;
+        left: 2%;
+        top: 58%;
+        border-radius: 20px;
+        position: absolute;
+        opacity:0.8;
     }
 
     #svg1 {
@@ -63,10 +57,12 @@
         border-style: solid;
         border-color: darkgray;
         border-width: 2px;
-        background-color: white;      
-        top: 44%;
-        border-radius:20px;
-        left:10%
+        background-color: white;
+        top: 2%;
+        border-radius: 20px;
+        right: 5%;
+        opacity: 0.8;
+        position: absolute;
     }
 
     #svg2 {
@@ -77,7 +73,8 @@
         background-color: white;
         left: 10%;
         top: 44%;
-        border-radius:20px;
+        border-radius: 20px;
+        opacity: 0.8;
     }
 
     .axis {
@@ -463,10 +460,11 @@
                 "type": "geojson",
                 "data": boundaries
             });
-            svg1 = d3.select("body").append("svg")
+            svg1 = d3.select("#map").append("svg")
                 .attr("id", "svg1")
                 .attr("style", "height:200px")
-                .attr("transform", "translate(" + 25 + "," + 100 + ")");
+               // .attr("transform", "translate(" + 15 + "," + 30 + ")")
+                ;
             legendArea = svg1.append("g")
                 .attr("transform", "translate(0,20)");
 
@@ -616,10 +614,10 @@
                 "data": boundaries
             });
 
-            svg1 = d3.select("body").append("svg")
+            svg1 = d3.select("#map").append("svg")
                 .attr("id", "svg1")
                 .attr("style", "height:330px")
-                .attr("transform", "translate(" + 25 + "," + 100 + ")");
+                .attr("transform", "translate(" + 15 + "," + 30 + ")");
             legendArea = svg1.append("g")
                 .attr("transform", "translate(0,20)");
 
@@ -780,7 +778,7 @@
             .scale(y)
             .orient("left")
             .ticks(10);
-        svg = d3.select("#filter").append("svg")
+        svg = d3.select("#map").append("svg")
             .attr("id", "svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -855,7 +853,7 @@
         d3.select("#svg").remove();
         d3.select("#tooltip1").remove();
 
-        svg = d3.select("body").append("svg")
+        svg = d3.select("#map").append("svg")
             .attr("id", "svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -955,12 +953,12 @@
     for (var i = 0; i < countryColor.length; i++) {
         selectCountry.options.add(new Option(countryColor[i]["country"], countryColor[i]["id"]));
     }
-    sortSelectOptions("#selectCountry");
+    //sortSelectOptions("#selectCountry");
     selectLanguage.options.add(new Option("-select language-", 0));
     for (var i = 0; i < languageColor.length; i++) {
         selectLanguage.options.add(new Option(languageColor[i]["language"], languageColor[i]["id"]));
     }
-    sortSelectOptions("#selectLanguage");
+   // sortSelectOptions("#selectLanguage");
     function countryChange(obj) {
         d3.select("#svg2").remove();
         document.getElementById("svg1").style.display = "block";
@@ -1081,7 +1079,7 @@
         }
         function exe(obj) {
 
-            svg2 = d3.select("body").append("svg")
+            svg2 = d3.select("#map").append("svg")
                 .attr("id", "svg2")
                 .attr("style", "height:90px")
                 .attr("transform", "translate(" + 25 + "," + 100 + ")");
