@@ -60,15 +60,15 @@
 
 <p id="testjson"></p>
 <div style=" font-family:Georgia; padding:0px;" class="container address-agileinfo">
-    <div style="margin:1em;padding:0px;" >
+    <div style="margin:1em;padding:0px;">
         <select id="selectSuburb" style="margin-right:2%; font-size:1em;width:150px;"></select>
 
         Is Free:
         <!--   <select id="isFree">
-        <option value="0">--Please Select--</option>
-        <option value="1">Free</option>
-        <option value="2">Not Free</option>
-    </select>-->
+            <option value="0">--Please Select--</option>
+            <option value="1">Free</option>
+            <option value="2">Not Free</option>
+        </select>-->
         <input type="checkbox" id="free" value="Is Free" onclick="freeOrNot()" style="margin-right:2%" />
         Date Range:
         <input type="text" name="daterange" style="margin-right:2%;" />
@@ -204,7 +204,7 @@
             image.setAttribute("style", "width:auto");
             nameDiv = document.createElement("div");
             nameDiv.setAttribute("class", "w3-container w3-center");
-            nameDiv.setAttribute("style","margin-top:0.5em;margin-bottom:0.5em;");
+            nameDiv.setAttribute("style", "margin-top:0.5em;margin-bottom:0.5em;");
             nameH4 = document.createElement("h4");
             nameH4.setAttribute("style", "font-size:1em; color: black;font-family:Georgia;height:3em;");
             nameH4.innerText = json[i]["name"];
@@ -245,7 +245,7 @@
                     var newOption = new Option(suburbs[i].SuburbName, suburbs[i].Lat + "," + suburbs[i].Lon);
                     newOption.setAttribute("style", "font-size:0.8em");
                     document.getElementById("selectSuburb").options.add(newOption);
-                    
+
                 }
             },
             error: function () {
