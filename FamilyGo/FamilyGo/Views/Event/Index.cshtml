@@ -4,18 +4,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript">
+    var $datepicker = $;//新的命名
+</script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/js/select2.min.js"></script>
+
 
 <style>
     input[type="text"] {
-        padding: 2px;
+        padding: 6px;
         border-radius: 4px;
     }
 
@@ -46,50 +47,34 @@
         border-color: #007bff;
     }
 </style>
-
-<!--navigation bar-->
-<div>
-    <div class="about-heading container">
-        <h5>
-            <a href="@Url.Action("Index","Home")">Home / </a>
-            <a href="@Url.Action("Index","Event")">Events</a>
-        </h5>
-    </div>
-</div>
-<!--//navigation bar-->
-
 <p id="testjson"></p>
-<div style=" font-family:Georgia; padding:0px;" class="container address-agileinfo">
-    <div style="margin:1em;padding:0px;" >
-        <select id="selectSuburb" style="margin-right:2%; font-size:1em;width:150px;"></select>
-
-        Is Free:
-        <!--   <select id="isFree">
-        <option value="0">--Please Select--</option>
-        <option value="1">Free</option>
-        <option value="2">Not Free</option>
-    </select>-->
-        <input type="checkbox" id="free" value="Is Free" onclick="freeOrNot()" style="margin-right:2%" />
-        Date Range:
-        <input type="text" name="daterange" style="margin-right:2%;" />
-
-        <select id="categories" style="margin-right:2%">
-            <option value="0">--Select Category--</option>
-            <option value="1">Exhibitions</option>
-            <option value="2">Shows</option>
-            <option value="3">Family</option>
-            <option value="4">Festivals and Carnivals</option>
-            <option value="5">Education</option>
-            <option value="6">Film</option>
-            <option value="7">Hiking and Camping</option>
-        </select>
-        <button onclick="go()" style="margin-top:0.2em;margin-right:2%">Go</button>
-        <button onclick="clear123()" style="margin-top:0.2em;">Clear</button>
-    </div>
+<div style="text-align: center;width:100%">
+    Select suburb
+    <select id="selectSuburb"></select>
+    Is Free
+    <!--   <select id="isFree">
+           <option value="0">--Please Select--</option>
+           <option value="1">Free</option>
+           <option value="2">Not Free</option>
+       </select>-->
+    <input type="checkbox" id="free" value="Is Free" onclick="freeOrNot()" />
+    Date Range
+    <input type="text" name="daterange" />
+    Category
+    <select id="categories">
+        <option value="0">--Select Category--</option>
+        <option value="1">Exhibitions</option>
+        <option value="2">Shows</option>
+        <option value="3">Family</option>
+        <option value="4">Festivals and Carnivals</option>
+        <option value="5">Education</option>
+        <option value="6">Film</option>
+        <option value="7">Hiking and Camping</option>
+    </select>
+    <button onclick="go()">Go</button>
+    <button onclick="clear123()">Clear</button>
 </div>
-
-
-<div id="eventGallery" style=" justify-content:center; text-align: center;" class="container">
+<div id="eventGallery" style="display:inline-block; justify-content:center; text-align: center;width:100%">
     <h3 id="noResult" style="text-align:center;color:gray">Sorry, no result was found!!!</h3>
 </div>
 <div class="modal fade" id="myModal" role="dialog">
@@ -194,19 +179,18 @@
         else { document.getElementById("noResult").style.display = "none"; }
         for (var i = 0; i < json.length; i++) {
             div1 = document.createElement("div");
-            div1.setAttribute("class", "w3-card-4 col-md-4 col-lg-4 events container");
+            div1.setAttribute("class", "w3-card-4 col-md-4 col-lg-4 events");
             div1.setAttribute("id", json[i]["id"]);
-            div1.setAttribute("style", "font-family:Georgia;width:min-content;padding:0px;margin:1.5em");
+            div1.setAttribute("style", "width:270px;height:270px;margin:1em;font-family:Georgia");
             div1.setAttribute("onclick", "EventClicked(this)");
             image = document.createElement("img");
             image.setAttribute("src", json[i]["images"]["images"][0]["transforms"]["transforms"][2]["url"]);
             image.setAttribute("alt", "No Image avalible");
-            image.setAttribute("style", "width:auto");
+            image.setAttribute("style", "width:100%");
             nameDiv = document.createElement("div");
             nameDiv.setAttribute("class", "w3-container w3-center");
-            nameDiv.setAttribute("style","margin-top:0.5em;margin-bottom:0.5em;");
             nameH4 = document.createElement("h4");
-            nameH4.setAttribute("style", "font-size:1em; color: black;font-family:Georgia;height:3em;");
+            nameH4.setAttribute("style", "margin:0.5em;font-size:1.2em; color: black");
             nameH4.innerText = json[i]["name"];
             nameDiv.appendChild(nameH4);
             div1.appendChild(image);
@@ -232,7 +216,7 @@
         $("#myModal").modal();
     }
     function loadSuburb() {
-        document.getElementById("selectSuburb").options.add(new Option("--select suburb--", 0));
+        document.getElementById("selectSuburb").options.add(new Option("-select suburb-", 0));
         $.ajax({
             url: "/Event/GetSuburbs",
             type: "GET",//请求方式为get
@@ -242,10 +226,7 @@
             success: function (data) {//请求成功完成后要执行的方法
                 suburbs = data;
                 for (var i = 0; i < suburbs.length; i++) {
-                    var newOption = new Option(suburbs[i].SuburbName, suburbs[i].Lat + "," + suburbs[i].Lon);
-                    newOption.setAttribute("style", "font-size:0.8em");
-                    document.getElementById("selectSuburb").options.add(newOption);
-                    
+                    document.getElementById("selectSuburb").options.add(new Option(suburbs[i].SuburbName, suburbs[i].Lat + "," + suburbs[i].Lon));
                 }
             },
             error: function () {
@@ -258,7 +239,7 @@
         document.getElementById("selectSuburb").options[0].selected = true;
         document.getElementById("free").checked = false;
         document.getElementById("categories").options[0].selected = true;
-        $('input[name="daterange"]').daterangepicker({
+        $datepicker('input[name="daterange"]').daterangepicker({
             opens: 'left',
             minDate: (new Date()),
         }, function (start, end, label) {
