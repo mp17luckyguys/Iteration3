@@ -389,7 +389,7 @@ a.agilebtn {
 p {
     font-size: 1em;
     color: black;
-    line-height: 1.2em;
+    line-height: 1.5em;
     font-family:Georgia;
 }
 
@@ -2016,7 +2016,7 @@ h2.typoh2 {
     }
 
     .services-grid {
-        padding: 0 1em;
+        padding: 0 2em;
     }
 
     .w3layouts-slid h4 {
