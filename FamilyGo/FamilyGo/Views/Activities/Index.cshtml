@@ -39,7 +39,7 @@
                     <div class="grid">
                         <figure class="effect-roxy">
                             <a class="image-link" href="@Url.Action("Index", "Places",new {i= item.Name,age = "All" })">
-                                <img src="~/Image/66cdaa.jpg" alt="" />
+                                <img src="~/Image/@Html.DisplayFor(modelItem => item.Name) .jpg" alt="" />
                                 <figcaption>
                                     <h2>@Html.DisplayFor(modelItem => item.Name)</h2>
                                 </figcaption>

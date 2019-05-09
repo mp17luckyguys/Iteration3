@@ -53,7 +53,6 @@ body a:focus {
 }
 
 .mapanddata {
-    padding-left:10px;
     padding-top:1em;
 }
 
@@ -2176,8 +2175,8 @@ h2.typoh2 {
     ul.nav.navbar-nav.navbar-left {
         float: none !important;
         text-align: center;
-        display: table;
         margin: 0 auto;
+        background:#f5f5f5;
     }
 
     .navbar-header h1 {
@@ -2220,7 +2219,7 @@ h2.typoh2 {
         }
 
         .navbar-default1 .navbar-toggle:hover .icon-bar, .navbar-default1 .navbar-toggle:focus .icon-bar {
-            background-color:#f5f5f5;
+            background-color:#66cdaa;
         }
 
     .social-icons ul li a.fa {
@@ -5205,13 +5204,13 @@ button.btn1 {
 
 @media(max-width:736px) {
     .navbar-default1 .navbar-toggle {
-        border-color: #fff;
+        border-color: #66cdaa;
         margin: 0 0 1em 0;
-        float: none;
+        float: right;
     }
 
         .navbar-default1 .navbar-toggle .icon-bar {
-            background-color: #fff;
+            background-color: #66cdaa;
         }
 
         .navbar-default1 .navbar-toggle:hover, .navbar-default1 .navbar-toggle:focus {
@@ -5407,6 +5406,7 @@ button.btn1 {
 
     .about-heading {
         padding: 0 0 0 0;
+        margin:1em;
     }
 
     .w3agile-map {
