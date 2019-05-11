@@ -40,6 +40,7 @@
         white-space: nowrap;
         vertical-align: middle;
         -webkit-appearance: button;
+        
     }
 
     .btn-primary {
@@ -64,13 +65,6 @@
 <div style=" font-family:Georgia; padding:0px;" class="container address-agileinfo">
     <div style="margin:1em;padding:0px;">
         <select id="selectSuburb" style="margin-right:2%; font-size:1em;width:150px;"></select>
-
-        Is Free:
-        <!--   <select id="isFree">
-         
-            <option value="1">Free</option>
-            <option value="2">Not Free</option>
-        </select>-->
         <input type="checkbox" id="free" value="Is Free" onclick="freeOrNot()" style="margin-right:2%" />
         Date Range:
         <input type="text" name="daterange" style="margin-right:2%;" />
@@ -147,6 +141,7 @@
     var isFree = "0", point = "0", category = "0";
     var json;
     var eventGallery = document.getElementById("eventGallery");
+
     var suburbs;
     var div1;
     var image;
@@ -195,10 +190,11 @@
         }
         else { document.getElementById("noResult").style.display = "none"; }
         for (var i = 0; i < json.length; i++) {
+            var div2 = document.createElement("div");
             div1 = document.createElement("div");
             div1.setAttribute("class", "w3-card-4 col-md-4 col-lg-4 events container");
             div1.setAttribute("id", json[i]["id"]);
-            div1.setAttribute("style", "font-family:Georgia;width:min-content;padding:0px;margin:1.5em");
+            div1.setAttribute("style", "font-family:Georgia;width:min-content;padding:0px;margin:1.5em;display: inline-block;");
             div1.setAttribute("onclick", "EventClicked(this)");
             image = document.createElement("img");
             image.setAttribute("src", json[i]["images"]["images"][0]["transforms"]["transforms"][2]["url"]);
@@ -213,8 +209,15 @@
             nameDiv.appendChild(nameH4);
             div1.appendChild(image);
             div1.appendChild(nameDiv);
-            eventGallery.appendChild(div1);
+            
+            div2.appendChild(div1);
+            div2.setAttribute("class", "col-md-4 col-lg-4");
+            div2.setAttribute("style", "text-align: center;");
+            
+            eventGallery.appendChild(div2);
         }
+
+        eventGallery.setAttribute("style", "margin: auto; text-align: center;");
     }
 
 

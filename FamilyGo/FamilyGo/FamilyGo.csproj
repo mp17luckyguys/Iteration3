@@ -404,10 +404,12 @@
     <Content Include="Image\family4.jpg" />
     <Content Include="Image\Four Square .jpg" />
     <Content Include="Image\Green flower.png" />
+    <Content Include="Image\green school.png" />
     <Content Include="Image\Group into a number .jpg" />
     <Content Include="Image\halftone-yellow.png" />
     <Content Include="Image\Hide-and-Seek .jpg" />
     <Content Include="Image\Hopscotch .jpg" />
+    <Content Include="Image\blue school.png" />
     <Content Include="Image\Kaws-Sesame-Street-Uniqlo-Cookie-Monster-Plush-Toy-Blue.jpg" />
     <Content Include="Image\kids-running .jpg" />
     <Content Include="Image\light-green.jpg" />
@@ -419,7 +421,9 @@
     <Content Include="Image\noPhoto.png" />
     <Content Include="Image\pineapple.jpg" />
     <Content Include="Image\prev.png" />
+    <Content Include="Image\purple school.png" />
     <Content Include="Image\Red Light, Green Light .jpg" />
+    <Content Include="Image\red school.png" />
     <Content Include="Image\Rope jumping .jpg" />
     <Content Include="Image\Tag, you’re it! .jpg" />
     <Content Include="Image\Traffic on the road .jpg" />
