@@ -1121,10 +1121,12 @@ h3.w3ltitle {
 /*-- address --*/
 .address-agileinfo {
     padding: 1em 0;
+    border-radius:8px;
     margin-top: 1.5em;
     -webkit-box-shadow: 0px 0px 20px #66cdaa;
     -moz-box-shadow: 0px 0px 20px #66cdaa;
     box-shadow: 0px 0px 20px #66cdaa;
+    
    
 }
 
