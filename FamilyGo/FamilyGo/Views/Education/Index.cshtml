@@ -224,6 +224,21 @@
     .usetitle {
         border-radius: 25px;
     }
+
+    .example_b {
+        color: #fff !important;
+        background: #66cdaa;
+        padding: 7px;
+        border-radius: 50px;
+        display: inline-block;
+        border: none;
+    }
+        .example_b:hover {
+            text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+            -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+            -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+            transition: all 0.4s ease 0s;
+        }
 </style>
 
 <!--navigation bar-->
@@ -299,7 +314,8 @@
                 </div>
                 <div class="col-sm-3" style="vertical-align:middle">
                     <form>
-                        <input class="clickMe" type="button" value="Clear" />
+                        <!--<input class="clickMe" type="button" value="Clear" />-->
+                        <div class="button_cont" align="center"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
                     </form>
                 </div>
                 <!--
@@ -321,7 +337,10 @@
             </div>
             <div class="col-sm-3" style="vertical-align:middle">
                 <form>
-                    <input class="clickMe" type="button" value="Clear" />
+
+                    <!-- <input class="clickMe example_b" type="button" value="Clear" />-->
+                    <div class="button_cont" align="center"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
+                    <!--<div class="button_cont clickMe" align="center"><a class="example_b">Clear</a></div>-->
                 </form>
             </div>
             <!--
@@ -972,7 +991,7 @@
     for (var i = 0; i < languageColor.length; i++) {
         selectLanguage.options.add(new Option(languageColor[i]["language"], languageColor[i]["id"]));
     }
-   // sortSelectOptions("#selectLanguage");
+    //sortSelectOptions("#selectLanguage");
     function countryChange(obj) {
         d3.select("#svg2").remove();
         document.getElementById("svg1").style.display = "block";
@@ -994,6 +1013,9 @@
             });
         }
         loadSuburb();
+        sortSelectOptions("#selectSuburbC");
+        document.getElementById("selectSuburbC").options[0].selected = true;
+
     }
     function languageChange(obj) {
         d3.select("#svg2").remove();
@@ -1016,6 +1038,8 @@
             });
         }
         loadSuburb();
+        sortSelectOptions("#selectSuburbL");
+        document.getElementById("selectSuburbL").options[0].selected = true;
     }
     loadSuburb();
     function loadSuburb() {
@@ -1321,7 +1345,7 @@
     }
 </script>
 <script type="text/javascript">
-    $(function () {
+   /* $(function () {
         $(".clickMe").click(function () {
             if (countryFunction) {
                 if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
@@ -1329,14 +1353,39 @@
                 loadSuburb();
                 document.getElementById("selectSuburbC").options[0].selected = true;
                 country();
+                sortSelectOptions("#selectCountry");
+                document.getElementById("selectCountry").options[0].selected = true;
             }
             if (languageFunction) {
                 if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
                 languageSelected = 0;
                 loadSuburb();
                 document.getElementById("selectSuburbL").options[0].selected = true;
+                console.log("clear");
                 language();
+                sortSelectOptions("#selectLanguage");
+                document.getElementById("selectLanguage").options[0].selected = true;
             }
         });
-    });
+    });*/
+    function clear() {
+        if (countryFunction) {
+            if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
+            countrySelected = 0;
+            loadSuburb();
+            document.getElementById("selectSuburbC").options[0].selected = true;
+            country();
+            sortSelectOptions("#selectCountry");
+            document.getElementById("selectCountry").options[0].selected = true;
+        }
+        if (languageFunction) {
+            if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
+            languageSelected = 0;
+            loadSuburb();
+            document.getElementById("selectSuburbL").options[0].selected = true;
+            console.log("clear");
+            language();
+            sortSelectOptions("#selectLanguage");
+            document.getElementById("selectLanguage").options[0].selected = true;
+        }}
 </script>
