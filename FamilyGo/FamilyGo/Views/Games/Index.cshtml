@@ -36,17 +36,18 @@
 
 <div class="container" style="padding-top:1em">
     <div>
-
         @foreach (var item in Model)
         {
-        <div class="col-md-4">
-            <div class="w3-card-4" id="@item.GameId" style="margin:1em;font-family:Georgia;padding:0px;" onclick="gameClicked(this)">
-                <img src="~/Image/@Html.DisplayFor(modelItem => item.Name) .jpg" alt="No Image avalible" style="width:100%">
-                <div class="w3-container w3-center" style="height:2.5em">
-                    <h4 style="margin:0.5em;font-size:1.2em;padding-bottom:0.2em;padding-top:0.2em"><strong>@Html.DisplayFor(modelItem => item.Name)</strong></h4>
+            <div class="col-md-4 gallery-grid">
+                <div class="grid">
+                    <figure class="effect-roxy" id="@item.GameId" style="margin:1em;font-family:Georgia;padding:0px" onclick="gameClicked(this)">
+                        <img src="~/Image/@Html.DisplayFor(modelItem => item.Name) .jpg" alt="No Image avalible" style="width:110%;height:110%">
+                        <figcaption>
+                            <h4 style="padding-bottom:0.2em;padding-top:0.2em;"><strong>@Html.DisplayFor(modelItem => item.Name)</strong></h4>
+                        </figcaption>
+                    </figure>
                 </div>
             </div>
-        </div>
 
         }
         <div class="modal fade" id="myModal" role="dialog">
