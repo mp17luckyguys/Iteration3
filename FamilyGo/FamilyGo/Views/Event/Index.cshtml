@@ -126,7 +126,7 @@
                 <h4 class="modal-title" id="name" style="color:black"> </h4>
             </div>
             <div class="modal-body">
-                <img id="image" />
+                <img id="image" style="width: 350px;"/>
                 <h4>Description</h4>
                 <p id="description"> </p>
                 <br />
@@ -140,6 +140,7 @@
                 <p id="address"> </p>
                 <br />
                 <h4>Official Website</h4>
+                <a id="websiteLink"></a>
                 <p id="website"> </p>
                 <br />
 
@@ -293,7 +294,19 @@
         document.getElementById("description").innerText = selectedEvent.description;
         document.getElementById("category").innerText = selectedEvent.category.name;
         document.getElementById("address").innerText = selectedEvent.location_summary;
-        document.getElementById("website").innerText = selectedEvent.web_sites.web_sites[0].url;
+        if (selectedEvent.web_sites.web_sites[0].url != null && selectedEvent.web_sites.web_sites[0].url != "") 
+        {
+            document.getElementById("website").innerText = "";
+            document.getElementById("websiteLink").setAttribute("href", selectedEvent.web_sites.web_sites[0].url);
+            document.getElementById("websiteLink").innerText = selectedEvent.web_sites.web_sites[0].url;
+            
+        }
+        else {
+            document.getElementById("website").innerText = "No website avaliable";
+            document.getElementById("websiteLink").setAttribute("href", "");
+            document.getElementById("websiteLink").innerText = "";
+        }
+
         document.getElementById("time").innerText = "From: " + selectedEvent.datetime_start + "\u00A0\u00A0\u00A0To: " + selectedEvent.datetime_end;
         $("#myModal").modal();
     }
