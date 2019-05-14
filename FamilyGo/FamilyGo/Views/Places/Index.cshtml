@@ -10,6 +10,19 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link href="~/Content/loading.css" rel="stylesheet" />
+<style>
+    .center-in-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    </style>
 <body>
     <div class="container">
         <!--navigation bar-->
@@ -76,10 +89,8 @@
                                         <div class="w3ls-pince agileits-w3layouts">
                                             <div class="pince-right">
                                                 <h4>WEBSITE:</h4>
-                                                <a href="#website">
-                                                    <p id="website">No website avaliable</p>
-                                                </a>
-                                                
+                                                <a id="websiteLink"></a>
+                                                <p id="website">No website avaliable</p>
                                             </div>
                                             <div class="clearfix"> </div>
                                         </div>
@@ -108,7 +119,7 @@
                                             <div class="pince-right">
                                                 <h4>REVIEWS: </h4>
                                                 <p id="review">
-                                                   No review avaliable
+                                                    No review avaliable
                                                 </p>
                                             </div>
                                             <div class="clearfix"> </div>
@@ -126,8 +137,10 @@
                         <!-- //Modal content-->
                     </div>
                 </div>
+                <div class ="center-in-center" id ="tonerInfowarning" style="padding: 20px;text-align:right;color:red;position:absolute; float:initial;background-color:gray;opacity:0.8;border-radius:10%;text-align:center;"><div class="loader" id="tonerInfowarning" style="display: inline-block;"></div><p>Loading, please wait<p></div>
+
                 <!-- //Modal -->
-                <table style="display:none">
+                <table style="display:none;">
                     <thead>
                         <tr>
                             <th>
@@ -202,6 +215,7 @@
 </body>
 
 <script>
+    $('#tonerInfowarning').hide();
     var map;
     var locations = [];
     var InforObj = [];
@@ -287,9 +301,14 @@
                     dataType: "json", //返回数据格式为json
                     data: { id: marker.id },
                     async: true,//是否同步
+                    beforeSend: function () {
+                        $('#tonerInfowarning').show();
+                    },
                     success: function (data) {//请求成功完成后要执行的方法
                         x = data;
                         initmodal(x);
+                        $('#tonerInfowarning').hide();
+                        $("#myModal").modal();
                     },
                     error: function () {
                         console.log("error");
@@ -300,7 +319,19 @@
                     document.getElementById("address").innerText = x.address;
                     document.getElementById("rating").innerText = x.rating;
                     document.getElementById("phone").innerText = x.phoneNumber;
-                    document.getElementById("website").innerText = x.website;
+                    if (x.website == "No website avaliable.")
+                    {
+                        document.getElementById("website").innerText = x.website;
+                        document.getElementById("websiteLink").setAttribute("href", "");
+                        document.getElementById("websiteLink").innerText = "";
+                    }
+                    else
+                    {
+                        document.getElementById("website").innerText = "";
+                        document.getElementById("websiteLink").setAttribute("href", x.website);
+                        document.getElementById("websiteLink").innerText = x.website;
+                    }
+                    
                     document.getElementById("open").innerText = x.openingNow;
                     document.getElementById("name").innerText = x.name;
 
@@ -321,28 +352,25 @@
                     //document.getElementById("review").innerText = x.review;
                     //console.log(x.review);
                     var reviewStr = "";
-                    if (x.review != "No review avaliable.")
-                    {
+                    if (x.review != "No review avaliable.") {
                         var json = JSON.parse(x.review);
-                        for (var i = 0; i < json.length; i++)
-                        {
+                        for (var i = 0; i < json.length; i++) {
                             //console.log(json[i]);
                             reviewStr = reviewStr + json[i].author_name + "\n";
                             reviewStr = reviewStr + json[i].relative_time_description + "\n";
                             reviewStr = reviewStr + json[i].text + "\n\n";
                         }
                     }
-                    else
-                    {
+                    else {
                         reviewStr = x.review + "\n";
                     }
                     //console.log(reviewStr);
                     document.getElementById("review").innerText = reviewStr;
                     document.getElementById("image").setAttribute("src", x.imUrl);
                 }
-                closeOtherInfo();
-                infowindow.open(marker.get('map'), marker);
-                InforObj[0] = infowindow;
+                //closeOtherInfo();
+                //infowindow.open(marker.get('map'), marker);
+                //InforObj[0] = infowindow;
             });
         }
         locations = [];
@@ -386,7 +414,7 @@
             select.options[i].selected = true;
             break;
         }
-    } 
+    }
 
     function test() {
         var checked1 = false;

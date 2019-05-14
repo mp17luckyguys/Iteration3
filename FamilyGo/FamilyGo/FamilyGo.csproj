@@ -377,6 +377,7 @@
     <Content Include="Content\jquery.flipster.css" />
     <Content Include="Content\jquery.gallery.css" />
     <Content Include="Content\lightbox.css" />
+    <Content Include="Content\loading.css" />
     <Content Include="Content\popuo-box.css" />
     <Content Include="Content\simplelightbox.css" />
     <Content Include="Content\style.css" />
