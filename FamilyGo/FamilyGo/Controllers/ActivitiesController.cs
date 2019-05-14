@@ -32,12 +32,16 @@ namespace FamilyGo.Controllers
 
         public ActionResult Information()
         {
+
             var age = from a in db.Activities
                       select a;
             if (!String.IsNullOrEmpty("1")) {
                 age = age.Where(a => a.Description.Contains("1"));
             }
-            return View(age.ToList());
+           
+            List<Activity> activityList = age.ToList();
+            var newlist = activityList.OrderBy(x => x.Name).ToList();
+            return View(newlist);
         }
 
         public ActionResult InformationTwo()
@@ -48,7 +52,10 @@ namespace FamilyGo.Controllers
             {
                 age = age.Where(a => a.Description.Contains("2"));
             }
-            return View(age.ToList());
+
+            List<Activity> activityList = age.ToList();
+            var newlist = activityList.OrderBy(x => x.Name).ToList();
+            return View(newlist);
         }
 
         // GET: Activities/Details/5

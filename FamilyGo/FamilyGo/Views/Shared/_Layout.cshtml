@@ -41,7 +41,7 @@
                 <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1" style="font-size:12px;">
                     <ul class="nav navbar-nav navbar-left">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Activities", "Index", "Activities")</li>
+                        <li>@Html.ActionLink("Activities", "Information", "Activities")</li>
                         <li>@Html.ActionLink("Education", "Index", "Education")</li>
                         <li>@Html.ActionLink("Events", "Index", "Event")</li>
                     </ul>
@@ -62,7 +62,7 @@
                     <h4 style="color:#66cdaa;font-size:1.5em;font-family:Georgia">Navigation</h4>
                     <ul>
                         <li><a href="@Url.Action("Index","Home")"><i class="glyphicon glyphicon-chevron-right"></i>Home</a></li>
-                        <li><a href="@Url.Action("Index","Activities")"><i class="glyphicon glyphicon-chevron-right"></i>Find Activities </a></li>
+                        <li><a href="@Url.Action("Information","Activities")"><i class="glyphicon glyphicon-chevron-right"></i>Find Activities </a></li>
                         <li><a href="@Url.Action("Index","Education")"><i class="glyphicon glyphicon-chevron-right"></i>Find a proper school for your child</a></li>
                         <li><a href="@Url.Action("Index","Event")"><i class="glyphicon glyphicon-chevron-right"></i>Find upcoming events</a></li>
                     </ul>
