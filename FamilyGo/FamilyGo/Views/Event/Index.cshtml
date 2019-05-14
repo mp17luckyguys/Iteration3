@@ -2,6 +2,8 @@
 @{
                 /**/
 
+                /**/
+
                 ViewBag.Title = "Index";
                 Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -14,6 +16,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/js/select2.min.js"></script>
+<link href="~/Content/lightbox.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.css" rel="stylesheet" />
 
 <style>
     input[type="text"] {
@@ -40,7 +44,6 @@
         white-space: nowrap;
         vertical-align: middle;
         -webkit-appearance: button;
-        
     }
 
     .btn-primary {
@@ -192,28 +195,40 @@
         for (var i = 0; i < json.length; i++) {
             var div2 = document.createElement("div");
             div1 = document.createElement("div");
-            div1.setAttribute("class", "w3-card-4 events container");
+            div1.setAttribute("class", "gallery-grid events container");
             div1.setAttribute("id", json[i]["id"]);
-            div1.setAttribute("style", "font-family:Georgia;width:min-content;padding:0px;margin:1.5em;display: inline-block; width:190px;");
+            div1.setAttribute("style", "font-family:Georgia;padding:0px;margin:1em;display: inline-block; width:200px;");
             div1.setAttribute("onclick", "EventClicked(this)");
+
+            div3 = document.createElement("div");
+            div3.setAttribute("class", "grid");
+            figure = document.createElement("figure");
+            figure.setAttribute("class", "effect-roxy");
+            figure.setAttribute("style","height:140px");
+
             image = document.createElement("img");
             image.setAttribute("src", json[i]["images"]["images"][0]["transforms"]["transforms"][2]["url"]);
             image.setAttribute("alt", "No Image avalible");
-            image.setAttribute("style", "width:auto");
-            nameDiv = document.createElement("div");
-            nameDiv.setAttribute("class", "w3-container w3-center");
-            nameDiv.setAttribute("style", "margin-top:0.5em;margin-bottom:0.5em;");
+            //image.setAttribute("style", "width:auto");
+            
+
+            //nameDiv = document.createElement("div");
+            //nameDiv.setAttribute("class", "w3-container w3-center");
+            //nameDiv.setAttribute("style", "margin-top:0.5em;margin-bottom:0.5em;");
             nameH4 = document.createElement("h4");
             nameH4.setAttribute("style", "font-size:1em; color: black;font-family:Georgia;height:3em;");
             nameH4.innerText = json[i]["name"];
-            nameDiv.appendChild(nameH4);
-            div1.appendChild(image);
-            div1.appendChild(nameDiv);
             
+  
+            div1.appendChild(div3);
+            div3.appendChild(figure)
+            figure.appendChild(image)
+            figure.appendChild(nameH4);
+
             div2.appendChild(div1);
-            div2.setAttribute("class", "col-md-4 col-lg-4");
+            div2.setAttribute("class", "col-md-3 col-lg-3");
             div2.setAttribute("style", "text-align: center;");
-            
+
             eventGallery.appendChild(div2);
         }
 
