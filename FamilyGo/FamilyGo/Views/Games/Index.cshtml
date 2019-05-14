@@ -81,6 +81,29 @@
 
         });
     </script>
+    <script type="text/javascript">
+        function gameClicked(obj) {
+            var gameId = parseInt(obj.id);
+            var x;
+            $.ajax({
+                url: "/Games/GetGame",
+                type: "GET",//请求方式为get
+                dataType: "json", //返回数据格式为json
+                data: { id: gameId },
+                async: false,//是否同步
+                success: function (data) {//请求成功完成后要执行的方法
+                    x = data;
+                },
+                error: function () {
+                    console.log("error");
+                }
+            })
+            document.getElementById("name").innerText = x.Name;
+            document.getElementById("description").innerText = x.Description;
+            $("#myModal").modal();
+        }
+
+    </script>
    
 
 }
