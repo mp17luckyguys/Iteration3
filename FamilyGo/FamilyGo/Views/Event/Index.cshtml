@@ -177,6 +177,7 @@
     var image;
     var nameDiv;
     var nameH4;
+    var figcaption;
    // basicEvents(isFree, point, start_time, end_time, category);
     loadSuburb();
     function go() {
@@ -256,8 +257,10 @@
             image = document.createElement("img");
             image.setAttribute("src", json[i]["images"]["images"][0]["transforms"]["transforms"][2]["url"]);
             image.setAttribute("alt", "No Image avalible");
+            image.style.opacity = 0.7;
             //image.setAttribute("style", "width:auto");
-
+            figcaption = document.createElement("figcaption");
+            
 
             //nameDiv = document.createElement("div");
             //nameDiv.setAttribute("class", "w3-container w3-center");
@@ -270,7 +273,8 @@
             div1.appendChild(div3);
             div3.appendChild(figure)
             figure.appendChild(image)
-            figure.appendChild(nameH4);
+            figcaption.appendChild(nameH4)
+            figure.appendChild(figcaption);
 
             div2.appendChild(div1);
             div2.setAttribute("class", "col-md-3 col-lg-3");
