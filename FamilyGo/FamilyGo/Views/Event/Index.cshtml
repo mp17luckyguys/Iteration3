@@ -160,7 +160,7 @@
         }, function (start, end, label) {
             start_time = start.format('YYYY-MM-DD');
             end_time = end.format('YYYY-MM-DD');
-            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            //console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         }).val('');
 
     });
@@ -179,6 +179,7 @@
    // basicEvents(isFree, point, start_time, end_time, category);
     loadSuburb();
     function go() {
+        console.log("go");
         point = document.getElementById("selectSuburb").options[document.getElementById("selectSuburb").selectedIndex].value;
         category = document.getElementById("categories").options[document.getElementById("categories").selectedIndex].value;
         basicEvents(isFree, point, start_time, end_time, category);
@@ -190,15 +191,7 @@
         blank.innerText = "\n\n\n\n\n\n\n\n\n";
         document.getElementById("eventGallery").appendChild(blank);
         paras = document.getElementsByClassName("col-md-3 col-lg-3");
-        var parasLength = paras.length;
-        for (var i = 0; i < parasLength; i++) {
-            //删除元素 元素.parentNode.removeChild(元素);
 
-            if (paras[0] != null) { paras[0].parentNode.removeChild(paras[0]); }
-        }
-        var noResultRemove = document.getElementById("noResult");
-        if (noResultRemove != null)
-            noResultRemove.parentNode.removeChild(noResultRemove);
         $.ajax({
             url: "/Event/GetEvents",
             type: "GET",//请求方式为get
@@ -209,12 +202,25 @@
             },
             async: true,//是否同步
             success: function (data) {//请求成功完成后要执行的方法
+                var parasLength = paras.length;
+                for (var i = 0; i < parasLength; i++) {
+                    //删除元素 元素.parentNode.removeChild(元素);
+
+                    if (paras[0] != null) { paras[0].parentNode.removeChild(paras[0]); }
+                }
+                var noResultRemove = document.getElementById("noResult");
+                if (noResultRemove != null)
+                    noResultRemove.parentNode.removeChild(noResultRemove);
+
+
+
                 json = data["events"];
                 $('#tonerInfowarning').hide();
-                console.log(json);
+                //console.log(json);
                 var blankRemove = document.getElementById("blank");
                 if (blankRemove != null)
                     blankRemove.parentNode.removeChild(blankRemove);
+                
                 loadEvents();
             },
             error: function () {
@@ -335,12 +341,15 @@
         })
     }
     function clear123() {
-        console.log("clicked");
+        //console.log("clicked");
+        
         sortSelectOptions("#selectSuburb");
         document.getElementById("selectSuburb").options[0].selected = true;
         document.getElementById("free").checked = false;
         sortSelectOptions("#categories");
+        
         document.getElementById("categories").options[0].selected = true;
+        console.log("clicked");
         $('input[name="daterange"]').daterangepicker({
             opens: 'left',
             minDate: (new Date()),
@@ -350,6 +359,7 @@
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         }).val('');
         isFree = "0"; point = "0"; category = "0"; start_time = "0"; end_time = "0";
+        
         go();
     }
     function freeOrNot() {
