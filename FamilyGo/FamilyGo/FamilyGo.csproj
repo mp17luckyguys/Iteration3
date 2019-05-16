@@ -495,6 +495,8 @@
     <None Include="Properties\PublishProfiles\FamilyGoIteration2 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FamilyGoIteration3 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\FamilyGoIteration3 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\melkidsthrive - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\melkidsthrive - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\MelkidsThrive3 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\MelkidsThrive3 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
