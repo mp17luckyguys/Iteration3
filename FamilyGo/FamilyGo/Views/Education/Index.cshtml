@@ -302,44 +302,44 @@
 <div id="wholeContiner" class="container">
     <div class="box " id="filter">       
         <!--this is filter for language-->       
-            <div id="languageFilter" style="margin-top:1em;font-family:Georgia;padding-bottom:2.8em" class="address-agileinfo">
-                <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
-                    <select id="selectLanguage" onchange="languageChange(this)" style="padding-left:inherit;"></select>
-                </div>
-                <div class="col-sm-3" style=" padding-top:0.2em;vertical-align:middle">
-                    <select id="selectSuburbL" onchange="suburbChange(this)" style="padding-left:inherit;"></select>
-                </div>
-                <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
-                    <select id="selectSchoolTypeL" onchange="suburbChange(this)" style="padding-left:inherit"></select>
-                </div>
-                <div class="col-sm-3" style="vertical-align:middle">
-                    <form>
-                        <!--<input class="clickMe" type="button" value="Clear" />-->
-                        <div class="button_cont" align="center"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
-                    </form>
-                </div>
-                <!--
-                    <div class="col-md-12" style="padding-bottom:0.2em">
-                    <p style="color:gray;padding-left:inherit"><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
-                    </div>
-                -->                                           
-            </div>      
+        <div id="languageFilter" style="margin-top:1em;font-family:Georgia;padding-bottom:2.8em" class="address-agileinfo">
+            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                <select id="selectLanguage" onchange="languageChange(this)" style="padding-left:inherit;width: 140px;"></select>
+            </div>
+            <div class="col-sm-3" style=" padding-top:0.2em;vertical-align:middle">
+                <select id="selectSuburbL" onchange="suburbChange(this)" style="padding-left:inherit; width: 140px;"></select>
+            </div>
+            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                <select id="selectSchoolTypeL" onchange="suburbChange(this)" style="padding-left:inherit;width: 140px;"></select>
+            </div>
+            <div class="col-sm-3" style="vertical-align:middle">
+            <form>
+                <!--<input class="clickMe" type="button" value="Clear" />-->
+                <div class="button_cont" align="left" style="margin-left: 10px;"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
+            </form>
+            </div>
+            <!--
+        <div class="col-md-12" style="padding-bottom:0.2em">
+        <p style="color:gray;padding-left:inherit"><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
+        </div>
+    -->
+        </div>      
         <!--this is filter for country-->
         <div id="countryFilter" style="margin-top:1em;font-family:Georgia;padding-bottom:2.8em" class="address-agileinfo">
             <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
-                <select id="selectCountry" onchange="countryChange(this)" style="padding-left:inherit;"></select>
+                <select id="selectCountry" onchange="countryChange(this)" style="padding-left:inherit;width: 140px;"></select>
             </div>
             <div class="col-sm-3" style=" padding-top:0.2em;vertical-align:middle">
-                <select id="selectSuburbC" onchange="suburbChange(this)" style="padding-left:inherit;"></select>
+                <select id="selectSuburbC" onchange="suburbChange(this)" style="padding-left:inherit;width: 140px;"></select>
             </div>
             <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
-                <select id="selectSchoolTypeC" onchange="suburbChange(this)" style="padding-left:inherit"></select>
+                <select id="selectSchoolTypeC" onchange="suburbChange(this)" style="padding-left:inherit;width: 140px;"></select>
             </div>
             <div class="col-sm-3" style="vertical-align:middle">
                 <form>
 
                     <!-- <input class="clickMe example_b" type="button" value="Clear" />-->
-                    <div class="button_cont" align="center"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
+                    <div class="button_cont" align="left" style="margin-left:10px"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
                     <!--<div class="button_cont clickMe" align="center"><a class="example_b">Clear</a></div>-->
                 </form>
             </div>
@@ -626,8 +626,9 @@
 
             map.on("click", "state-fills", function (thisElement) {
                 suburbSelected = thisElement.features[0].properties.vic_loca_2;
-                $("#selectSuburbC").val(suburbSelected);
-                suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
+                if (isExistOption("selectSuburbC", suburbSelected))
+                $select2("#selectSuburbC").val(suburbSelected).trigger('change');
+                //suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
             });
         });
     }
@@ -791,8 +792,11 @@
 
             map.on("click", "state-fills", function (thisElement) {
                 suburbSelected = thisElement.features[0].properties.vic_loca_2;
-                $("#selectSuburbL").val(suburbSelected);
-                suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
+                if(isExistOption("selectSuburbL", suburbSelected))
+                $select2("#selectSuburbL").val(suburbSelected).trigger('change');
+                //$select2('#selectSuburbL').select2("val", suburbSelected);
+               // console.log( $("#selectSuburbL").val());
+                //suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
             });
         });
     }
@@ -1177,7 +1181,12 @@
                 if (clicked == "clicked") { } else { suburbSelected = selectSuburbC.options[selectSuburbC.selectedIndex].value }
             }
             if (languageFunction) {
-                if (clicked == "clicked") { } else { suburbSelected = selectSuburbL.options[selectSuburbL.selectedIndex].value }
+                if (clicked == "clicked") { } else {
+                    //if (selectSuburbL.options[selectSuburbL.selectedIndex])
+
+                    suburbSelected = selectSuburbL.options[selectSuburbL.selectedIndex].value;
+                    //suburbSelected = $select2("#selectSuburbL").val();
+                }
             }
             console.log(suburbSelected);
             $.ajax({
@@ -1387,5 +1396,19 @@
             language();
             sortSelectOptions("#selectLanguage");
             document.getElementById("selectLanguage").options[0].selected = true;
-        }}
+        }
+    }
+
+    function isExistOption(id, value) {
+        var isExist = false;
+        var count = $('#' + id).find('option').length;
+
+        for (var i = 0; i < count; i++) {
+            if ($('#' + id).get(0).options[i].value == value) {
+                isExist = true;
+                break;
+            }
+        }
+        return isExist;
+    } 
 </script>
