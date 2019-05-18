@@ -17,7 +17,7 @@
         margin: 0 0 0 0;
         padding: 0;
     }
-     
+
     #map {
         position: relative;
         height: 75%;
@@ -35,7 +35,6 @@
     }
 
     svg {
-
     }
 
     #svg {
@@ -49,7 +48,7 @@
         top: 58%;
         border-radius: 20px;
         position: absolute;
-        opacity:0.8;
+        opacity: 0.8;
     }
 
     #svg1 {
@@ -161,17 +160,20 @@
         cursor: pointer;
         padding: 0;
         /*background-image: https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png;*/
-        
     }
+
     .purple {
         background: url('../../Image/purple school.png') center center no-repeat;
     }
+
     .blue {
         background: url('../../Image/blue school.png') center center no-repeat;
     }
+
     .green {
         background: url('../../Image/green school.png') center center no-repeat;
     }
+
     .red {
         background: url('../../Image/red school.png') center center no-repeat;
     }
@@ -233,6 +235,7 @@
         display: inline-block;
         border: none;
     }
+
         .example_b:hover {
             text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
             -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
@@ -254,15 +257,71 @@
 <!--tab selection -->
 <div class="about-heading container">
     <ul id="myTab" class="nav nav-tabs" role="tabpanel" style="font-family:Georgia">
-        <li role="presentation" id="infoPresentation" class="active"><a href="javascript:initinformation();" role="tab">Education Information</a></li>
-        <li role="presentation" id="languagePresentation"><a href="javascript:initlanguage();" role="tab">Find schools by Native Language </a> </li>
+
+        <li role="presentation" id="languagePresentation" class="active"><a href="javascript:initlanguage();" role="tab">Find schools by Native Language </a> </li>
         <li role="presentation" id="countryPresentation"><a href="javascript:initcountry();" role="tab"> Find schools by Nationality</a></li>
+        <li role="presentation" id="infoPresentation"><a href="javascript:initinformation();" role="tab">Education Information</a></li>
     </ul>
 </div>
 <!--//tab selection-->
+<!--this container contains the filter and map-->
+<div id="wholeContiner" class="container">
+    <div class="box " id="filter">
+        <!--this is filter for language-->
+        <div id="languageFilter" style="margin-top:1em;font-family:Georgia;padding-bottom:2.8em" class="address-agileinfo">
+            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                <select id="selectLanguage" onchange="languageChange(this)" style="padding-left:inherit;width: 140px;"></select>
+            </div>
+            <div class="col-sm-3" style=" padding-top:0.2em;vertical-align:middle">
+                <select id="selectSuburbL" onchange="suburbChange(this)" style="padding-left:inherit; width: 140px;"></select>
+            </div>
+            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                <select id="selectSchoolTypeL" onchange="suburbChange(this)" style="padding-left:inherit;width: 140px;"></select>
+            </div>
+            <div class="col-sm-3" style="vertical-align:middle">
+                <form>
+                    <!--<input class="clickMe" type="button" value="Clear" />-->
+                    <div class="button_cont" align="left" style="margin-left: 10px;"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
+                </form>
+            </div>
+            <!--
+                <div class="col-md-12" style="padding-bottom:0.2em">
+                <p style="color:gray;padding-left:inherit"><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
+                </div>
+            -->
+        </div>
+        <!--this is filter for country-->
+        <div id="countryFilter" style="margin-top:1em;font-family:Georgia;padding-bottom:2.8em;display : none" class="address-agileinfo">
+            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                <select id="selectCountry" onchange="countryChange(this)" style="padding-left:inherit;width: 140px;"></select>
+            </div>
+            <div class="col-sm-3" style=" padding-top:0.2em;vertical-align:middle">
+                <select id="selectSuburbC" onchange="suburbChange(this)" style="padding-left:inherit;width: 140px;"></select>
+            </div>
+            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
+                <select id="selectSchoolTypeC" onchange="suburbChange(this)" style="padding-left:inherit;width: 140px;"></select>
+            </div>
+            <div class="col-sm-3" style="vertical-align:middle">
+                <form>
+
+                    <!-- <input class="clickMe example_b" type="button" value="Clear" />-->
+                    <div class="button_cont" align="left" style="margin-left:10px"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
+                    <!--<div class="button_cont clickMe" align="center"><a class="example_b">Clear</a></div>-->
+                </form>
+            </div>
+            <!--
+                <div style="margin-top:0.5em">
+                <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
+            </div>
+            -->
+
+        </div>
+    </div>
+    <div id='map' style="margin-bottom:2em;margin-top:2em"></div>
+</div>
 <!--school information-->
 <div id="info" class="container" style="margin-bottom:2em;">
-    <div ><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
+    <div><span class="glyphicon glyphicon-share-alt" style="color:#66cdaa"></span><a href="https://www.studyinaustralia.gov.au/english/australian-education/education-system" style="font-family:Georgia;color:#66cdaa;margin:0.5em"><u>Australia Education System</u></a></div>
     <div>
         <p>There are three main kind of schools in Australia.</p>
     </div>
@@ -298,64 +357,54 @@
     </div>
 </div>
 <!--//school information-->
-<!--this container contains the filter and map-->
-<div id="wholeContiner" class="container">
-    <div class="box " id="filter">       
-        <!--this is filter for language-->       
-        <div id="languageFilter" style="margin-top:1em;font-family:Georgia;padding-bottom:2.8em" class="address-agileinfo">
-            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
-                <select id="selectLanguage" onchange="languageChange(this)" style="padding-left:inherit;width: 140px;"></select>
-            </div>
-            <div class="col-sm-3" style=" padding-top:0.2em;vertical-align:middle">
-                <select id="selectSuburbL" onchange="suburbChange(this)" style="padding-left:inherit; width: 140px;"></select>
-            </div>
-            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
-                <select id="selectSchoolTypeL" onchange="suburbChange(this)" style="padding-left:inherit;width: 140px;"></select>
-            </div>
-            <div class="col-sm-3" style="vertical-align:middle">
-            <form>
-                <!--<input class="clickMe" type="button" value="Clear" />-->
-                <div class="button_cont" align="left" style="margin-left: 10px;"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
-            </form>
-            </div>
-            <!--
-        <div class="col-md-12" style="padding-bottom:0.2em">
-        <p style="color:gray;padding-left:inherit"><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
-        </div>
-    -->
-        </div>      
-        <!--this is filter for country-->
-        <div id="countryFilter" style="margin-top:1em;font-family:Georgia;padding-bottom:2.8em" class="address-agileinfo">
-            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
-                <select id="selectCountry" onchange="countryChange(this)" style="padding-left:inherit;width: 140px;"></select>
-            </div>
-            <div class="col-sm-3" style=" padding-top:0.2em;vertical-align:middle">
-                <select id="selectSuburbC" onchange="suburbChange(this)" style="padding-left:inherit;width: 140px;"></select>
-            </div>
-            <div class="col-sm-3" style="padding-top:0.2em;vertical-align:middle">
-                <select id="selectSchoolTypeC" onchange="suburbChange(this)" style="padding-left:inherit;width: 140px;"></select>
-            </div>
-            <div class="col-sm-3" style="vertical-align:middle">
-                <form>
-
-                    <!-- <input class="clickMe example_b" type="button" value="Clear" />-->
-                    <div class="button_cont" align="left" style="margin-left:10px"><a class="example_b" href="javascript:clear();" target="_blank" rel="nofollow noopener">Clear</a></div>
-                    <!--<div class="button_cont clickMe" align="center"><a class="example_b">Clear</a></div>-->
-                </form>
-            </div>
-            <!--
-                <div style="margin-top:0.5em">
-                <p><span class="glyphicon glyphicon-info-sign"></span>The filter has no order limit for selection</p>
-            </div>
-            -->
-            
-        </div>
-    </div>
-    <div id='map' style="margin-bottom:2em;margin-top:2em"></div>
-</div>
-
 <script>
     //sort the options in the select element based on alphabet
+    var selectCountry = document.getElementById("selectCountry");
+    var selectLanguage = document.getElementById("selectLanguage");
+    var selectSuburbL = document.getElementById("selectSuburbL");
+    var selectSuburbC = document.getElementById("selectSuburbC");
+    var selectSchoolTypeC = document.getElementById("selectSchoolTypeC");
+    var selectSchoolTypeL = document.getElementById("selectSchoolTypeL");
+    var selectAgeL = document.getElementById("selectAgeL");
+    var selectAgeC = document.getElementById("selectAgeC");
+    var countrySelected = 0;
+    var languageSelected = 0;
+    var suburbs = [];
+    var boundaries;
+    var country;
+    var language;
+    var languageColor = [{ 'id': 1, 'language': 'Vietnamese', 'color': '#EEC7C3' }, { 'id': 2, 'language': 'Italian', 'color': '#844773' }, { 'id': 3, 'language': 'Punjabi', 'color': '#375EB3' }, { 'id': 4, 'language': 'Greek', 'color': '#CABD27' }, { 'id': 5, 'language': 'Arabic', 'color': '#D43155' }, { 'id': 6, 'language': 'Mandarin', 'color': '#E492CE' }, { 'id': 7, 'language': 'French', 'color': '#B4766D' }, { 'id': 8, 'language': 'German', 'color': '#54E859' }, { 'id': 9, 'language': 'Cantonese', 'color': '#2937C6' }, { 'id': 10, 'language': 'Dutch', 'color': '#E7C92A' }, { 'id': 11, 'language': 'Sinhalese', 'color': '#4FD755' }, { 'id': 12, 'language': 'Tagalog', 'color': '#C45DEA' }, { 'id': 13, 'language': 'Hindi', 'color': '#FBCA22' }, { 'id': 14, 'language': 'Hebrew', 'color': '#E55A49' }, { 'id': 15, 'language': 'Russian', 'color': '#1F73F1' }, { 'id': 16, 'language': 'Turkish', 'color': '#C86AA5' }, { 'id': 17, 'language': 'Samoan', 'color': '#C93EC2' }, { 'id': 18, 'language': 'Japanese', 'color': '#7A5F3A' }, { 'id': 19, 'language': 'Dari', 'color': '#F3BB57' }, { 'id': 20, 'language': 'Albanian', 'color': '#655C79' }, { 'id': 21, 'language': 'Serbian', 'color': '#81E1E4' }, { 'id': 22, 'language': 'Macedonian', 'color': '#112318' }, { 'id': 23, 'language': 'Bosnian', 'color': '#BBF8DF' }, { 'id': 24, 'language': 'Afrikaans', 'color': '#CA3EB6' }, { 'id': 25, 'language': 'Somali', 'color': '#D79E64' }, { 'id': 26, 'language': 'Maltese', 'color': '#6CBD43' }, { 'id': 27, 'language': 'Spanish', 'color': '#2ADD8A' }, { 'id': 28, 'language': 'Maori (New Zealand)', 'color': '#8E1372' }, { 'id': 29, 'language': 'Yiddish', 'color': '#C51569' }]
+    var countryColor = [{ 'id': 1, 'country': 'Vietnam', 'color': '#8D41C3' }, { 'id': 2, 'country': 'England', 'color': '#A85329' }, { 'id': 3, 'country': 'Italy', 'color': '#7A1E25' }, { 'id': 4, 'country': 'India', 'color': '#122B96' }, { 'id': 5, 'country': 'China', 'color': '#D5F4B1' }, { 'id': 6, 'country': 'Greece', 'color': '#43ADFE' }, { 'id': 7, 'country': 'Iraq', 'color': '#438344' }, { 'id': 8, 'country': 'Philippines', 'color': '#757ED9' }, { 'id': 9, 'country': 'Poland', 'color': '#39517C' }, { 'id': 10, 'country': 'South Africa', 'color': '#E14578' }, { 'id': 11, 'country': 'New Zealand', 'color': '#EBEF8B' }, { 'id': 12, 'country': 'Turkey', 'color': '#8AD886' }, { 'id': 13, 'country': 'Sri Lanka', 'color': '#7C9116' }, { 'id': 14, 'country': 'Afghanistan', 'color': '#228E8C' }, { 'id': 15, 'country': 'Somalia', 'color': '#A31DDD' }, { 'id': 16, 'country': 'FYR Macedonia', 'color': '#F89614' }, { 'id': 17, 'country': 'Malaysia', 'color': '#6F5ABE' }]
+
+    $.ajax({
+        url: "/Education/GetJsonFromFile",
+        type: "GET",//请求方式为get
+        dataType: "json", //返回数据格式为json
+        data: { path: "~/json/new1.geojson" },
+        async: false,//是否同步
+        success: function (data) {//请求成功完成后要执行的方法
+            boundaries = data;
+        },
+        error: function () {
+            console.log("error");
+        }
+    })
+    mapboxgl.accessToken = 'pk.eyJ1IjoiemVrdW5kaSIsImEiOiJjamZ3OTRsbHQ0aWRzMzBudms4dGxoZmZnIn0.0yzmMvKJeh6Md9wQ4_Ozlw';
+
+    var hoveredStateId = null;
+    var margin = { top: 100, right: 20, bottom: 20, left: 380 },
+        width = 600 - margin.left - margin.right,
+        height = 300 - margin.top - margin.bottom;
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [144.964194, -37.824898],
+        zoom: 10
+    });
+
+    var svg;
+    var svgContainer;
+    var canvas = map.getCanvasContainer();
     function sortSelectOptions(selectElement) {
         var options = $(selectElement + " option");
         options.sort(function (a, b) {
@@ -399,8 +448,12 @@
         countryFunction = false;
         if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
         loadSuburb();
-        document.getElementById("selectSuburbL").options[0].selected = true;
+        //sortSelectOptions("#selectSuburbL");
+        //document.getElementById("selectSuburbL").options[0].selected = true;
+
         language();
+        //$select2("#selectSuburbL").val(0).trigger('change');
+        //console.log(document.getElementById("selectSuburbL").options[document.getElementById("selectSuburbL").selectedIndex].value);
     }
     //this is the entry of information funtion
     function initinformation() {
@@ -413,7 +466,8 @@
         d3.select("#svg1").remove();
         d3.select("#svg2").remove();
     }
-    initinformation();
+    initlanguage();
+    //$select2("#selectSuburbL").val(0).trigger('change');
     //this is the original entry, going to be removed
     /*
     $(function () {
@@ -440,43 +494,8 @@
         });
     });
     */
-</script>
-<script>
-    var boundaries;
-    var country;
-    var language;
-    var languageColor = [{ 'id': 1, 'language': 'Vietnamese', 'color': '#EEC7C3' }, { 'id': 2, 'language': 'Italian', 'color': '#844773' }, { 'id': 3, 'language': 'Punjabi', 'color': '#375EB3' }, { 'id': 4, 'language': 'Greek', 'color': '#CABD27' }, { 'id': 5, 'language': 'Arabic', 'color': '#D43155' }, { 'id': 6, 'language': 'Mandarin', 'color': '#E492CE' }, { 'id': 7, 'language': 'French', 'color': '#B4766D' }, { 'id': 8, 'language': 'German', 'color': '#54E859' }, { 'id': 9, 'language': 'Cantonese', 'color': '#2937C6' }, { 'id': 10, 'language': 'Dutch', 'color': '#E7C92A' }, { 'id': 11, 'language': 'Sinhalese', 'color': '#4FD755' }, { 'id': 12, 'language': 'Tagalog', 'color': '#C45DEA' }, { 'id': 13, 'language': 'Hindi', 'color': '#FBCA22' }, { 'id': 14, 'language': 'Hebrew', 'color': '#E55A49' }, { 'id': 15, 'language': 'Russian', 'color': '#1F73F1' }, { 'id': 16, 'language': 'Turkish', 'color': '#C86AA5' }, { 'id': 17, 'language': 'Samoan', 'color': '#C93EC2' }, { 'id': 18, 'language': 'Japanese', 'color': '#7A5F3A' }, { 'id': 19, 'language': 'Dari', 'color': '#F3BB57' }, { 'id': 20, 'language': 'Albanian', 'color': '#655C79' }, { 'id': 21, 'language': 'Serbian', 'color': '#81E1E4' }, { 'id': 22, 'language': 'Macedonian', 'color': '#112318' }, { 'id': 23, 'language': 'Bosnian', 'color': '#BBF8DF' }, { 'id': 24, 'language': 'Afrikaans', 'color': '#CA3EB6' }, { 'id': 25, 'language': 'Somali', 'color': '#D79E64' }, { 'id': 26, 'language': 'Maltese', 'color': '#6CBD43' }, { 'id': 27, 'language': 'Spanish', 'color': '#2ADD8A' }, { 'id': 28, 'language': 'Maori (New Zealand)', 'color': '#8E1372' }, { 'id': 29, 'language': 'Yiddish', 'color': '#C51569' }]
-    var countryColor = [{ 'id': 1, 'country': 'Vietnam', 'color': '#8D41C3' }, { 'id': 2, 'country': 'England', 'color': '#A85329' }, { 'id': 3, 'country': 'Italy', 'color': '#7A1E25' }, { 'id': 4, 'country': 'India', 'color': '#122B96' }, { 'id': 5, 'country': 'China', 'color': '#D5F4B1' }, { 'id': 6, 'country': 'Greece', 'color': '#43ADFE' }, { 'id': 7, 'country': 'Iraq', 'color': '#438344' }, { 'id': 8, 'country': 'Philippines', 'color': '#757ED9' }, { 'id': 9, 'country': 'Poland', 'color': '#39517C' }, { 'id': 10, 'country': 'South Africa', 'color': '#E14578' }, { 'id': 11, 'country': 'New Zealand', 'color': '#EBEF8B' }, { 'id': 12, 'country': 'Turkey', 'color': '#8AD886' }, { 'id': 13, 'country': 'Sri Lanka', 'color': '#7C9116' }, { 'id': 14, 'country': 'Afghanistan', 'color': '#228E8C' }, { 'id': 15, 'country': 'Somalia', 'color': '#A31DDD' }, { 'id': 16, 'country': 'FYR Macedonia', 'color': '#F89614' }, { 'id': 17, 'country': 'Malaysia', 'color': '#6F5ABE' }]
 
-    $.ajax({
-        url: "/Education/GetJsonFromFile",
-        type: "GET",//请求方式为get
-        dataType: "json", //返回数据格式为json
-        data: { path: "~/json/new1.geojson" },
-        async: false,//是否同步
-        success: function (data) {//请求成功完成后要执行的方法
-            boundaries = data;
-        },
-        error: function () {
-            console.log("error");
-        }
-    })
-    mapboxgl.accessToken = 'pk.eyJ1IjoiemVrdW5kaSIsImEiOiJjamZ3OTRsbHQ0aWRzMzBudms4dGxoZmZnIn0.0yzmMvKJeh6Md9wQ4_Ozlw';
 
-    var hoveredStateId = null;
-    var margin = { top: 100, right: 20, bottom: 20, left: 380 },
-        width = 600 - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [144.964194, -37.824898],
-        zoom: 10
-    });
-
-    var svg;
-    var svgContainer;
-    var canvas = map.getCanvasContainer();
     //language();
     function country() {
         d3.select("#svg").remove();
@@ -496,7 +515,7 @@
             svg1 = d3.select("#map").append("svg")
                 .attr("id", "svg1")
                 .attr("style", "height:200px")
-               // .attr("transform", "translate(" + 15 + "," + 30 + ")")
+                // .attr("transform", "translate(" + 15 + "," + 30 + ")")
                 ;
             legendArea = svg1.append("g")
                 .attr("transform", "translate(0,20)");
@@ -627,7 +646,7 @@
             map.on("click", "state-fills", function (thisElement) {
                 suburbSelected = thisElement.features[0].properties.vic_loca_2;
                 if (isExistOption("selectSuburbC", suburbSelected))
-                $select2("#selectSuburbC").val(suburbSelected).trigger('change');
+                    $select2("#selectSuburbC").val(suburbSelected).trigger('change');
                 //suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
             });
         });
@@ -792,10 +811,10 @@
 
             map.on("click", "state-fills", function (thisElement) {
                 suburbSelected = thisElement.features[0].properties.vic_loca_2;
-                if(isExistOption("selectSuburbL", suburbSelected))
-                $select2("#selectSuburbL").val(suburbSelected).trigger('change');
+                if (isExistOption("selectSuburbL", suburbSelected))
+                    $select2("#selectSuburbL").val(suburbSelected).trigger('change');
                 //$select2('#selectSuburbL').select2("val", suburbSelected);
-               // console.log( $("#selectSuburbL").val());
+                // console.log( $("#selectSuburbL").val());
                 //suburbChange({ "id": "selectSuburbC", "clickState": "clicked" });
             });
         });
@@ -972,19 +991,8 @@
             });
     }
 
-</script>
-<script>
-    var selectCountry = document.getElementById("selectCountry");
-    var selectLanguage = document.getElementById("selectLanguage");
-    var selectSuburbL = document.getElementById("selectSuburbL");
-    var selectSuburbC = document.getElementById("selectSuburbC");
-    var selectSchoolTypeC = document.getElementById("selectSchoolTypeC");
-    var selectSchoolTypeL = document.getElementById("selectSchoolTypeL");
-    var selectAgeL = document.getElementById("selectAgeL");
-    var selectAgeC = document.getElementById("selectAgeC");
-    var countrySelected = 0;
-    var languageSelected = 0;
-    var suburbs = [];
+
+
     selectCountry.options.add(new Option("-select country-", 0));
 
     for (var i = 0; i < countryColor.length; i++) {
@@ -1081,7 +1089,7 @@
             for (var i = 0; i < suburbs.length; i++) {
                 selectSuburbC.options.add(new Option(suburbs[i]["properties"]["vic_loca_2"].toLowerCase(), suburbs[i]["properties"]["vic_loca_2"].toUpperCase()));
             }
-            sortSelectOptions("#selectSuburbC");
+            //sortSelectOptions("#selectSuburbC");
         }
         if (languageFunction) {
             selectSuburbL.options.length = 0;
@@ -1096,7 +1104,8 @@
             for (var i = 0; i < suburbs.length; i++) {
                 selectSuburbL.options.add(new Option(suburbs[i]["properties"]["vic_loca_2"].toLowerCase(), suburbs[i]["properties"]["vic_loca_2"].toUpperCase()));
             }
-            sortSelectOptions("#selectSuburbL");
+            console.log(document.getElementById("selectSuburbL").options[document.getElementById("selectSuburbL").selectedIndex].value);
+            //sortSelectOptions("#selectSuburbL");
         }
 
     }
@@ -1128,8 +1137,8 @@
             legendArea = svg2.append("g")
                 .attr("transform", "translate(0,20)");
 
-           /**var l = [{ "tp": "Kindergarten", "color": "purple", "sp": "rect" }] */
-            var l2 = [ { "tp": "Government", "color": "purple", "sp": "rect" }, { "tp": "Independent", "color": "blue", "sp": "rect" }, { "tp": "Catholic", "color": "red", "sp": "rect" }, { "tp": "LanguageSchool", "color": "green", "sp": "rect" }]
+            /**var l = [{ "tp": "Kindergarten", "color": "purple", "sp": "rect" }] */
+            var l2 = [{ "tp": "Government", "color": "purple", "sp": "rect" }, { "tp": "Independent", "color": "blue", "sp": "rect" }, { "tp": "Catholic", "color": "red", "sp": "rect" }, { "tp": "LanguageSchool", "color": "green", "sp": "rect" }]
 
 
             var legend2 = legendArea.selectAll("g")
@@ -1167,7 +1176,8 @@
             if (languageFunction) {
                 schoolTypeSelected = selectSchoolTypeL.options[selectSchoolTypeL.selectedIndex].value;
             }
-            document.getElementById("svg1").style.display = "none";
+            if (document.getElementById("svg1"))
+                document.getElementById("svg1").style.display = "none";
             var a = document.getElementById("svg");
             if (a) { document.getElementById("svg").style.display = "none"; }
 
@@ -1286,12 +1296,12 @@
                 var el = document.createElement('div');
                 el.setAttribute("id", "marker");
                 el.className = 'marker ';
-                el.setAttribute("style","border - radius: 2 %");
+                el.setAttribute("style", "border - radius: 2 %");
                 var markerColor = "purple";
-                if (marker.properties.Education_Sector == "Government") { markerColor = "purple"; el.className += " purple";}
-                else if (marker.properties.Education_Sector == "Independent") { markerColor = "blue"; el.className += " blue";}
-                else if (marker.properties.Education_Sector == "Catholic") { markerColor = "red"; el.className += " red";}
-                else if (marker.properties.Education_Sector == "LanguageSchool") { markerColor = "green"; el.className += " green";}
+                if (marker.properties.Education_Sector == "Government") { markerColor = "purple"; el.className += " purple"; }
+                else if (marker.properties.Education_Sector == "Independent") { markerColor = "blue"; el.className += " blue"; }
+                else if (marker.properties.Education_Sector == "Catholic") { markerColor = "red"; el.className += " red"; }
+                else if (marker.properties.Education_Sector == "LanguageSchool") { markerColor = "green"; el.className += " green"; }
                 //el.style.backgroundColor = markerColor;
                 el.style.width = marker.properties.iconSize[0] + 'px';
                 el.style.height = marker.properties.iconSize[1] + 'px';
@@ -1352,31 +1362,30 @@
             }
         }
     }
-</script>
-<script type="text/javascript">
-   /* $(function () {
-        $(".clickMe").click(function () {
-            if (countryFunction) {
-                if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
-                countrySelected = 0;
-                loadSuburb();
-                document.getElementById("selectSuburbC").options[0].selected = true;
-                country();
-                sortSelectOptions("#selectCountry");
-                document.getElementById("selectCountry").options[0].selected = true;
-            }
-            if (languageFunction) {
-                if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
-                languageSelected = 0;
-                loadSuburb();
-                document.getElementById("selectSuburbL").options[0].selected = true;
-                console.log("clear");
-                language();
-                sortSelectOptions("#selectLanguage");
-                document.getElementById("selectLanguage").options[0].selected = true;
-            }
-        });
-    });*/
+
+    /* $(function () {
+         $(".clickMe").click(function () {
+             if (countryFunction) {
+                 if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
+                 countrySelected = 0;
+                 loadSuburb();
+                 document.getElementById("selectSuburbC").options[0].selected = true;
+                 country();
+                 sortSelectOptions("#selectCountry");
+                 document.getElementById("selectCountry").options[0].selected = true;
+             }
+             if (languageFunction) {
+                 if (document.getElementById("selectLanguage").options[0]) { document.getElementById("selectLanguage").options[0].selected = true; }
+                 languageSelected = 0;
+                 loadSuburb();
+                 document.getElementById("selectSuburbL").options[0].selected = true;
+                 console.log("clear");
+                 language();
+                 sortSelectOptions("#selectLanguage");
+                 document.getElementById("selectLanguage").options[0].selected = true;
+             }
+         });
+     });*/
     function clear() {
         if (countryFunction) {
             if (document.getElementById("selectCountry").options[0]) { document.getElementById("selectCountry").options[0].selected = true; }
@@ -1410,5 +1419,5 @@
             }
         }
         return isExist;
-    } 
+    }
 </script>
