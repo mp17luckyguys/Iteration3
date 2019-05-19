@@ -34,7 +34,8 @@ namespace FamilyGo.Controllers
             categoryDic.Add("7", "126");
             if (category != "0")
             { basicUrl = basicUrl + "&category=" + categoryDic[category]; }
-            else { basicUrl = basicUrl + "&category=23,304,25,22,48,320,251,253,60,11,73,5,52,30,321,49,192,305,275,163,140,205,216"; }
+            else { basicUrl = basicUrl + "&category=25,11,5,52,30,321,49,305,275,163,140,205,216"; }
+            //,73,192,48,22,320,304,60,251,23,253,
             if (point != "0")
             { basicUrl = basicUrl + "&radius=10&point=" + point; }
             else { basicUrl = basicUrl + "&radius=100&point=-37.813611,144.963056"; }

@@ -61,6 +61,7 @@
         -o-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
     }
+
     .example_b {
         color: #fff !important;
         background: #66cdaa;
@@ -100,7 +101,7 @@
         <select id="categories" style="margin-right:2%" onchange="go();">
             <option value="0">--All Categories--</option>
             <option value="1">Exhibitions</option>
-            <option value="2">Shows</option>
+            <!-- <option value="2">Shows</option>-->
             <option value="3">Family</option>
             <option value="4">Festivals and Carnivals</option>
             <option value="5">Education</option>
@@ -111,10 +112,11 @@
 
     </div>
 </div>
-<div class="center-in-center" id="tonerInfowarning" style="padding: 20px;text-align:right;color:red;position:absolute; float:initial;background-color:gray;opacity:0.8;border-radius:10%;text-align:center;"><div class="loader" id="tonerInfowarning" style="display: inline-block;"></div><p>Loading, please wait<p></div>
 
 <div id="eventGallery" style=" justify-content:center; text-align: center;" class="container">
 </div>
+<div class="center-in-center" id="tonerInfowarning" style="padding: 20px;text-align:right;color:red;position:absolute; float:initial;background-color:gray;opacity:0.8;border-radius:10%;text-align:center;"><div class="loader" id="tonerInfowarning" style="display: inline-block;"></div><p>Loading, please wait<p></div>
+
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -124,7 +126,7 @@
                 <h4 class="modal-title" id="name" style="color:black"> </h4>
             </div>
             <div class="modal-body">
-                <img id="image" style="width: 350px;"/>
+                <img id="image" style="width: 350px;" />
                 <h4>Description</h4>
                 <p id="description"> </p>
                 <br />
@@ -176,7 +178,7 @@
     var nameDiv;
     var nameH4;
     var figcaption;
-   // basicEvents(isFree, point, start_time, end_time, category);
+    // basicEvents(isFree, point, start_time, end_time, category);
     loadSuburb();
     function go() {
         console.log("go");
@@ -203,6 +205,7 @@
             async: true,//是否同步
             success: function (data) {//请求成功完成后要执行的方法
                 var parasLength = paras.length;
+                
                 for (var i = 0; i < parasLength; i++) {
                     //删除元素 元素.parentNode.removeChild(元素);
 
@@ -215,12 +218,13 @@
 
 
                 json = data["events"];
+                console.log(json);
                 $('#tonerInfowarning').hide();
                 //console.log(json);
                 var blankRemove = document.getElementById("blank");
                 if (blankRemove != null)
                     blankRemove.parentNode.removeChild(blankRemove);
-                
+
                 loadEvents();
             },
             error: function () {
@@ -264,7 +268,7 @@
             image.style.opacity = 1;
             //image.setAttribute("style", "width:auto");
             figcaption = document.createElement("figcaption");
-            
+
 
             //nameDiv = document.createElement("div");
             //nameDiv.setAttribute("class", "w3-container w3-center");
@@ -283,8 +287,8 @@
             div2.appendChild(div1);
             div2.setAttribute("class", "col-md-3 col-lg-3");
             div2.setAttribute("style", "text-align: center;");
-
-            eventGallery.appendChild(div2);
+            if (json[i]["name"] != "Skull2 – Jewellery Exhibition")
+                eventGallery.appendChild(div2);
         }
 
         eventGallery.setAttribute("style", "margin: auto; text-align: center;");
@@ -302,12 +306,11 @@
         document.getElementById("description").innerText = selectedEvent.description;
         document.getElementById("category").innerText = selectedEvent.category.name;
         document.getElementById("address").innerText = selectedEvent.location_summary;
-        if (selectedEvent.web_sites.web_sites[0].url != null && selectedEvent.web_sites.web_sites[0].url != "") 
-        {
+        if (selectedEvent.web_sites.web_sites[0].url != null && selectedEvent.web_sites.web_sites[0].url != "") {
             document.getElementById("website").innerText = "";
             document.getElementById("websiteLink").setAttribute("href", selectedEvent.web_sites.web_sites[0].url);
             document.getElementById("websiteLink").innerText = selectedEvent.web_sites.web_sites[0].url;
-            
+
         }
         else {
             document.getElementById("website").innerText = "No website avaliable";
@@ -342,12 +345,12 @@
     }
     function clear123() {
         //console.log("clicked");
-        
+
         sortSelectOptions("#selectSuburb");
         document.getElementById("selectSuburb").options[0].selected = true;
         document.getElementById("free").checked = false;
         sortSelectOptions("#categories");
-        
+
         document.getElementById("categories").options[0].selected = true;
         console.log("clicked");
         $('input[name="daterange"]').daterangepicker({
@@ -359,7 +362,7 @@
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         }).val('');
         isFree = "0"; point = "0"; category = "0"; start_time = "0"; end_time = "0";
-        
+
         go();
     }
     function freeOrNot() {
