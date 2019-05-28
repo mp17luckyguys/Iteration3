@@ -15,6 +15,11 @@ namespace FamilyGo.Controllers
 {
     public class HomeController : Controller
     {
+        public ActionResult Password()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             ViewBag.IFrameSrc = "https://melkidsthrive.shinyapps.io/migrant/";
