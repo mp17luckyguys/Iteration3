@@ -379,6 +379,7 @@
     <Content Include="Content\lightbox.css" />
     <Content Include="Content\loading.css" />
     <Content Include="Content\popuo-box.css" />
+    <Content Include="Content\pw.css" />
     <Content Include="Content\simplelightbox.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
@@ -640,6 +641,7 @@
     <Content Include="Views\Shared\search_layout.cshtml" />
     <Content Include="Views\Education\Index.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Home\Password.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
