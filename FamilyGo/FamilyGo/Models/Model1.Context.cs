@@ -13,10 +13,10 @@ namespace FamilyGo.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FamilyGoiteration2_dbEntities1 : DbContext
+    public partial class Melkidsthrive123_DBEntities : DbContext
     {
-        public FamilyGoiteration2_dbEntities1()
-            : base("name=FamilyGoiteration2_dbEntities1")
+        public Melkidsthrive123_DBEntities()
+            : base("Melkidsthrive123_DBEntities")
         {
         }
     

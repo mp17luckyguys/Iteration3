@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FamilyGoiteration2_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Melkidsthrive123_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Activities">
           <Key>
             <PropertyRef Name="ActivityId" />
@@ -34,8 +34,6 @@
           <Property Name="Suburb" Type="nvarchar(max)" />
           <Property Name="ActivityActivityId" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Schools' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Schools">
           <Key>
             <PropertyRef Name="Id" />
@@ -51,8 +49,6 @@ warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Schools' does not have a
           <Property Name="Y" Type="nvarchar(max)" />
           <Property Name="Secondary_language" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Suburbs' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Suburbs">
           <Key>
             <PropertyRef Name="Id" />
@@ -74,41 +70,22 @@ warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Suburbs' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FamilyGoiteration2_dbModelStoreContainer">
+        <EntityContainer Name="Melkidsthrive123_DBModelStoreContainer">
           <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Places" EntityType="Self.Places" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Schools" EntityType="Self.Schools" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Schools].[Id] AS [Id], 
-    [Schools].[Education_Sector] AS [Education_Sector], 
-    [Schools].[School_Type] AS [School_Type], 
-    [Schools].[School_Name] AS [School_Name], 
-    [Schools].[Address_Line_1] AS [Address_Line_1], 
-    [Schools].[Suburb] AS [Suburb], 
-    [Schools].[Full_Phone_No] AS [Full_Phone_No], 
-    [Schools].[X] AS [X], 
-    [Schools].[Y] AS [Y], 
-    [Schools].[Secondary_language] AS [Secondary_language]
-    FROM [dbo].[Schools] AS [Schools]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Suburbs" EntityType="Self.Suburbs" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Suburbs].[Id] AS [Id], 
-    [Suburbs].[SuburbName] AS [SuburbName], 
-    [Suburbs].[Lat] AS [Lat], 
-    [Suburbs].[Lon] AS [Lon]
-    FROM [dbo].[Suburbs] AS [Suburbs]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suburbs" EntityType="Self.Suburbs" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ActivityPlace" Association="Self.FK_ActivityPlace">
             <End Role="Activities" EntitySet="Activities" />
             <End Role="Places" EntitySet="Places" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="FamilyGoiteration2_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Melkidsthrive123_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Activity">
           <Key>
             <PropertyRef Name="ActivityId" />
@@ -155,6 +132,15 @@ warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Suburbs' does not have a
           <Property Name="Y" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Secondary_language" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Suburb">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SuburbName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Lon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <Association Name="FK_ActivityPlace">
           <End Role="Activities" Type="Self.Activity" Multiplicity="1" />
           <End Role="Places" Type="Self.Place" Multiplicity="*" />
@@ -167,34 +153,25 @@ warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Suburbs' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FamilyGoiteration2_dbEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Melkidsthrive123_DBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Activities" EntityType="Self.Activity" />
           <EntitySet Name="Games" EntityType="Self.Game" />
           <EntitySet Name="Places" EntityType="Self.Place" />
           <EntitySet Name="Schools" EntityType="Self.School" />
+          <EntitySet Name="Suburbs" EntityType="Self.Suburb" />
           <AssociationSet Name="FK_ActivityPlace" Association="Self.FK_ActivityPlace">
             <End Role="Activities" EntitySet="Activities" />
             <End Role="Places" EntitySet="Places" />
           </AssociationSet>
-          <EntitySet Name="Suburbs" EntityType="FamilyGoiteration2_dbModel.Suburb" />
         </EntityContainer>
-        <EntityType Name="Suburb">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SuburbName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Lat" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Lon" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FamilyGoiteration2_dbModelStoreContainer" CdmEntityContainer="FamilyGoiteration2_dbEntities1">
+        <EntityContainerMapping StorageEntityContainer="Melkidsthrive123_DBModelStoreContainer" CdmEntityContainer="Melkidsthrive123_DBEntities">
           <EntitySetMapping Name="Activities">
-            <EntityTypeMapping TypeName="FamilyGoiteration2_dbModel.Activity">
+            <EntityTypeMapping TypeName="Melkidsthrive123_DBModel.Activity">
               <MappingFragment StoreEntitySet="Activities">
                 <ScalarProperty Name="ActivityId" ColumnName="ActivityId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -203,7 +180,7 @@ warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Suburbs' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Games">
-            <EntityTypeMapping TypeName="FamilyGoiteration2_dbModel.Game">
+            <EntityTypeMapping TypeName="Melkidsthrive123_DBModel.Game">
               <MappingFragment StoreEntitySet="Games">
                 <ScalarProperty Name="GameId" ColumnName="GameId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -212,7 +189,7 @@ warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Suburbs' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Places">
-            <EntityTypeMapping TypeName="FamilyGoiteration2_dbModel.Place">
+            <EntityTypeMapping TypeName="Melkidsthrive123_DBModel.Place">
               <MappingFragment StoreEntitySet="Places">
                 <ScalarProperty Name="PlaceId" ColumnName="PlaceId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -226,7 +203,7 @@ warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Suburbs' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Schools">
-            <EntityTypeMapping TypeName="FamilyGoiteration2_dbModel.School">
+            <EntityTypeMapping TypeName="Melkidsthrive123_DBModel.School">
               <MappingFragment StoreEntitySet="Schools">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Education_Sector" ColumnName="Education_Sector" />
@@ -242,12 +219,12 @@ warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Suburbs' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suburbs">
-            <EntityTypeMapping TypeName="FamilyGoiteration2_dbModel.Suburb">
+            <EntityTypeMapping TypeName="Melkidsthrive123_DBModel.Suburb">
               <MappingFragment StoreEntitySet="Suburbs">
-                <ScalarProperty Name="Lon" ColumnName="Lon" />
-                <ScalarProperty Name="Lat" ColumnName="Lat" />
-                <ScalarProperty Name="SuburbName" ColumnName="SuburbName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SuburbName" ColumnName="SuburbName" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Lon" ColumnName="Lon" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -268,7 +245,7 @@ warning 6002: The table/view 'FamilyGoiteration2_db.dbo.Suburbs' does not have a
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

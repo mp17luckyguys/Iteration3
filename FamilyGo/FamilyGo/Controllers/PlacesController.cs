@@ -17,9 +17,9 @@ namespace FamilyGo.Controllers
 {
     public class PlacesController : Controller
     {
-        private FamilyGoiteration2_dbEntities1 db = new FamilyGoiteration2_dbEntities1();
+        private Melkidsthrive123_DBEntities db = new Melkidsthrive123_DBEntities();
 
-   
+
         public ActionResult Index(string i,string age)
         {
             ViewBag.ageGroup = age;

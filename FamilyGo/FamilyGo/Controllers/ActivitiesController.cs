@@ -14,7 +14,7 @@ namespace FamilyGo.Controllers
     {
 
 
-        private FamilyGoiteration2_dbEntities1 db = new FamilyGoiteration2_dbEntities1();
+        private Melkidsthrive123_DBEntities db = new Melkidsthrive123_DBEntities();
 
         // GET: Activities
         public ActionResult Index()
