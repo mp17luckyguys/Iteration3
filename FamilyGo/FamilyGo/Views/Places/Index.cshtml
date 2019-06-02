@@ -220,7 +220,7 @@
     var locations = [];
     var InforObj = [];
     var dis = 0.05;
-
+    //initial google map
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: -37.835163, lng: 144.979678 },
@@ -229,6 +229,7 @@
         navigator.geolocation.getCurrentPosition(c);
     }
 
+    //get current location and mark it on the map
     function c(pos) {
         var clat = parseFloat(pos.coords.latitude);
         var clon = parseFloat(pos.coords.longitude);
@@ -252,9 +253,6 @@
             else {
                 if (point.latitude < (clat + dis) && point.latitude > (clat - dis) && point.longitude < (clon + dis) && point.longitude > (clon - dis)) { locations.push(point); }
             }
-            //locations.push(point);
-            // Push them all into an array.
-            //alert(locations);
         });
 
         var image = {
@@ -276,10 +274,9 @@
         map.setCenter({ lat: clat, lng: clon });
     }
 
+    //add marker on the map
     function addMarkerInfo() {
         for (var i = 0; i < locations.length; i++) {
-            //var contentString = '<div id="content">' + '<h5 style="color:black;font-family:Georgia">' + locations[i].name + '</h4></br>'  +
-            //'<a href = "Places/Details/?id=' + locations[i].id + '" style="color:blue"><u>More Details</u></a></div>';
             var contentString = '<div id="content">' + '<h5 style="color:black;font-family:Georgia">' + locations[i].name + '</h4></br>' +
                 '<a href = "#myModal" style="color:blue" data-toggle="modal"><u>More Details</u></a></div>';
             const marker = new google.maps.Marker({
@@ -297,14 +294,14 @@
                 var x;
                 $.ajax({
                     url: "/Places/GetDetail",
-                    type: "GET",//请求方式为get
-                    dataType: "json", //返回数据格式为json
+                    type: "GET",//the http method is get
+                    dataType: "json", //the returned method is json
                     data: { id: marker.id },
-                    async: true,//是否同步
+                    async: true,//async or not
                     beforeSend: function () {
                         $('#tonerInfowarning').show();
                     },
-                    success: function (data) {//请求成功完成后要执行的方法
+                    success: function (data) {
                         x = data;
                         initmodal(x);
                         $('#tonerInfowarning').hide();
@@ -314,7 +311,7 @@
                         console.log("error");
                     }
                 })
-                //console.log(x);
+                //initial modal and add the information into it
                 function initmodal(x) {
                     document.getElementById("address").innerText = x.address;
                     document.getElementById("rating").innerText = x.rating;
@@ -331,15 +328,12 @@
                         document.getElementById("websiteLink").setAttribute("href", x.website);
                         document.getElementById("websiteLink").innerText = x.website;
                     }
-                    
                     document.getElementById("open").innerText = x.openingNow;
                     document.getElementById("name").innerText = x.name;
-
                     var weekdayStr = "";
                     if (x.weekday != "No weekday information avaliable.") {
                         var json1 = JSON.parse(x.weekday);
                         for (var i = 0; i < json1.length; i++) {
-                            //console.log(json1[i]);
                             weekdayStr = weekdayStr + json1[i] + "\n";
                         }
                     }
@@ -349,13 +343,10 @@
 
                     document.getElementById("weekday").innerText = weekdayStr;
                     document.getElementById("address").innerText = x.address;
-                    //document.getElementById("review").innerText = x.review;
-                    //console.log(x.review);
                     var reviewStr = "";
                     if (x.review != "No review avaliable.") {
                         var json = JSON.parse(x.review);
                         for (var i = 0; i < json.length; i++) {
-                            //console.log(json[i]);
                             reviewStr = reviewStr + json[i].author_name + "\n";
                             reviewStr = reviewStr + json[i].relative_time_description + "\n";
                             reviewStr = reviewStr + json[i].text + "\n\n";
@@ -364,13 +355,9 @@
                     else {
                         reviewStr = x.review + "\n";
                     }
-                    //console.log(reviewStr);
                     document.getElementById("review").innerText = reviewStr;
                     document.getElementById("image").setAttribute("src", x.imUrl);
                 }
-                //closeOtherInfo();
-                //infowindow.open(marker.get('map'), marker);
-                //InforObj[0] = infowindow;
             });
         }
         locations = [];
@@ -416,6 +403,7 @@
         }
     }
 
+    // add the options for the select element 
     function test() {
         var checked1 = false;
         var checked2 = false;
@@ -455,7 +443,7 @@
         document.getElementById("Select1").appendChild(ret);
         document.getElementById("Select1").options[0].selected = true;
     }
-
+    // get the checkbox's value for age 
     function search() {
         var id = document.getElementsByName('age');
         var age = "All";
