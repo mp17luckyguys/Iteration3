@@ -16,14 +16,16 @@ namespace FamilyGo.Controllers
     public class EventController : Controller
     {
         private Melkidsthrive123_DBEntities db = new Melkidsthrive123_DBEntities();
-        // GET: Event
+        // GET: Event and return teh view of event page
         public ActionResult Index()
         {
             return View();
         }
         public ActionResult GetEvents(string isFree, string point, string start_time, string end_time, string category)
         {
+            // get the data from event api
             string basicUrl = "http://api.eventfinda.com.au/v2/events.json?rows=20&order=date";
+            // select the events family can come together based on category
             Dictionary<String, String> categoryDic = new Dictionary<string, string>();
             categoryDic.Add("1", "11");
             categoryDic.Add("2", "73,192,1,48,22,60,304,23,251,253,320");
@@ -32,10 +34,10 @@ namespace FamilyGo.Controllers
             categoryDic.Add("5", "275,163");
             categoryDic.Add("6", "321,25");
             categoryDic.Add("7", "126");
+            // get the detail information of each event
             if (category != "0")
             { basicUrl = basicUrl + "&category=" + categoryDic[category]; }
             else { basicUrl = basicUrl + "&category=25,11,5,52,30,321,49,305,275,163,140,205,216"; }
-            //,73,192,48,22,320,304,60,251,23,253,
             if (point != "0")
             { basicUrl = basicUrl + "&radius=10&point=" + point; }
             else { basicUrl = basicUrl + "&radius=100&point=-37.813611,144.963056"; }
@@ -104,6 +106,7 @@ namespace FamilyGo.Controllers
         }
         public ActionResult GetSuburbs()
         {
+            // get the suburb information from database
             List<Suburb> suburbs = db.Suburbs.ToList();
             StringBuilder stringBuilder = new StringBuilder();
             JavaScriptSerializer json = new JavaScriptSerializer();
