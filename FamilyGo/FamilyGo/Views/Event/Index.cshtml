@@ -180,12 +180,14 @@
     var figcaption;
     // basicEvents(isFree, point, start_time, end_time, category);
     loadSuburb();
+    //calling this function can use API to get events based on the conditions user selected
     function go() {
         console.log("go");
         point = document.getElementById("selectSuburb").options[document.getElementById("selectSuburb").selectedIndex].value;
         category = document.getElementById("categories").options[document.getElementById("categories").selectedIndex].value;
         basicEvents(isFree, point, start_time, end_time, category);
     }
+    //using the user inouts as parameters to send request to backend, get events and load them in the eventGallery element
     function basicEvents(isFree, point, start_time, end_time, category) {
         var blank = document.createElement("h3");
         blank.setAttribute("id", "blank");
@@ -196,18 +198,18 @@
 
         $.ajax({
             url: "/Event/GetEvents",
-            type: "GET",//请求方式为get
-            dataType: "json", //返回数据格式为json
+            type: "GET",//http request method is get
+            dataType: "json", //the returned data type is json
             data: { isFree: isFree, point: point, start_time: start_time, end_time: end_time, category: category },
             beforeSend: function () {
                 $('#tonerInfowarning').show();
             },
-            async: true,//是否同步
-            success: function (data) {//请求成功完成后要执行的方法
+            async: true,//async or not
+            success: function (data) {
                 var parasLength = paras.length;
                 
                 for (var i = 0; i < parasLength; i++) {
-                    //删除元素 元素.parentNode.removeChild(元素);
+                    //delete all the elements in eventGallery
 
                     if (paras[0] != null) { paras[0].parentNode.removeChild(paras[0]); }
                 }
@@ -220,11 +222,9 @@
                 json = data["events"];
                 console.log(json);
                 $('#tonerInfowarning').hide();
-                //console.log(json);
                 var blankRemove = document.getElementById("blank");
                 if (blankRemove != null)
                     blankRemove.parentNode.removeChild(blankRemove);
-
                 loadEvents();
             },
             error: function () {
@@ -234,10 +234,8 @@
 
     }
 
-    //document.getElementById("testjson").innerText = JSON.stringify(json);
-
+    //this function can load the given events into the eventGallery
     function loadEvents() {
-
         if (json.length == 0) {
             alert("Sorry, no result was found!!!");
             var noResult = document.createElement("h3");
@@ -266,13 +264,7 @@
             image.setAttribute("src", json[i]["images"]["images"][0]["transforms"]["transforms"][2]["url"]);
             image.setAttribute("alt", "No Image avalible");
             image.style.opacity = 1;
-            //image.setAttribute("style", "width:auto");
             figcaption = document.createElement("figcaption");
-
-
-            //nameDiv = document.createElement("div");
-            //nameDiv.setAttribute("class", "w3-container w3-center");
-            //nameDiv.setAttribute("style", "margin-top:0.5em;margin-bottom:0.5em;");
             nameH4 = document.createElement("h4");
             nameH4.setAttribute("style", "font-size:1em; color: black;font-family:Georgia;height:3em;font-weight:900;");
             nameH4.innerText = json[i]["name"];
@@ -280,21 +272,16 @@
             div3.appendChild(figure);
             div3.appendChild(nameH4);
             figure.appendChild(image);
-            //figure.appendChild(nameH4);
-            //figcaption.appendChild(nameH4)
-            //figure.appendChild(figcaption);
-
             div2.appendChild(div1);
             div2.setAttribute("class", "col-md-3 col-lg-3");
             div2.setAttribute("style", "text-align: center;");
             if (json[i]["name"] != "Skull2 – Jewellery Exhibition")
                 eventGallery.appendChild(div2);
         }
-
         eventGallery.setAttribute("style", "margin: auto; text-align: center;");
     }
 
-
+    // when one of the event is clicked, execute this function to show the information of this event
     function EventClicked(obj) {
         var eventId = parseInt(obj.id);
         var selectedEvent;
@@ -321,15 +308,16 @@
         document.getElementById("time").innerText = "From: " + selectedEvent.datetime_start + "\u00A0\u00A0\u00A0To: " + selectedEvent.datetime_end;
         $("#myModal").modal();
     }
+    //get suburbs from backend and load them into the select element
     function loadSuburb() {
         document.getElementById("selectSuburb").options.add(new Option("--Select Suburb--", 0));
         $.ajax({
             url: "/Event/GetSuburbs",
-            type: "GET",//请求方式为get
-            dataType: "json", //返回数据格式为json
+            type: "GET",//the http method is get
+            dataType: "json", //the returned data type is json
             data: {},
-            async: true,//是否同步
-            success: function (data) {//请求成功完成后要执行的方法
+            async: true,//async or not
+            success: function (data) {
                 suburbs = data;
                 for (var i = 0; i < suburbs.length; i++) {
                     var newOption = new Option(suburbs[i].SuburbName, suburbs[i].Lat + "," + suburbs[i].Lon);
@@ -343,14 +331,12 @@
             }
         })
     }
+    // when the clear button is clicked, execute this functio to reset the element in the filter
     function clear123() {
-        //console.log("clicked");
-
         sortSelectOptions("#selectSuburb");
         document.getElementById("selectSuburb").options[0].selected = true;
         document.getElementById("free").checked = false;
         sortSelectOptions("#categories");
-
         document.getElementById("categories").options[0].selected = true;
         console.log("clicked");
         $('input[name="daterange"]').daterangepicker({
@@ -362,14 +348,15 @@
             console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
         }).val('');
         isFree = "0"; point = "0"; category = "0"; start_time = "0"; end_time = "0";
-
         go();
     }
+    //get the velue of checkbox for free or not
     function freeOrNot() {
         if (document.getElementById("free").checked) { isFree = "1"; }
         else { isFree = "0"; }
     }
 
+    //sort the options of select element based on the alphabet
     function sortSelectOptions(selectElement) {
         var options = $(selectElement + " option");
         options.sort(function (a, b) {

@@ -70,16 +70,17 @@
         });
     </script>
     <script type="text/javascript">
+        // if one of the game is clicked, execute this function to get the information from backend
         function gameClicked(obj) {
             var gameId = parseInt(obj.id);
             var x;
             $.ajax({
                 url: "/Games/GetGame",
-                type: "GET",//请求方式为get
-                dataType: "json", //返回数据格式为json
+                type: "GET",//http method is get
+                dataType: "json", //returned data type is json
                 data: { id: gameId },
-                async: false,//是否同步
-                success: function (data) {//请求成功完成后要执行的方法
+                async: false,//async or not
+                success: function (data) {
                     x = data;
                 },
                 error: function () {
@@ -89,18 +90,12 @@
             document.getElementById("name").innerText = x.Name;
             document.getElementById("description").innerText = x.Description;
             var n = replaceSpace(x.Name);
-            //n = "~/Image/" + n + " .jpg";
             console.log(n);
             document.getElementById("img").src = "@Url.Content("~/Image/")" + n + " .jpg";
-            //document.getElementById("img").src = "~/Image/Cat and mouse chase .jpg";
-                //.setAttribute("src", "~/Image/" + n + " .jpg");
             $("#myModal").modal();
         }
 
         function replaceSpace(str) {
-
-
-            /*方法2 字符串的查询*/
             let output = '';
             for (let i = 0, len = str.length; i < len; i++) {
                 if (str[i] == '%20') {
