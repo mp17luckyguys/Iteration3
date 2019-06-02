@@ -498,6 +498,8 @@
     <None Include="Properties\PublishProfiles\FamilyGoIteration3 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\melkidsthrive - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\melkidsthrive - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\melkidsthrive000 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\melkidsthrive000 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Melkidsthrive123 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\Melkidsthrive123 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\MelkidsThrive3 - FTP.pubxml" />
