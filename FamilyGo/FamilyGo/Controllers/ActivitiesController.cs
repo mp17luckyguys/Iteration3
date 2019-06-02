@@ -16,11 +16,10 @@ namespace FamilyGo.Controllers
 
         private Melkidsthrive123_DBEntities db = new Melkidsthrive123_DBEntities();
 
-        // GET: Activities
+        // GET: Activities for all age group 
         public ActionResult Index()
         {
-            // ViewBag.activities = db.Activities.ToList();
-            //  return View(db.Activities.ToList());
+            // select corresponding activities from database
             var age = from a in db.Activities
                       select a;
             if (!String.IsNullOrEmpty("12"))
@@ -29,16 +28,16 @@ namespace FamilyGo.Controllers
             }
             return View(age.ToList());
         }
-
+        // activities for 3-6 years old 
         public ActionResult Information()
         {
-
+            // get the activity from database which correspongding to 3-6 years old
             var age = from a in db.Activities
                       select a;
             if (!String.IsNullOrEmpty("1")) {
                 age = age.Where(a => a.Description.Contains("1"));
             }
-           
+           //arrange the name of activities in alphabetical order
             List<Activity> activityList = age.ToList();
             var newlist = activityList.OrderBy(x => x.Name).ToList();
             return View(newlist);
@@ -46,13 +45,14 @@ namespace FamilyGo.Controllers
 
         public ActionResult InformationTwo()
         {
+            // get the activity from database which correspongding to 7-12 years old
             var age = from a in db.Activities
                       select a;
             if (!String.IsNullOrEmpty("2"))
             {
                 age = age.Where(a => a.Description.Contains("2"));
             }
-
+            //arrange the name of activities in alphabetical order
             List<Activity> activityList = age.ToList();
             var newlist = activityList.OrderBy(x => x.Name).ToList();
             return View(newlist);
@@ -82,8 +82,6 @@ namespace FamilyGo.Controllers
         
 
         // POST: Activities/Create
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ActivityId,Name,Description")] Activity activity)
@@ -114,8 +112,6 @@ namespace FamilyGo.Controllers
         }
 
         // POST: Activities/Edit/5
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ActivityId,Name,Description")] Activity activity)

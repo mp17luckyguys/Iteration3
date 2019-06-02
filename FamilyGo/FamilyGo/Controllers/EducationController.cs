@@ -14,15 +14,12 @@ namespace FamilyGo.Controllers
     public class EducationController : Controller
     {
         private Melkidsthrive123_DBEntities db = new Melkidsthrive123_DBEntities();
-        // GET: Country
+        // GET: the view of education 
         public ActionResult Index()
         {
             return View();
         }
-
-
-
-
+        // get the jason from file path
         public ActionResult GetJsonFromFile(string path)
         {
             try
@@ -36,7 +33,7 @@ namespace FamilyGo.Controllers
                 return Content(ex.Message);
             }
         }
-        //具体读取json文件数据
+        //read the data of jason file
         public string GetFileJson(string filepath)
         {
             string json = string.Empty;
@@ -50,9 +47,7 @@ namespace FamilyGo.Controllers
             return json;
         }
 
-
-
-
+        // get the latitude and longitude of each suburb
         public ActionResult GetJsonSuburb(string suburbName)
         {
             List<Suburb> suburbs = db.Suburbs.ToList();
@@ -69,7 +64,7 @@ namespace FamilyGo.Controllers
             return Content(json);
         }
 
-        
+        //add the schools in each suburb
         public ActionResult GetJsonSchools(string suburbName)
         {
             List<School> schools = db.Schools.ToList();

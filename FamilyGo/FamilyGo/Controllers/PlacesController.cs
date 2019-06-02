@@ -19,9 +19,10 @@ namespace FamilyGo.Controllers
     {
         private Melkidsthrive123_DBEntities db = new Melkidsthrive123_DBEntities();
 
-
+        // get the data from database and return the view of places page.
         public ActionResult Index(string i,string age)
         {
+            // filter the places based on selected activities
             ViewBag.ageGroup = age;
             ViewBag.place = i;
             var places = db.Places.Include(p => p.Activity);
@@ -32,7 +33,7 @@ namespace FamilyGo.Controllers
                 if (string.Equals(place.Activity.Name,i))
                     newPlacesList.Add(place);
             }
-   
+            //arrange the name of places in alphabetical order
             ViewBag.activityName = i;
             var newL = newPlacesList.OrderBy(x => x.Name).ToList();
 
@@ -68,6 +69,7 @@ namespace FamilyGo.Controllers
             {
                 return HttpNotFound();
             }
+           // find the detail informaiton using google API by place name
             string googleTextSearchReasult = HttpUtils.Get("https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + place.Name + "&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA");
             detail.Add("name", place.Name);
             JObject jo = (JObject)JsonConvert.DeserializeObject(googleTextSearchReasult);
@@ -76,17 +78,17 @@ namespace FamilyGo.Controllers
                 string placeId = jo["results"][0]["place_id"].ToString();
                 if (jo["results"][0]["photos"] != null)
                 {
-
                     string joPhotoRef = jo["results"][0]["photos"][0]["photo_reference"].ToString();
-
-                    //Image googlePhoto = HttpUtils.GetImage("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + joPhotoRef + "& sensor=false&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA");
+                    // get the image from google API of different places
                     string imageUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + joPhotoRef + "& sensor=false&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA";
                     ViewBag.imUrl = imageUrl;
                     detail.Add("imUrl", imageUrl);
                 }
+                // get the detail information from google API
                 string detailUrl = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId + "& fields=name,rating,formatted_phone_number,reviews,website,opening_hours&key=AIzaSyDJeTABC7AwjSI-x7dm2cVlbHvA3yN65HA";
                 string googleDetailReasult = HttpUtils.Get(detailUrl);
                 JObject joDetail = (JObject)JsonConvert.DeserializeObject(googleDetailReasult);
+                // get the rating, address, phone number etc information
                 if (joDetail["result"]["rating"] != null)
                 { ViewBag.rating = joDetail["result"]["rating"]; detail.Add("rating", joDetail["result"]["rating"].ToString()); }
                 else { ViewBag.rating = "No rating avaliable."; detail.Add("rating", "No rating avaliable."); }
@@ -102,12 +104,6 @@ namespace FamilyGo.Controllers
             
             return Content(JsonConvert.SerializeObject(detail).ToString());
         }
-
-
-
-
-
-
         // GET: Places/Create
         public ActionResult Create()
         {
@@ -116,8 +112,6 @@ namespace FamilyGo.Controllers
         }
 
         // POST: Places/Create
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PlaceId,Name,Address,Facility,Lat,Lon,Suburb,ActivityActivityId")] Place place)
@@ -150,8 +144,6 @@ namespace FamilyGo.Controllers
         }
 
         // POST: Places/Edit/5
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PlaceId,Name,Address,Facility,Lat,Lon,Suburb,ActivityActivityId")] Place place)

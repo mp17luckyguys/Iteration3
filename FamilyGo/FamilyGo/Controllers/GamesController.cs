@@ -16,10 +16,10 @@ namespace FamilyGo.Controllers
     {
         private Melkidsthrive123_DBEntities db = new Melkidsthrive123_DBEntities();
 
-        // GET: Games
+        // get the game  from database
         public ActionResult Index()
         {
-            
+           //arrange the name of games in alphabetical order
             var newL = db.Games.ToList().OrderBy(x => x.Name).ToList();
             return View(newL);
         }
@@ -46,8 +46,6 @@ namespace FamilyGo.Controllers
         }
 
         // POST: Games/Create
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "GameId,Name,Description")] Game game)
@@ -78,8 +76,6 @@ namespace FamilyGo.Controllers
         }
 
         // POST: Games/Edit/5
-        // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
-        // 详细信息，请参阅 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "GameId,Name,Description")] Game game)
@@ -131,6 +127,7 @@ namespace FamilyGo.Controllers
         
         public ActionResult GetGame(int? id)
         {
+            // replace the / to \n\n from database.
             Game game = db.Games.Find(id);
             game.Description = game.Description.Replace("/", "\n\n");
             StringBuilder stringBuilder = new StringBuilder();

@@ -15,13 +15,15 @@ namespace FamilyGo.Controllers
 {
     public class HomeController : Controller
     {
+        // The password view for the project.
         public ActionResult Password()
         {
             return View();
         }
-
+        // home page of project 
         public ActionResult Index()
         {
+            //insert a shiny application to home page 
             ViewBag.IFrameSrc = "https://melkidsthrive.shinyapps.io/migrant/";
             return View();
         }
@@ -29,6 +31,7 @@ namespace FamilyGo.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+            // import the data to local database
             //ExcelToDB ex = new ExcelToDB();
             //ex.Page_Load();
             //ExcelToDBPark ex1 = new ExcelToDBPark();
